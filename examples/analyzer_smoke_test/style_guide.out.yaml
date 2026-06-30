@@ -1,0 +1,84 @@
+# SMOKE TEST — ANALYZER output (studio_primer.md §3)
+# Input: the "FREE STYLE" sprite sheet (6 beach icons: flamingo float, snorkel mask, ice cream,
+#        beach ball, starfish, flip-flops) — Katya Agarskaya's "Sculpted Gloss" style.
+# Purpose: prove the "ref image -> style_guide.yaml" half produces schema-valid YAML.
+
+version: 1.0
+
+project:
+  genre: [casual, puzzle]
+  platform: mobile
+
+style:
+  rendering: 3d_render          # sculpted gloss, high-end digital illustration finish
+  complexity: low
+  readability: very_high
+  mood: [cheerful, playful, energetic]
+
+shape:
+  language: rounded             # hand-rolled, slightly squashed inflated forms
+  corner_radius: large
+  symmetry: medium              # hand-made asymmetry, not rigid geometry
+
+palette:                        # HEX VALUES ARE ESTIMATES — eyedropper to pin them down
+  primary:   ["#E8634C"]        # coral-red (flamingo, starfish, flip-flop trim)
+  secondary: ["#3BC4BE"]        # turquoise (mask, flip-flops, ice-cream scoop)
+  accent:    ["#F4B83E"]        # warm yellow (snorkel, waffle cone, ball panel)
+  danger:    ["#E03B3B"]
+  neutral:   ["#F3E4C4"]        # cream (flamingo beak, ice-cream scoop)
+
+material:
+  button: glossy_plastic
+  icon: glossy                  # "Glossy Sculpted Fondant" / airbrushed polish
+  currency: polished_gold
+  container: soft_plastic
+
+lighting:
+  direction: top_left           # warm white key light from the top-left
+  highlight: strong
+  shadow: soft_bottom           # + blue rim/bounce from bottom-right (see REVIEW NOTES)
+
+outline:
+  enabled: false                # NO lineart / NO stroke
+  thickness: none
+  color: none
+
+effects:
+  bevel: true
+  ambient_occlusion: true       # soft contact shadow where objects touch
+  bloom: false
+  inner_glow: false
+  gradient_overlay: true        # airbrushed smooth gradients
+
+icon:
+  perspective: three_quarter    # 3/4 tilt, a few items tilted diagonally
+  padding: generous             # keep ~70% of the surface clean
+  composition: centered
+
+layout:
+  spacing: large
+  density: low
+  safe_area: mobile
+
+button:
+  depth: high                   # inflated forms, mega-chunk
+  gloss: high
+
+background:
+  type: solid                   # deliberately deep navy background (not a defect -> not listed in negative)
+  color: ["#314C88"]
+
+negative: [realistic, photorealism, flat_design, sharp_corner, thin_icon, noisy_texture, gritty]
+
+confidence:
+  shape: 0.95
+  palette: 0.82                 # colors are clear but hex is an estimate
+  rendering: 0.92
+  material: 0.80
+  lighting: 0.68                # blue rim/bounce from below makes the direction uncertain
+
+# REVIEW NOTES
+# lighting (0.68): two sources — warm top-left key + BLUE rim/reflex from bottom-right.
+#   Schema allows one direction; recorded top_left, but add a rim light when synthesizing.
+# palette (0.82): eyedropper-verify coral #E8634C, turquoise #3BC4BE, navy background #314C88.
+# material (0.80): icon is 'glossy' (sculpted fondant); 'clay_3d' is close too — review if you want it softer.

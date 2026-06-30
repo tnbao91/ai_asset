@@ -1,0 +1,28 @@
+# asset_spec.schema.yaml
+# Schema for asset_spec.yaml — describes ONE asset to produce.
+# OPTIONAL: asset content can be provided as YAML (this schema) / a text description /
+#   a TARGET ref image / or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
+# This defines fields, NOT real data. Clean example: examples/settings_screen/asset_spec.yaml
+
+type:                 # asset type (free text, keep it short)
+  examples: [settings_screen, shop_screen, main_menu, currency_icon, booster_icon, primary_button, popup_panel]
+
+title:                # label/title shown on the asset (if any). Optional.
+  type: string
+
+sections:             # list — content groups (for screens). Optional for icons/buttons.
+  type: list_string
+
+buttons:              # list — buttons present on the asset. Optional.
+  type: list_string
+  examples: [close, restore_purchase, rate_us, privacy_policy, confirm, cancel]
+
+background:           # the asset's OWN background layout (different from style_guide.background = overall style background).
+  enum: [popup, fullscreen, transparent, scene]
+  note: "popup = overlay over a dimmed game scene; transparent = exported standalone for compositing."
+
+style_ref:            # points to the style_guide file used for this asset.
+  type: path
+  default: style_guide.yaml
+
+# If the asset is a screen with a complex layout -> also provide layout_spec.yaml (see layout_spec.schema.yaml).

@@ -1,0 +1,31 @@
+# layout_spec.yaml — detailed screen layout. Conforms to schema/layout_spec.schema.yaml.
+screen: settings
+
+canvas:
+  safe_area: mobile
+
+panel:
+  align: center
+  width: 78%
+  height: auto
+
+header:
+  title: Settings
+  close_button: top_right
+
+content:
+  type: vertical_list
+  spacing: 24
+
+rows:
+  - sound_toggle
+  - music_toggle
+  - vibration_toggle
+  - language_selector
+  - privacy_button
+  - support_button
+
+footer:
+  buttons:
+    - restore_purchase
+    - rate_us

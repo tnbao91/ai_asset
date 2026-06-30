@@ -1,0 +1,13 @@
+Generate a casual mobile game art asset: a Settings popup screen (UI panel) for a casual puzzle mobile game. Aspect ratio 9:16, composed within a mobile safe area with key elements away from the edges.
+
+Overall render: semi-painted with a stylized baked texture look — soft hand-painted lighting baked onto clean, slightly 3D-looking shapes. Very high readability, low visual complexity, cheerful and friendly mood. Shape language is rounded with hand-rolled silhouettes, large soft rounded corners, and a clean symmetrical, well-balanced composition.
+
+Surfaces and materials: the main popup container is a soft plastic panel with rounded chunky edges and a gentle gloss; primary buttons are smooth glossy plastic with a clean airbrushed sheen, raised with medium 3D depth and a high glossy highlight on the face; small row icons are semi-painted with a soft baked-texture look; any currency or premium accents read as polished gold with a rich precious sheen. (Material finish is leaning toward glossy plastic — keep it clean and toy-like rather than realistic.)
+
+Lighting and effects: soft directional scene lighting from the top with strong bright highlights and a soft contact shadow at the bottom of each element; soft beveled edges; no ambient occlusion grit, no bloom. (Lighting direction is leaning top — a slight top-left key is acceptable.) A medium outline in a darker shade of each fill color separates shapes cleanly.
+
+Color palette, clean and pure (no muddy mixed shades): primary blue #0D6DB8, secondary green #42D70F, accent yellow #FFD34A, danger red #FF4D4D, on white #FFFFFF surfaces.
+
+Layout: a centered rounded popup panel about 78% of the screen width on a soft dimmed background. Header at the top shows the title "SETTINGS" with a round close button in the top-right corner. Below, a single vertical list with large, airy spacing and low density containing, in order: a Sound toggle, a Music toggle, a Vibration toggle, a Language selector, a Privacy button, and a Support button. A footer row at the bottom holds two buttons: "Restore Purchase" and "Rate Us". Generous spacing, uncluttered, plenty of clean empty space.
+
+Avoid: photorealism and realistic textures, realistic metal, dark theme or dark background, sharp geometric corners and sharp points, flat 2D / flat design, thin icons and thin lines, noise or grain, visible brushstrokes, watermark or signature.

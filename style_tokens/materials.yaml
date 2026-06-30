@@ -1,0 +1,82 @@
+# style_tokens/materials.yaml
+# Maps the material.* enums (in style_guide) -> English phrases for the prompt.
+# Source: "Casual Style Dictionary" (Materials & Surfaces) + "ICONS_STYLE_Banana2" (Sculpted Gloss).
+# Each entry: phrase = text to drop into the prompt; notes = nuance.
+
+material_button:
+  glossy_plastic:
+    phrase: "smooth glossy plastic with a clean airbrushed sheen and soft specular highlights"
+    notes: "Katya: 'satin finish / shiny / glossy / wet' = highly reflective, liquid-coated surfaces"
+  matte_plastic:
+    phrase: "matte plastic with a perfectly smooth non-reflective surface"
+    notes: "Katya: 'smooth / soft / matte'"
+  soft_plastic:
+    phrase: "soft tactile plastic with bouncy, chunky toy-like proportions"
+    notes: "Katya: 'plastic / toy-like / vinyl toys' — gives a 3D, toy proportion"
+  metallic:
+    phrase: "polished metallic surface with bright clean reflections, stylized not realistic"
+  glass:
+    phrase: "clear glossy glass with translucent depth and clean highlights"
+  wood:
+    phrase: "stylized painted wood with soft baked texture, no realistic grain noise"
+  fabric:
+    phrase: "soft fleece-like fabric, fuzzy but clean (velvety / mossy)"
+  candy_jelly:
+    phrase: "translucent candy jelly / resin material, glossy and appetizing"
+    notes: "Katya: 'resin / jelly' translucent gloss — can lead into 3D"
+  painted:
+    phrase: "hand-painted surface with a stylized baked texture look (imitation of hand-painted lighting on shapes)"
+
+material_icon:
+  painted:
+    phrase: "semi-painted icon with stylized baked texture look, soft hand-painted shading"
+  flat:
+    phrase: "clean flat icon, solid pure colors, no inner gradients"
+  glossy:
+    phrase: "glossy sculpted icon with airbrushed polish, flawless smooth gradients"
+    notes: "Banana2 core: 'Glossy Sculpted Fondant', airbrushed polish rule"
+  metallic:
+    phrase: "polished precious-metal icon (gold/marble/ceramic look), hard and shiny but soft molded form"
+  clay_3d:
+    phrase: "soft clay / fondant 3D icon, molded toy-like volume with rounded edges"
+    notes: "Banana2: 'molded toys for a 2-year-old toddler', mega-chunk inflated forms"
+  sticker:
+    phrase: "die-cut sticker icon with clean even outline and flat fill"
+
+material_currency:
+  polished_gold:
+    phrase: "polished gold with rich precious sheen, high-value expensive look, clean bright reflections"
+    notes: "Katya: 'Rich / Precious / expensive' palette"
+  brushed_gold:
+    phrase: "warm brushed gold with subtle soft highlights"
+  silver:
+    phrase: "bright polished silver with cool clean reflections"
+  gem_crystal:
+    phrase: "faceted crystal gem, translucent and vivid, glossy clean facets"
+  coin_flat:
+    phrase: "stylized flat coin with embossed symbol and soft beveled rim"
+  painted:
+    phrase: "hand-painted currency with baked texture shading"
+
+material_container:
+  soft_plastic:
+    phrase: "soft plastic panel with rounded chunky edges and gentle gloss"
+  wood:
+    phrase: "stylized painted wood frame, clean baked texture, no realistic grain"
+  stone:
+    phrase: "smooth stylized stone with soft beveled edges"
+  parchment:
+    phrase: "warm parchment / paper panel, soft and clean"
+  glass:
+    phrase: "frosted glass panel with translucent depth and soft glow"
+  painted_card:
+    phrase: "painted card panel with soft baked shading and rounded corners"
+  metal_frame:
+    phrase: "stylized metal frame with clean reflections and beveled border"
+
+# --- Tips to include when describing materials (Katya) ---
+_tips:
+  - "Use 'materials, surfaces' so the model understands the surface style you want."
+  - "'pure, clear, clean' emphasizes a clean surface, free of dirt/noise."
+  - "'baked texture look' = the trick to fake 3D volume with hand-painted texture + shadow."
+  - "Avoid piling up associations: e.g. 'vinyl toys' drags in plastic+volumetric+bright — if you don't need a 3D polish, describe basic attributes instead (tactile, matte, bouncy, chunky)."

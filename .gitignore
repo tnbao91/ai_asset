@@ -1,0 +1,5 @@
+# Third-party reference PDFs (copyrighted) — kept local, not published
+doc/
+
+# macOS
+.DS_Store

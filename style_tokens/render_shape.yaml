@@ -1,0 +1,89 @@
+# style_tokens/render_shape.yaml
+# Maps style.rendering, shape.*, icon.*, button.*, effects.* -> English phrases for the prompt.
+# Source: "Casual Style Dictionary" (Render & Finish, Form & Proportions, Composition).
+
+rendering:
+  semi_painted:
+    phrase: "semi-painted render with a stylized baked texture look — hand-painted lighting baked onto clean 3D-like shapes"
+    notes: "Katya 'Stylized baked texture look' = secret ingredient to mimic 3D volume"
+  fully_painted:
+    phrase: "fully hand-painted illustration with visible painterly brush strokes and rich texture"
+  flat_vector:
+    phrase: "clean flat vector style, solid shapes, no gradients"
+  cel_shaded:
+    phrase: "cel-shaded cartoon style with flat shadow bands"
+  3d_render:
+    phrase: "stylized 3D render, clean glossy surfaces, high-end digital illustration finish"
+  pixel_art:
+    phrase: "crisp retro pixel art, limited palette, hard pixel edges"
+  gradient_flat:
+    phrase: "flat shapes with smooth airbrushed gradients (soft, blended transitions)"
+
+shape_language:
+  rounded:
+    phrase: "rounded, hand-rolled silhouettes with subtle asymmetry — soft, friendly forms"
+    notes: "Banana2 'Hand-Rolled silhouette': avoid sterile mathematical geometry"
+  geometric:
+    phrase: "clean geometric shapes with precise edges"
+  organic:
+    phrase: "organic, slightly squashed asymmetrical forms"
+  angular:
+    phrase: "bold angular shapes with defined corners"
+  mixed:
+    phrase: "mix of rounded bases with a few sharp accents"
+
+corner_radius:
+  none:    { phrase: "sharp square corners" }
+  small:   { phrase: "slightly rounded corners" }
+  medium:  { phrase: "rounded corners" }
+  large:   { phrase: "large soft rounded corners, chunky and friendly" }
+  pill:    { phrase: "fully pill-shaped rounded ends" }
+
+symmetry:
+  low:    { phrase: "loose, hand-made asymmetry" }
+  medium: { phrase: "mostly balanced with subtle hand-made variation" }
+  high:   { phrase: "clean symmetrical, well-balanced composition" }
+
+# Form & proportions (Katya, Form & Proportions) — use when you need to push the inflated/chunky feel
+form_proportions:
+  volumetric:  { phrase: "volumetric, inflated forms with stable 3D mass" }
+  chunky:      { phrase: "stubby, squat, chunky casual proportions, thick and compressed" }
+  bouncy:      { phrase: "bouncy, plump, bumpy surface with soft puffiness" }
+  beveled:     { phrase: "softened edges and beveled corner roundness" }
+  mega_chunk:  { phrase: "mega-chunk logic: rims and lines 3-5x thicker than realistic, no thin lines — thick sausage-like tubes" }
+    # Banana2 CRITICAL rule for the sculpted-gloss icon style
+
+icon_perspective:
+  front:        { phrase: "straight front view, eye-level" }
+  three_quarter: { phrase: "3/4 view angle" }
+  top_down:     { phrase: "top-down view" }
+  isometric:    { phrase: "isometric projection (classic 2.5D game view)" }
+
+icon_padding:
+  tight:    { phrase: "tight framing, minimal padding" }
+  medium:   { phrase: "balanced padding around the subject" }
+  generous: { phrase: "generous padding, subject centered with breathing room (keep ~70% of surface clean)" }
+
+icon_composition:
+  centered:       { phrase: "subject centered in frame" }
+  rule_of_thirds: { phrase: "composed on rule-of-thirds" }
+  diagonal:       { phrase: "playful diagonal tilt for tall items" }
+
+button_depth:
+  flat:   { phrase: "flat button, no depth" }
+  low:    { phrase: "subtle raised button depth" }
+  medium: { phrase: "clearly raised button with medium 3D depth" }
+  high:   { phrase: "strongly extruded chunky button with bold depth" }
+
+button_gloss:
+  none:   { phrase: "no gloss, matte button face" }
+  low:    { phrase: "faint gloss" }
+  medium: { phrase: "moderate glossy highlight on the button face" }
+  high:   { phrase: "high gloss, shiny wet-look button highlight" }
+
+effects:
+  bevel:             { phrase: "soft beveled edges" }
+  ambient_occlusion: { phrase: "soft contact shadows / ambient occlusion in crevices" }
+  bloom:             { phrase: "gentle bloom / soft glow halo on bright areas" }
+  inner_glow:        { phrase: "subtle inner glow" }
+  gradient_overlay:  { phrase: "smooth gradient overlay" }

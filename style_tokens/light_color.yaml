@@ -1,0 +1,72 @@
+# style_tokens/light_color.yaml
+# Maps lighting.*, outline.*, palette mood, project.mood -> English phrases for the prompt.
+# Source: "Casual Style Dictionary" (Light & Physics, Color Palette, Atmosphere & Vibe).
+
+lighting_direction:
+  top:       { phrase: "soft directional scene lighting from the top" }
+  top_left:  { phrase: "soft warm key light from the top-left" }
+  top_right: { phrase: "soft warm key light from the top-right" }
+  front:     { phrase: "soft frontal lighting, even and clean" }
+  ambient:   { phrase: "diffused ambient lighting, soft and even" }
+
+lighting_highlight:
+  none:   { phrase: "no strong highlights" }
+  soft:   { phrase: "soft gentle highlights" }
+  medium: { phrase: "clear highlights" }
+  strong: { phrase: "strong bright highlights with crisp specular pops" }
+
+lighting_shadow:
+  none:        { phrase: "no shadows" }
+  soft_bottom: { phrase: "soft contact shadow at the bottom" }
+  hard_bottom: { phrase: "defined drop shadow under the object" }
+  drop_shadow: { phrase: "clean soft drop shadow" }
+  inner_shadow: { phrase: "subtle inner shadow for depth" }
+
+# Advanced lighting effects (Light & Physics) — add for a "juicy" look
+lighting_extra:
+  rim_light: { phrase: "soft bright rim light along the edges (Fresnel rim) for a juicy pop" }
+    # Banana2: 'Rim & Reflex Light' bright blue bounce from bottom-right works very well
+  bounce_fill: { phrase: "soft colored bounce light filling the shadows" }
+
+outline:
+  enabled_true:  { phrase: "clean even outline around shapes" }
+  enabled_false: { phrase: "no outline (NO lineart, NO stroke)" }
+  thickness_thin:   { phrase: "thin outline" }
+  thickness_medium: { phrase: "medium outline" }
+  thickness_thick:  { phrase: "bold thick outline" }
+  color_darker_variant: { phrase: "outline in a darker shade of the fill color" }
+  color_black:          { phrase: "black outline" }
+  color_white:          { phrase: "white outline" }
+  color_complementary:  { phrase: "complementary-color outline" }
+
+# Color treatment (Color Palette) — describes HOW colors are used; hex comes from style_guide
+color_treatment:
+  clean_pure:   { phrase: "clean, pure, solid colors (avoid dirty mixed shades)" }
+  juicy_vibrant: { phrase: "juicy, vibrant, vivid high-saturation colors" }
+  candy:        { phrase: "bright multicolored candy palette" }
+  rich_precious: { phrase: "rich, precious, expensive high-value coloring" }
+  warm:         { phrase: "warm tone bias" }
+  cool:         { phrase: "cool tone bias" }
+_color_tips:
+  - "You can pin an exact color with hex, e.g. 'warm key light, hex #FFF9E6'."
+  - "Solid background: 'clean and solid background'. Gradient: 'clean gradient background from <A> to <B>'."
+
+# background (style_guide.background.type) -> background phrase. Color comes from background.color (hex).
+background:
+  solid:       { phrase: "clean solid background color" }            # + state hex, e.g. "solid #314C88 background"
+  gradient:    { phrase: "clean gradient background (from one color to another)" }  # e.g. "from light-blue to magenta"
+  scene:       { phrase: "soft blurred game scene behind, dimmed" }
+  transparent: { phrase: "isolated on a transparent background (no backdrop)" }
+_bg_tip: "Katya: solid background = 'clean and solid background'; gradient = 'clean gradient background from <A> to <B>'."
+
+# project.mood / style.mood -> atmosphere tokens (Atmosphere & Vibe)
+mood:
+  cheerful:  { phrase: "cheerful, friendly mood" }
+  friendly:  { phrase: "warm friendly vibe" }
+  playful:   { phrase: "playful, pop, juicy feel" }
+  calm:      { phrase: "calm, cozy, safe atmosphere" }
+  premium:   { phrase: "premium, satisfying, high-value feel" }
+  energetic: { phrase: "energetic, punchy, dynamic" }
+  mysterious: { phrase: "whimsical, fairytale, slightly mysterious mood" }
+  cozy:      { phrase: "cozy, soft, safe" }
+  bold:      { phrase: "bold, clickable, attention-grabbing" }

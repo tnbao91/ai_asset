@@ -1,0 +1,40 @@
+# layout_spec.schema.yaml
+# Schema for layout_spec.yaml — the detailed layout of ONE screen (only needed when the asset is a screen).
+# OPTIONAL: layout can be provided as YAML (this schema) / a text description /
+#   a TARGET ref image / or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
+# Defines fields, NOT data. Clean example: examples/settings_screen/layout_spec.yaml
+
+screen:               # screen name
+  type: string
+
+canvas:
+  safe_area:
+    enum: [mobile, tablet, none]
+
+panel:                # main container holding the content
+  align:
+    enum: [center, top, bottom, left, right]
+  width:              # % of canvas width, e.g. "78%", or "auto"
+    type: string
+  height:
+    type: string      # "auto" or % / px
+
+header:
+  title:
+    type: string
+  close_button:       # close-button position. Optional.
+    enum: [top_right, top_left, none]
+
+content:
+  type:               # how content is arranged
+    enum: [vertical_list, horizontal_list, grid]
+  spacing:            # gap between items (px)
+    type: int
+
+rows:                 # list — order of elements inside content. KEEP THE EXACT COUNT & ORDER.
+  type: list_string
+  examples: [sound_toggle, music_toggle, vibration_toggle, language_selector, privacy_button, support_button]
+
+footer:               # Optional.
+  buttons:
+    type: list_string

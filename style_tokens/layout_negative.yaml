@@ -1,0 +1,60 @@
+# style_tokens/layout_negative.yaml
+# Maps layout.*, camera/composition, and the NEGATIVE block.
+# Source: "Casual Style Dictionary" (Composition & Grid, Block List) + Banana2 negative prompt.
+
+layout_spacing:
+  tight:  { phrase: "tight spacing between elements" }
+  medium: { phrase: "balanced spacing" }
+  large:  { phrase: "generous spacing, airy layout" }
+
+layout_density:
+  low:    { phrase: "low density, clean and uncluttered (keep empty space)" }
+  medium: { phrase: "moderate density" }
+  high:   { phrase: "dense, information-rich layout" }
+
+layout_safe_area:
+  mobile: { phrase: "composed within a mobile safe area, key elements away from screen edges" }
+  tablet: { phrase: "composed within a tablet safe area" }
+  none:   { phrase: "full-bleed composition" }
+
+# Camera / composition (Composition & Grid) — for screens / icon sheets
+camera:
+  orthographic: { phrase: "strict orthographic camera" }
+  isometric:    { phrase: "isometric projection (classic 2.5D game view)" }
+  top_down:     { phrase: "top-down view" }
+  three_quarter: { phrase: "3/4 view" }
+  close_up:     { phrase: "close-up shot" }
+  eye_level:    { phrase: "eye-level shot" }
+sheet:
+  layout_grid:  { phrase: "asset sheet layout, <N> columns x <M> rows, consistent items" }
+    # Katya: use the word 'consistent' to keep the same object across multiple angles on one sheet
+  aspect_ratio: { phrase: "aspect ratio <W:H>" }
+
+# Context-setter to open the prompt (Katya: start with a clear command)
+context_starter:
+  - "Generate / create a casual mobile game art asset, ..."
+  - "Setting the game-asset context at the very start helps the model understand it is drawing a game asset, not an ordinary picture."
+
+# ============ NEGATIVE / BLOCK LIST ============
+# style_guide.negative -> avoidance phrases. Common Katya blocks pre-bundled.
+negative_map:
+  realistic:          "NO photorealism, NO realistic textures"
+  metallic_realistic: "NO realistic metal, NO raytracing"
+  dark_theme:         "NO dark theme, NO black background unless specified"
+  sharp_corner:       "NO sharp geometric intersections, NO sharp points"
+  flat_design:        "NO flat 2D, NO flat design"
+  thin_icon:          "NO thin lines, NO thin edges, NO wire-like lines"
+  gritty:             "NO gritty textures, NO grunge"
+  noisy_texture:      "NO noise, NO grain, NO procedural noise, NO microscopic details"
+
+# Katya's standard block list (paste as-is to strip linework + dirt + noise):
+katya_line_removal: >
+  NO lineart, NO outlines, NO ink, NO stroke, NO contour lines, NO vector lines,
+  NO cel shading, NO drawn lines, NO black borders, NO sketch, NO comic style, NO anime, NO manga
+katya_general_negatives: >
+  missing, hidden, melted silhouette, muddy, muted, dull, pale, washed out, gray, black,
+  desaturated, low contrast, monochromatic, gritty textures, grain, noise, grunge,
+  blurred, out of focus, depth of field, cropped, out of frame, dry chalky texture,
+  visible brushstrokes, photorealism, realistic, raw 3D render, text, UI, UX, GUI,
+  watermark, signature, jpeg artifacts
+_note: "Katya's note: not every model supports a negative prompt; image generators read negatives as an 'Avoid: ...' sentence."
