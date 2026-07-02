@@ -13,7 +13,7 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
 1. Open a fresh chat in a vision-capable LLM (ChatGPT, Claude, or Gemini).
 2. Paste the entire contents of `studio_primer.md` as the first message.
 3. Attach your **STYLE references** (images whose art style you want to learn) and type `STYLE` → you get a `style_guide.yaml`.
-4. Review it (fix hex colors with an eyedropper; confirm low-confidence fields).
+4. Review it (fix hex colors with an eyedropper; confirm low-confidence fields) and send the fixes back with `UPDATE:`.
 5. Type `ASSET: <description>` → you get a finished image prompt.
 6. Take the prompt to the image generator of your choice (attach the STYLE reference there for color consistency).
 
@@ -96,12 +96,12 @@ confidence:
 2. **Fix hex values with an eyedropper** (the model only *guesses* colors):
    - Open the reference in Figma / Photoshop, or use the macOS "Digital Color Meter" / any pipette tool.
    - Pick the 3–5 main colors (primary, accent…) and read their `#RRGGBB`.
-3. **Tell the LLM to update**, for example:
+3. **Send the corrections with `UPDATE:`**, for example:
    ```
-   Update: palette.primary = #0D6DB8, palette.accent = #FFD34A.
-   material.button = glossy_plastic (final). lighting.direction = top (final).
+   UPDATE: palette.primary = #0D6DB8, palette.accent = #FFD34A,
+   material.button = glossy_plastic, lighting.direction = top
    ```
-   The LLM reprints the corrected `style_guide.yaml`. This style guide is shared by every asset in the game.
+   The LLM reprints the corrected `style_guide.yaml` with those fields marked final (`confidence` → 1.0). This style guide is shared by every asset in the game.
 
 ### S4. Make an asset — command `ASSET:`
 There are **three ways** to specify what to make — use whichever is convenient:
@@ -116,23 +116,25 @@ ASSET: a gold coin currency icon, single coin
 ASSET:        ← then attach an image of a settings screen whose layout you want to follow
 ```
 
-**(c) Leave it empty and let the AI suggest:**
+**(c) Give only a vague type — or nothing at all — and let the AI propose the details:**
 ```
-ASSET: settings screen
+ASSET: settings screen      ← or just "ASSET:" — the AI proposes the details, tagged [AI-suggested]
 ```
 
 The LLM returns **one natural-language prompt**, plus an ASSUMPTIONS block if it invented anything:
 
 ```
-A gold coin currency icon for a casual mobile game, semi-painted with a stylized
-baked texture look, rounded chunky silhouette; polished gold with a rich precious
-sheen and clean highlights; soft light from the top, strong highlights, soft
-contact shadow; clean pure colors — accent yellow #FFD34A; isolated on a
-transparent background, generous centered padding.
-Avoid: photorealism, realistic metal, flat design, sharp corners, thin lines.
+Generate a casual mobile game art asset: a gold coin currency icon, square 1:1
+canvas; semi-painted with a stylized baked texture look, rounded chunky
+silhouette; polished gold with a rich precious sheen and clean highlights; soft
+light from the top, strong highlights, soft contact shadow; clean pure colors —
+accent yellow #FFD34A; isolated on a transparent background, generous centered
+padding.
+Avoid: photorealism, realistic metal, flat design, sharp corners, thin lines,
+text or UI overlays, watermark, signature, jpeg artifacts.
 
 # ASSUMPTIONS
-# [AI-suggested] single standing coin, not a stack — change if you want a pile.
+# [AI-suggested] square 1:1 canvas; single standing coin, not a stack — change if you want a pile.
 ```
 
 > **Read the `# ASSUMPTIONS` block** and correct anything wrong (e.g. `TWEAK: make it a stack of 3 coins`).
@@ -141,7 +143,7 @@ Avoid: photorealism, realistic metal, flat design, sharp corners, thin lines.
 1. Copy the prompt.
 2. Open the image generator **of your choice** (gpt-image in ChatGPT, Gemini "Nano Banana", Midjourney…).
 3. **Attach the STYLE reference again** + paste the prompt → generate. *(Attaching the reference is the main way to keep color/feel consistent — more reliable than text alone.)*
-4. Not happy? Go back to the chat and type `TWEAK <change>` or `REGEN` for a new prompt.
+4. Not happy? Go back to the chat and type `TWEAK <change>` or `REGEN` for a new prompt — or attach the generated image and type `CHECK` for a per-dimension conformance report with ready-made `TWEAK` lines.
 
 ### S6. Many assets & many games
 - **Same game:** keep typing `ASSET: ...` in the **same chat** — the style guide stays in context, so all assets stay on-style.
@@ -151,7 +153,9 @@ Avoid: photorealism, realistic metal, flat design, sharp corners, thin lines.
 | Command | Effect |
 |---------|--------|
 | `STYLE` (+ attach STYLE ref) | Analyze the image(s) → `style_guide.yaml` |
+| `UPDATE: <field = value, …>` | Apply your manual corrections (eyedropper hex, final enums) → reprints the corrected `style_guide.yaml` |
 | `ASSET: <description>` / `ASSET:` (+ TARGET ref) / `ASSET:` (empty) | Build a prompt for one asset |
+| `CHECK` (+ attach the image you generated) | Per-dimension conformance report vs the style guide + ready-made `TWEAK` lines |
 | `REGEN` | Regenerate the last prompt |
 | `TWEAK <change>` | Adjust the prompt as requested |
 
@@ -160,6 +164,8 @@ Avoid: photorealism, realistic metal, flat design, sharp corners, thin lines.
 ## Tips & troubleshooting
 
 - **Assets drift in style across images:** attach the same STYLE reference every time you generate; keep the style sentences identical across prompts; generate in small batches. (Cross-asset consistency is a common weakness of today's generators.)
+- **Icons that must really match each other:** generate them as ONE **asset sheet** instead of separate images — `ASSET: an asset sheet of 6 booster icons, 3 columns x 2 rows, consistent items` (the word *consistent* is what holds one style across cells) — then slice it. Strongest anti-drift trick.
+- **Control the output ratio:** set `aspect_ratio` in `asset_spec.yaml` (`"1:1"` icon, `"9:16"` portrait screen…) or just say it in the `ASSET:` line; if you don't, the AI picks a default per asset type and tags it `[AI-suggested]`.
 - **Colors come out wrong vs. the reference:** almost always because the model guessed the hex — the **eyedropper** step (S3) is mandatory, and attach the reference when generating.
 - **The LLM emits odd/invalid style_guide values:** remind it to "use only the enums in §1 of the primer." If the primer scrolled out of context, paste it again.
 - **Prompt too long/short:** ~150–250 words for a single icon/asset; ~300–400 for a screen with layout. Type `TWEAK: make it tighter` if it's bloated.

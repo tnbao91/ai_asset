@@ -10,6 +10,10 @@ type:                 # asset type (free text, keep it short)
 title:                # label/title shown on the asset (if any). Optional.
   type: string
 
+aspect_ratio:         # output canvas ratio "W:H". Optional — if omitted, the AI picks a default per
+  type: string        #   asset type and tags it [AI-suggested]. Typical: "1:1" icon/button, "9:16" portrait screen, "16:9" banner.
+  examples: ["1:1", "9:16", "16:9", "4:5"]
+
 sections:             # list — content groups (for screens). Optional for icons/buttons.
   type: list_string
 

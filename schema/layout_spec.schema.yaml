@@ -8,6 +8,8 @@ screen:               # screen name
   type: string
 
 canvas:
+  aspect_ratio:       # "W:H", e.g. "9:16". Optional — falls back to asset_spec.aspect_ratio, else AI default [AI-suggested].
+    type: string
   safe_area:
     enum: [mobile, tablet, none]
 

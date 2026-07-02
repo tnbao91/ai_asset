@@ -21,7 +21,8 @@ A real run of the chain `style_guide.yaml` + `asset_spec.yaml` + `layout_spec.ya
 | button | depth medium / gloss high | render_shape.yaml |
 | layout | large / low / mobile | layout_negative.yaml |
 | background (style) / background (asset) | transparent / popup | light_color.yaml + asset_spec → "soft dimmed popup background" |
-| negative | realistic, flat_design, sharp_corner, thin_icon... | layout_negative.yaml → "Avoid:" |
+| aspect_ratio (asset_spec) | 9:16 | direct → opening line "Aspect ratio 9:16" |
+| negative | realistic, flat_design, sharp_corner, thin_icon... | layout_negative.yaml → "Avoid:" + `negative_tail_always` (watermark, jpeg artifacts…) |
 
 > `material` (0.78) and `lighting` (0.73) have low confidence → phrased **softly** ("leaning toward...") in the prompt so you can steer.
 

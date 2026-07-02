@@ -57,4 +57,9 @@ katya_general_negatives: >
   blurred, out of focus, depth of field, cropped, out of frame, dry chalky texture,
   visible brushstrokes, photorealism, realistic, raw 3D render, text, UI, UX, GUI,
   watermark, signature, jpeg artifacts
+
+# Curated "Avoid:" tails distilled from the list above (primer §4 negative rule uses them):
+negative_tail_always: "watermark, signature, jpeg artifacts, blurry / out of focus, cropped / out of frame"   # append to EVERY prompt
+negative_tail_non_screen: "text, UI / UX / GUI overlays, interface chrome"   # single assets only (icon/button/prop) — a screen IS UI, skip it there
+
 _note: "Katya's note: not every model supports a negative prompt; image generators read negatives as an 'Avoid: ...' sentence."

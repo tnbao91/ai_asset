@@ -2,6 +2,7 @@
 # Reconciled to match layout_spec.yaml (vibration, rate_us).
 type: settings_screen
 title: SETTINGS
+aspect_ratio: "9:16"         # portrait phone screen
 
 sections:
   - Audio
