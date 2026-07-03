@@ -46,6 +46,10 @@ negative_map:
   thin_icon:          "NO thin lines, NO thin edges, NO wire-like lines"
   gritty:             "NO gritty textures, NO grunge"
   noisy_texture:      "NO noise, NO grain, NO procedural noise, NO microscopic details"
+  broken_anatomy:     "NO extra fingers, NO extra limbs, NO deformed hands"          # characters
+  busy_background:    "NO clutter, NO busy detail competing with the foreground"      # backgrounds
+  perspective_distortion: "NO perspective distortion, NO vanishing points (keep strict isometry)"   # Katya: add to the negative to enhance isometry
+  anti_aliasing:      "NO anti-aliasing, NO blur, NO modern post-processing — pure pixel art"       # pixel_art rendering only
 
 # Katya's standard block list (paste as-is to strip linework + dirt + noise):
 katya_line_removal: >
@@ -55,11 +59,15 @@ katya_general_negatives: >
   missing, hidden, melted silhouette, muddy, muted, dull, pale, washed out, gray, black,
   desaturated, low contrast, monochromatic, gritty textures, grain, noise, grunge,
   blurred, out of focus, depth of field, cropped, out of frame, dry chalky texture,
-  visible brushstrokes, photorealism, realistic, raw 3D render, text, UI, UX, GUI,
+  visible brushstrokes, photorealism, realistic, raw 3D render, cold 3D, filling empty space,
+  high frequency patterns, small ripples, text, UI, UX, GUI,
   watermark, signature, jpeg artifacts
 
 # Curated "Avoid:" tails distilled from the list above (primer §4 negative rule uses them):
 negative_tail_always: "watermark, signature, jpeg artifacts, blurry / out of focus, cropped / out of frame"   # append to EVERY prompt
-negative_tail_non_screen: "text, UI / UX / GUI overlays, interface chrome"   # single assets only (icon/button/prop) — a screen IS UI, skip it there
+negative_tail_non_screen: "text, UI / UX / GUI overlays, interface chrome"   # single assets only (icon/button/prop/character/object/background) — a screen IS UI, skip it there
+negative_tail_character: "extra fingers, extra or missing limbs, deformed hands, asymmetric eyes, broken anatomy"   # characters with normal anatomy (feature_exaggeration low/medium) — append alongside the non-screen tail
+negative_tail_character_simplified: "distinct fingers or toes, paws with toes, intricate fur, tiny separate details"   # mitten/stump styles (feature_exaggeration high) — Banana2 Zero-Digits: hands/feet are smooth rounded stumps, so 'no EXTRA fingers' is the wrong guard; use this tail INSTEAD of negative_tail_character
+negative_tail_background: "characters, creatures, foreground objects blocking the view"   # backgrounds only — keep the backdrop empty of actors (they are composited later)
 
 _note: "Katya's note: not every model supports a negative prompt; image generators read negatives as an 'Avoid: ...' sentence."

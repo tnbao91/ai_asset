@@ -1,0 +1,64 @@
+# character_spec.schema.yaml
+# Schema for character_spec.yaml — describes ONE character asset (static art; no animation sheets), command `CHARACTER:`.
+# OPTIONAL: like asset_spec, the content can also be a text description / a TARGET ref image /
+#   or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
+# TWO MODES (SYNTHESIZER §4, Character branch):
+#   NEW character  — `CHARACTER:` with no character_ref -> full generation prompt styled through the style_guide.
+#   POSE VARIATION — `CHARACTER:` with character_ref set / that image attached (a CHARACTER ref) -> an
+#     image-EDIT prompt that locks the identity (face, outfit, colors, proportions) and changes ONLY pose/expression.
+# This defines fields, NOT real data. Clean example: examples/mascot_character/character_spec.yaml
+
+name:                 # the character's name (used to refer back to it in later commands). Optional.
+  type: string
+
+archetype:            # who/what the character is (free text, keep it short)
+  type: string
+  examples: ["cheerful chef cat mascot", "grumpy goblin shopkeeper", "brave farm-girl hero"]
+
+physique:             # body shape in plain words. Optional — style_guide.character.proportions sets the head-to-body ratio.
+  type: string
+  examples: ["small round-bellied cat", "tall and lanky", "short and stocky"]
+
+outfit:               # clothing & signature accessories — the identity anchors that must stay constant across poses.
+  type: string
+  examples: ["white chef hat and a tiny blue apron"]
+
+pose:                 # body pose (free text). Optional — defaults to a neutral standing pose [AI-suggested].
+  type: string
+  examples: ["standing, waving one paw", "jumping in celebration", "arms crossed"]
+
+expression:           # facial expression. Optional.
+  type: string
+  examples: ["big happy smile", "determined frown", "surprised, wide eyes"]
+
+palette_role:         # which style_guide palette roles dress the character (keeps it color-coherent with the UI). Optional.
+  type: string
+  examples: ["primary for the apron, accent for details"]
+
+character_ref:        # path/attached image of the SAME character, already generated. Setting this switches to POSE VARIATION mode.
+  type: image
+  note: "This is a CHARACTER ref (identity source) — a 4th reference role, distinct from STYLE/TARGET/SOURCE refs."
+
+framing:              # how much of the character is in frame. Optional — default full_body.
+  enum: [full_body, medium, close_up]
+  note: "full_body = 'show the full body clearly from head to feet' · medium = head-to-waist · close_up = face/bust portrait."
+
+sheet:                # OPTIONAL — request a same-character sheet instead of a single image.
+  expressions:        # list of emotions -> an NxM expression grid ("3x3 grid, the SAME character, each cell a different expression").
+    type: list_string
+    examples: [[happy, shocked, angry, sad, confident, thinking]]
+  turnaround:         # true -> character turnaround sheet (front, 3/4, side, back views).
+    type: bool
+
+background:           # the asset's own backdrop. Characters ship as cutouts by default.
+  enum: [transparent, studio, scene]
+  default: transparent
+  note: "studio = solid bright color / clean gradient studio backdrop — the usual presentation default for character art."
+
+aspect_ratio:         # output canvas ratio "W:H". Optional — default "3:4" full-body portrait, tagged [AI-suggested].
+  type: string
+  examples: ["3:4", "1:1"]
+
+style_ref:            # points to the style_guide file used for this asset.
+  type: path
+  default: style_guide.yaml

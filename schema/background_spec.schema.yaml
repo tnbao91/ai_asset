@@ -1,0 +1,35 @@
+# background_spec.schema.yaml
+# Schema for background_spec.yaml — describes ONE background/scene asset to produce, command `BACKGROUND:`.
+# OPTIONAL: like asset_spec, the content can also be a text description / a TARGET ref image /
+#   or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
+# Unlike EXTRACT/UPSCALE, a background IS styled through the style_guide (SYNTHESIZER §4, Background branch).
+# This defines fields, NOT real data.
+
+setting:              # what the scene depicts (free text, keep it short)
+  type: string
+  examples: ["sunny meadow with rolling hills", "cozy kitchen interior", "underwater coral reef"]
+
+time_of_day:          # optional — omit for interiors / abstract backdrops
+  enum: [day, sunset, night, dawn]
+
+depth_layers:         # list, FAR -> NEAR. Optional — omit for a flat backdrop; pairs with style_guide.environment.depth.
+  type: list_string
+  examples: [["sky with soft clouds", "distant hills", "meadow with flowers in the foreground"]]
+
+focal_point:          # where the eye should rest / where gameplay or UI will sit on top. Optional.
+  type: string
+  examples: ["clear open area in the center, uncluttered, for UI overlay"]
+
+usage:                # what the background is FOR — drives busyness & contrast (a level bg must not fight the gameplay).
+  enum: [menu_backdrop, level_background, loading_screen]
+
+tileable:             # must it repeat seamlessly side-to-side (side-scrolling)? Default false.
+  type: bool
+
+aspect_ratio:         # output canvas ratio "W:H". Optional — default 16:9 landscape / 9:16 portrait per usage, tagged [AI-suggested].
+  type: string
+  examples: ["16:9", "9:16"]
+
+style_ref:            # points to the style_guide file used for this asset.
+  type: path
+  default: style_guide.yaml

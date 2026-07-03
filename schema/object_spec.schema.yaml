@@ -1,0 +1,34 @@
+# object_spec.schema.yaml
+# Schema for object_spec.yaml — describes ONE in-game object/prop asset to produce, command `OBJECT:`
+#   (chest, potion, tree, crate... — a world object, not a UI icon; for icons keep using asset_spec).
+# OPTIONAL: like asset_spec, the content can also be a text description / a TARGET ref image /
+#   or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
+# This defines fields, NOT real data.
+
+name:                 # what the object is (free text, keep it short)
+  type: string
+  examples: ["treasure chest", "health potion", "wooden signpost", "apple tree"]
+
+function:             # what it does in the game — drives silhouette & affordance emphasis. Optional.
+  type: string
+  examples: ["reward chest the player taps to open", "collectible pickup", "level decoration"]
+
+size_class:           # in-world scale — drives detail density and framing.
+  enum: [handheld, furniture, landmark]
+  note: "handheld = pickup/prop scale · furniture = chest/barrel scale · landmark = tree/building scale"
+
+material_hint:        # optional nudge for the object's dominant material, in plain words; surfaces still render per style_guide.
+  type: string
+  examples: ["stylized painted wood with gold trim", "translucent glass bottle"]
+
+background:           # the asset's own backdrop. Objects ship as cutouts by default.
+  enum: [transparent, scene]
+  default: transparent
+
+aspect_ratio:         # output canvas ratio "W:H". Optional — default "1:1", tagged [AI-suggested].
+  type: string
+  examples: ["1:1", "3:4"]
+
+style_ref:            # points to the style_guide file used for this asset.
+  type: path
+  default: style_guide.yaml

@@ -16,6 +16,7 @@ rendering:
     phrase: "stylized 3D render, clean glossy surfaces, high-end digital illustration finish"
   pixel_art:
     phrase: "crisp retro pixel art, limited palette, hard pixel edges"
+    notes: "When rendering = pixel_art, also pull modifiers from the pixel_art group below (register/grid/outline/palette cap)."
   gradient_flat:
     phrase: "flat shapes with smooth airbrushed gradients (soft, blended transitions)"
 
@@ -50,8 +51,23 @@ form_proportions:
   chunky:      { phrase: "stubby, squat, chunky casual proportions, thick and compressed" }
   bouncy:      { phrase: "bouncy, plump, bumpy surface with soft puffiness" }
   beveled:     { phrase: "softened edges and beveled corner roundness" }
+  wrinkled:    { phrase: "wrinkled / concave structural bends, dents and soft mesh folds" }
+    # Katya Form & Proportions — cloth and prop folds
   mega_chunk:  { phrase: "mega-chunk logic: rims and lines 3-5x thicker than realistic, no thin lines — thick sausage-like tubes" }
     # Banana2 CRITICAL rule for the sculpted-gloss icon style
+_form_tips:
+  - "Katya nuance: 'Volume' = stable volumetric mass · 'Shape' = flatter silhouettes · 'Form' = architectural rigor (use for buildings/structured props)."
+
+# Pixel-art modifiers ("Retro 8-bit Pixel Art prompts Collection") — ONLY when style.rendering = pixel_art.
+# register maps style_guide.style.pixel_register; grid/outline_px/palette_cap are appended per asset.
+pixel_art:
+  register_8bit:   { phrase: "8-bit aesthetic, low-resolution pixel grid" }
+  register_16bit:  { phrase: "16-bit pixel art with chunky shading blocks, soft dithering and subtle retro color-banding" }
+  register_hi_bit: { phrase: "high-resolution, sharp-edged modern pixel art" }
+  grid:            { phrase: "on a <W>x<H> pixel grid (e.g. 32x32 / 64x64), grid-aligned, pixel-perfect" }
+  outline_px:      { phrase: "precise single-pixel borders on all features" }
+  palette_cap:     { phrase: "reduce color complexity to 4-16 vibrant colors maximum" }
+  _note: "Small sprites must stay 'readable at small size'. Pair with the anti_aliasing negative (layout_negative.yaml). Skip CRT/scanline/glitch effects — off-scope for casual mobile."
 
 icon_perspective:
   front:        { phrase: "straight front view, eye-level" }

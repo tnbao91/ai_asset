@@ -27,6 +27,8 @@ lighting_extra:
   rim_light: { phrase: "soft bright rim light along the edges (Fresnel rim) for a juicy pop" }
     # Banana2: 'Rim & Reflex Light' bright blue bounce from bottom-right works very well
   bounce_fill: { phrase: "soft colored bounce light filling the shadows" }
+  sss: { phrase: "subtle subsurface scattering — a soft translucent glow on candy / jelly / skin materials" }
+    # Katya tip: 'additional lighting effects like Fresnel or SSS'; core of the toon_3d character look
 
 outline:
   enabled_true:  { phrase: "clean even outline around shapes" }

@@ -19,6 +19,8 @@ project:
 style:
   rendering:        # overall surface treatment
     enum: [semi_painted, fully_painted, flat_vector, cel_shaded, 3d_render, pixel_art, gradient_flat]
+  pixel_register:   # OPTIONAL — only when rendering = pixel_art: which era/register of pixel art
+    enum: [8bit, 16bit, hi_bit]
   complexity:
     enum: [very_low, low, medium, high]
   readability:      # how legible/recognizable at small mobile sizes
@@ -50,6 +52,10 @@ material:           # perceived material of each surface type
     enum: [polished_gold, brushed_gold, silver, gem_crystal, coin_flat, painted]
   container:        # panel/popup/frame
     enum: [soft_plastic, wood, stone, parchment, glass, painted_card, metal_frame]
+  character:        # OPTIONAL — character surface treatment (skin/hair/cloth share one treatment). Only when refs contain characters.
+    enum: [painted_soft, cel_flat, clay_3d, vinyl_toy, toon_3d, plush_felt, semi_real]
+  environment:      # OPTIONAL — scenery surface treatment. Only when refs contain scenes/backgrounds.
+    enum: [painted_backdrop, flat_vector_scene, stylized_3d, watercolor_wash]
 
 lighting:
   direction:
@@ -95,6 +101,21 @@ button:
   gloss:
     enum: [none, low, medium, high]
 
+character:          # OPTIONAL block — character style conventions. Fill ONLY when the refs contain characters; otherwise omit entirely (never guess).
+  proportions:      # head-to-body ratio, the main character style lever
+    enum: [chibi_2head, toon_3head, stylized_4head, semi_real_6head]
+  feature_exaggeration:   # how far eyes/hands/silhouette are pushed from realistic
+    enum: [low, medium, high]
+
+environment:        # OPTIONAL block — scene/background style conventions. Fill ONLY when the refs contain scenes; otherwise omit entirely.
+  depth:
+    enum: [flat_backdrop, two_layer, layered_parallax, full_scene]
+  atmosphere:
+    enum: [clear, soft_haze, glow_dust, dramatic]
+
+camera:             # dominant viewing angle across the refs (phrases in style_tokens/layout_negative.yaml)
+  enum: [orthographic, isometric, top_down, three_quarter, close_up, eye_level]
+
 background:           # asset background (solid/gradient). Optional — leave empty if the ref has a transparent background.
   type:
     enum: [solid, gradient, scene, transparent]
@@ -103,7 +124,7 @@ background:           # asset background (solid/gradient). Optional — leave em
 
 negative:           # free list — attributes to AVOID when generating (go into the prompt's "Avoid:" part)
   type: list_free
-  examples: [realistic, metallic_realistic, dark_theme, sharp_corner, flat_design, thin_icon, gritty, noisy_texture]
+  examples: [realistic, metallic_realistic, dark_theme, sharp_corner, flat_design, thin_icon, gritty, noisy_texture, broken_anatomy, busy_background]
 
 confidence:         # confidence per dimension group (0.0..1.0). < 0.75 -> user reviews/overrides.
   shape:     { type: float_0_1 }
@@ -111,3 +132,5 @@ confidence:         # confidence per dimension group (0.0..1.0). < 0.75 -> user 
   rendering: { type: float_0_1 }
   material:  { type: float_0_1 }
   lighting:  { type: float_0_1 }
+  character:   { type: float_0_1 }   # only when the character block is filled
+  environment: { type: float_0_1 }   # only when the environment block is filled

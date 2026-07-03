@@ -1,0 +1,84 @@
+# style_tokens/character_environment.yaml
+# Maps material.character / material.environment, character.*, environment.* enums, and the
+# character identity-lock phrase for pose variations.
+
+material_character:
+  painted_soft: { phrase: "soft hand-painted character surfaces with smooth baked shading — skin, hair and cloth share one clean painted treatment" }
+  cel_flat:     { phrase: "cel-shaded character with flat color fills and crisp clean shadow bands" }
+  clay_3d:      { phrase: "soft clay / figurine character, molded rounded volumes with gentle gloss" }
+  vinyl_toy:    { phrase: "vinyl collectible-toy character finish, smooth glossy surfaces with clean seams" }
+  toon_3d:
+    phrase: "smooth matte 3D toon render — soft stylized skin with subtle subsurface scattering, matte finish (no plastic shine), big expressive eyes"
+    notes: "The Pixar/Disney-style look — the most common 3D character treatment in casual games ('Character Prompts Collection': smooth matte plastic skin + gentle SSS + porcelain skin)."
+  plush_felt:
+    phrase: "soft plush-toy character with fluffy fur strands / fuzzy felt fibers, a glossy nose and toy-like material"
+    notes: "'Character Prompts Collection': realistic fluffy fur texture, felt / fuzzy texture skin, highly detailed fibers."
+  semi_real:    { phrase: "semi-realistic stylized character rendering, painterly but grounded, still clean and readable" }
+
+material_environment:
+  painted_backdrop:  { phrase: "hand-painted scenic backdrop with soft blended brushwork, clean and readable at a glance" }
+  flat_vector_scene: { phrase: "flat vector scenery built from solid shapes and simple color planes" }
+  stylized_3d:       { phrase: "stylized 3D-render environment with clean glossy surfaces and soft global light" }
+  watercolor_wash:   { phrase: "gentle watercolor-wash scenery, airy and light, no paper grain noise" }
+
+character_proportions:
+  chibi_2head:     { phrase: "chibi proportions, about 2 heads tall — oversized head, tiny body, maximum cuteness" }
+  toon_3head:      { phrase: "cartoon proportions, about 3 heads tall — big expressive head on a compact rounded body" }
+  stylized_4head:  { phrase: "stylized proportions, about 4 heads tall — playful but capable-looking" }
+  semi_real_6head: { phrase: "semi-realistic proportions, about 6 heads tall, still softly stylized" }
+
+character_feature_exaggeration:
+  low:    { phrase: "features close to natural, only gently stylized" }
+  medium: { phrase: "clearly exaggerated features — bigger eyes, simplified hands, bold readable silhouette" }
+  high:   { phrase: "heavily exaggerated cartoon features — huge eyes, mitten-like hands, extreme squash-and-stretch silhouette" }
+
+environment_depth:
+  flat_backdrop:    { phrase: "flat single-plane backdrop with no depth layers" }
+  two_layer:        { phrase: "simple two-layer depth: one background plane plus one foreground accent layer" }
+  layered_parallax: { phrase: "layered parallax-style depth — far sky, mid silhouettes, near details on clearly separated visual planes" }
+  full_scene:       { phrase: "full scene depth with foreground, midground and background smoothly integrated" }
+  tile_grid:
+    phrase: "isometric tile-grid level map — clean map cells, grid-aligned placement, consistent tile size"
+    notes: "Casual Dictionary 'Tiles / isometric grid': map cell & tile positioning. Pair with the perspective_distortion negative to keep the isometry strict."
+
+environment_atmosphere:
+  clear:     { phrase: "clear crisp air, evenly lit scene" }
+  soft_haze: { phrase: "soft atmospheric haze fading the far layers for depth" }
+  glow_dust: { phrase: "gentle glowing dust and light particles floating in the air" }
+  dramatic:  { phrase: "dramatic light shafts and stronger sky contrast" }
+
+# Identity lock for POSE VARIATION mode (character_spec.character_ref set + image attached).
+# Used by SYNTHESIZER §4 as the opening of the image-EDIT prompt — the identity anchors stay frozen,
+# only pose/expression change. Needs an image-editing generator with the CHARACTER ref attached.
+character_identity_lock:
+  phrase: >
+    the SAME character as in the attached reference image — keep the face, hairstyle, outfit,
+    colors, proportions and rendering style exactly identical; do not change the person into
+    another face or another gender; change ONLY the pose and expression as described
+  facial_only_note: >
+    Lighter variant when the user wants to redress/rebody the character: "use the attached image
+    as a facial reference only — keep the face identical, the body and outfit may change as
+    described." ('Character Prompts Collection' p21 vs p25.)
+
+# Same-character sheets (character_spec.sheet) — the word "consistent" is the anti-drift anchor.
+character_sheet:
+  expressions:
+    phrase: "<N>x<M> grid, the SAME character in every cell, each cell showing a different expression (<list, e.g. happy, shocked, angry, sad, confident, thinking>), consistent style and identity across all cells"
+    notes: "'Character Prompts Collection' p2/p3: 3x3 or 6-panel emotion grids of one character."
+  turnaround:
+    phrase: "character turnaround sheet: front, 3/4, side and back views of the SAME character, evenly spaced, consistent proportions and outfit in every view"
+    notes: "Casual Dictionary 'Turnaround / Views (front view, back view)' — the standard character-sheet request."
+
+_tips: >
+  Characters and environments read as one style when they share the UI's lighting/outline/palette —
+  always translate those from the same style_guide. Name the outfit's signature items explicitly
+  (hat, apron, scar): they are the identity anchors generators latch onto across poses.
+  Essential Feature Protection (Banana2): simplify, do NOT erase — signature features (the leaf cap
+  on a strawberry, the ears on a bear) must stay visible, rendered thick and simplified. Details
+  (eyes, seeds, gems) should be giant smooth blobs integrated into the main surface, not stuck on
+  top. Macro-Detail Limit (Banana2): drastically reduce repeating elements — a strawberry has 3-5
+  giant seeds, not 50; a rope has 2-3 large twists. Poses: add a subtle natural tilt in head and
+  shoulders to avoid stiffness ('no flat neutral standing pose'). For backgrounds, say what the
+  space is FOR ("clear center for UI overlay") — busyness is the #1 way a level background fails;
+  scene-level brightness/contrast (darker vs lighter, dynamic range) is the main mood lever of a
+  background.

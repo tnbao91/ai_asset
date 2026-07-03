@@ -20,7 +20,8 @@ material_button:
   wood:
     phrase: "stylized painted wood with soft baked texture, no realistic grain noise"
   fabric:
-    phrase: "soft fleece-like fabric, fuzzy but clean (velvety / mossy)"
+    phrase: "soft fleece-like fabric, fuzzy but clean (velvety / mossy / fluffy / fuzzy)"
+    notes: "Katya lists all four fleecy words: velvety / mossy / Fluffy / Fuzzy"
   candy_jelly:
     phrase: "translucent candy jelly / resin material, glossy and appetizing"
     notes: "Katya: 'resin / jelly' translucent gloss — can lead into 3D"
@@ -79,4 +80,5 @@ _tips:
   - "Use 'materials, surfaces' so the model understands the surface style you want."
   - "'pure, clear, clean' emphasizes a clean surface, free of dirt/noise."
   - "'baked texture look' = the trick to fake 3D volume with hand-painted texture + shadow."
+  - "'marshmallow' sits alongside clay/fondant for soft molded sweets — a handy extra word for the soft-3D family."
   - "Avoid piling up associations: e.g. 'vinyl toys' drags in plastic+volumetric+bright — if you don't need a 3D polish, describe basic attributes instead (tactile, matte, bouncy, chunky)."

@@ -1,0 +1,16 @@
+Edit the attached image: this is the SAME character as in the attached reference
+image — keep the face, hairstyle, outfit, colors, proportions and rendering style
+exactly identical; change ONLY the pose and expression as described: jumping in the
+air with both paws raised in celebration, eyes closed with a joyful open-mouth
+smile. Keep the soft top lighting, the clean darker-shade outline and the
+transparent background unchanged. Portrait 3:4 canvas.
+
+Avoid: no restyling, no new art style, no repainting or recoloring, no changes to
+the face, outfit or colors; extra fingers, extra or missing limbs, deformed hands,
+asymmetric eyes, broken anatomy; watermark, signature, jpeg artifacts, blurry /
+out of focus, cropped / out of frame.
+
+(Note: this is an image-EDIT prompt — it needs an image-editing generator (gpt-image
+edit, Gemini "Nano Banana", or any img2img mode) with the character reference image
+attached. On a plain text-to-image generator, identity may drift; ask for a full
+re-description prompt instead.)

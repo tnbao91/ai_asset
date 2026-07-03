@@ -1,0 +1,14 @@
+# character_spec.yaml — describes the character to produce, command `CHARACTER:`. Conforms to schema/character_spec.schema.yaml.
+# NEW-character mode (no character_ref). For the pose-variation run, see character_spec.pose_variation.yaml.
+name: Pip
+archetype: cheerful chef cat mascot
+physique: small round-bellied cat
+outfit: white chef hat and a tiny blue apron
+pose: standing, waving one paw
+expression: big happy smile
+palette_role: primary for the apron, accent for details
+framing: full_body
+
+background: transparent
+aspect_ratio: "3:4"          # full-body portrait
+style_ref: style_guide.yaml
