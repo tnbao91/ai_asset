@@ -9,7 +9,7 @@ silhouette. Standing pose, waving one paw, with a big happy smile.
 Semi-painted render with a stylized baked texture look — hand-painted lighting baked
 onto clean 3D-like shapes; soft hand-painted character surfaces with smooth baked
 shading — skin, hair and cloth share one clean painted treatment; rounded,
-hand-rolled silhouette with subtle asymmetry; 3/4 view.
+hand-rolled silhouette with subtle asymmetry; cheerful, friendly mood; 3/4 view.
 
 Soft directional scene lighting from the top, strong bright highlights with crisp
 specular pops, soft contact shadow at the bottom; clean even outline around shapes,

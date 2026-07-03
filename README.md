@@ -223,6 +223,16 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 
 ---
 
+## Keeping generations on-style (the workflow that doesn't miss)
+
+The prompt text alone only gets you *close* — the style is really held by three habits:
+
+1. **Pin the guide before mass-producing.** Run `STYLE`, eyedropper-fix the hex values via `UPDATE:` (S3), and only then start generating batches. Every prompt after that inherits the pinned values.
+2. **Always attach the STYLE ref image together with the prompt.** On **gpt-image (ChatGPT)** add the reference image(s) to the same message as the prompt; on **Gemini ("Nano Banana" / Banana Pro)** attach the ref(s) as image input alongside the text. Both follow an attached reference far more faithfully than hex codes in text — this is the single biggest on-style lever.
+3. **First asset of each new type → `CHECK`.** Generate it, attach the result back in the primer chat, send `CHECK`, apply its ready-made `TWEAK:` lines, regenerate. Once the first screen / first icon / first character passes, later assets of that type drift much less — or lock the look up front with a **UI-KIT sheet** (widgets) / **character sheet** (identity) and generate individual assets against it.
+
+---
+
 ## Expectations & limits
 
 1. **Always attach the STYLE reference when generating.** `style_guide.yaml` is a *style contract* + prompt seed, **not** the sole consistency mechanism. The attached reference is what keeps colors/feel accurate.

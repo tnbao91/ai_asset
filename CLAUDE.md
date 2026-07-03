@@ -36,7 +36,9 @@ Distinctions that must not be blurred:
 ## Consistency invariants (check after any change)
 
 - Every enum in `schema/style_guide.schema.yaml` appears in primer §1; every token group in `style_tokens/*.yaml` appears in primer §2 (currently 35 `###` headings). The OPTIONAL UI blocks `typography` and `controls` (toggle/slider/checkbox/progress, in `style_tokens/ui_components.yaml`) must appear in both §1 and §2 — they anchor UI-widget/text consistency the same way `material.button/container/icon` anchor button/panel/icon.
-- The primer §0 command table and README's "Command reference" table must match 1:1.
+- The primer §0 command table and README's "Command reference" table must match 1:1. The §0.5 EXECUTION CHECKLIST rows must cover the same commands as §0 (it's a per-command anti-miss contract, not a second command list).
+- The shared **IMAGE-EDIT PATH NOTE** lives once in §4 and is *referenced* (never re-duplicated) by the pose-variation branch, §5 and §6 — don't reinflate those sections with copies when editing.
+- §4 has a **Rule 11 coverage self-check**: every filled style_guide dimension must be translated or explicitly `# [skipped]` in ASSUMPTIONS. The per-branch prompt orders name outline/mood/button.depth/icon.* explicitly — keep them named when editing the orders.
 - `examples/settings_screen/` is the end-to-end proof for the UI branch: `prompt.txt` must remain derivable from its three spec files under the current §4 rules. `examples/mascot_character/` is the proof for the character branch (both prompts derivable from its specs, incl. the pose-variation image-edit prompt). `examples/analyzer_smoke_test/` is a captured analyzer artifact — leave as-is.
 
 ## Verification commands
@@ -46,7 +48,7 @@ Distinctions that must not be blurred:
 python3 -c "import yaml, glob; [yaml.safe_load(open(f)) for f in glob.glob('schema/*.yaml') + glob.glob('style_tokens/*.yaml') + glob.glob('examples/**/*.yaml', recursive=True)]"
 
 # primer contains the BUILD MANIFEST items (spot-check; full list in the primer header)
-for p in "version: 1.0" "asset sheet layout" "Always-append tail" "orthographic" "Generate a casual mobile game art asset" "chibi proportions" "identity lock" "layered_parallax" "size_class"; do grep -c "$p" studio_primer.md; done
+for p in "version: 1.0" "asset sheet layout" "Always-append tail" "orthographic" "Generate a casual mobile game art asset" "chibi proportions" "identity lock" "layered_parallax" "size_class" "EXECUTION CHECKLIST" "IMAGE-EDIT PATH NOTE" "Coverage self-check"; do grep -c "$p" studio_primer.md; done
 ```
 
 ## doc/
