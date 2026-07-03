@@ -218,4 +218,15 @@ A full sample output (style guide + prompt) for reference: [`examples/settings_s
 
 ---
 
+## Support
+
+If this toolkit saves you time, consider supporting its development:
+
+- ☕ [Ko-fi](https://ko-fi.com/tnbao91)
+- 💸 [PayPal](https://paypal.me/tnbao91)
+
+Thanks! 🙏
+
+---
+
 > Reminder: this toolkit **stops at the prompt**. Choosing a generator and generating the image is on your side.
