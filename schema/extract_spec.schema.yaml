@@ -1,0 +1,38 @@
+# extract_spec.schema.yaml
+# Schema for extract_spec.yaml — describes ONE cutout EXTRACTION from a SOURCE ref image.
+# OPTIONAL: the extraction can be driven purely by the `EXTRACT: <text>` command / by a SOURCE ref
+#   with no text (whole image = sprite sheet) / or by this YAML (fullest form).
+# NOTE: EXTRACT keeps the ORIGINAL art of the source image (a cutout), it does NOT restyle it.
+#   It never uses the style_guide and never translates through style_tokens/ — that is what makes it
+#   different from asset_spec (SYNTHESIZER). This defines fields, NOT real data.
+
+source:               # the SOURCE ref image whose actual pixels become the asset.
+  type: image         #   (Different from a STYLE ref or a TARGET ref — see the primer's ref-role note.)
+
+target:               # what to pull out of the source image.
+  mode:               # element = one named item · sheet = the whole image is a grid of items
+    enum: [element, sheet]
+  describe:           # for mode=element: which item, in plain words (e.g. "the gold coin, top-right").
+    type: string
+  grid:               # for mode=sheet: known layout "cols x rows" if you know it; else auto-detect.
+    type: string
+    examples: ["3x2", "4x4"]
+
+output:
+  background:         # transparent = isolated cutout (default) · keep = leave the original backdrop
+    enum: [transparent, keep]
+  padding:            # even margin left around the subject after the cut. Default tight.
+    enum: [tight, medium, generous]
+
+cleanup:              # bool flags — what to STRIP while keeping the subject's own art intact.
+  remove_background:      # the scene/backdrop behind the item. Default true.
+    type: bool
+  remove_surrounding_ui:  # adjacent buttons, frames, panels, interface chrome around the item.
+    type: bool
+  remove_cast_shadow:     # ground/scene shadow that does NOT belong to the object itself.
+    type: bool
+  remove_text_labels:     # captions, numbers, price tags overlaid on the item.
+    type: bool
+
+# preserve (implicit, always on): keep the subject's original colors, shading, material, outline and
+#   proportions EXACTLY. Do not restyle, recolor, re-light, or add/remove detail.

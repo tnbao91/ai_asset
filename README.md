@@ -27,6 +27,8 @@ studio_primer.md     ← THE TOOL: a self-contained mega-prompt you paste into a
 schema/              ← SOURCE: field + enum definitions (the primer is built from these)
   style_guide.schema.yaml
   asset_spec.schema.yaml   layout_spec.schema.yaml   (optional structured asset description)
+  extract_spec.schema.yaml (optional structured input for EXTRACT — cutting an item out of an image)
+  upscale_spec.schema.yaml (optional structured input for UPSCALE — enlarging a generated asset)
 style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (built into the primer; seeded from the PDFs)
   materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
@@ -45,9 +47,12 @@ examples/
 STYLE ref ──► [ STYLE ] ──► style_guide.yaml (enums)  ─┐
                                                        │
    asset (text | TARGET ref | empty→AI-suggested) ─────┴─► [ ASSET ] ──► prompt (generator of your choice)
+
+SOURCE ref ──► [ EXTRACT ] ──► cutout prompt  (isolate an existing item onto a transparent background, art kept as-is)
+SOURCE ref ──► [ UPSCALE ] ──► upscale prompt (enlarge + sharpen a generated asset, art kept as-is; image-edit path)
 ```
 
-- **Two roles of a reference image:** a *STYLE ref* (how it looks → `style_guide`) is different from a *TARGET ref* (what to make / its layout → asset).
+- **Three roles of a reference image:** a *STYLE ref* (how it looks → `style_guide`), a *TARGET ref* (what to make / its layout → asset, then restyled), and a *SOURCE ref* (the art itself → `EXTRACT` cuts an existing item out / `UPSCALE` enlarges it, both keeping its original pixels).
 - **Source of truth:** if you change `schema/` or `style_tokens/`, the primer must be **rebuilt** from them (don't hand-edit the same content in two places).
 
 ---
@@ -155,6 +160,8 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 | `STYLE` (+ attach STYLE ref) | Analyze the image(s) → `style_guide.yaml` |
 | `UPDATE: <field = value, …>` | Apply your manual corrections (eyedropper hex, final enums) → reprints the corrected `style_guide.yaml` |
 | `ASSET: <description>` / `ASSET:` (+ TARGET ref) / `ASSET:` (empty) | Build a prompt for one asset |
+| `EXTRACT: <element>` / `EXTRACT` (empty) (+ SOURCE ref) | Cut an existing icon/sprite out of an image → isolate it on a transparent background, art kept as-is. Description → that one item; empty → treat the whole image as a sprite sheet and extract each |
+| `UPSCALE` / `UPSCALE: <scale>` (+ SOURCE ref) | Enlarge a generated asset → an image-edit prompt to raise resolution + sharpness, art kept as-is (no restyle). Optional `<scale>` = 2x / 4x / a target size. *(For best quality prefer a no-prompt super-resolution tool — see Tips.)* |
 | `CHECK` (+ attach the image you generated) | Per-dimension conformance report vs the style guide + ready-made `TWEAK` lines |
 | `REGEN` | Regenerate the last prompt |
 | `TWEAK <change>` | Adjust the prompt as requested |
@@ -164,6 +171,8 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 ## Tips & troubleshooting
 
 - **Assets drift in style across images:** attach the same STYLE reference every time you generate; keep the style sentences identical across prompts; generate in small batches. (Cross-asset consistency is a common weakness of today's generators.)
+- **Pull an existing icon out of a screenshot or sprite sheet:** attach it as a **SOURCE ref** and use `EXTRACT` — `EXTRACT: the gold coin, top-right` for one item, or just `EXTRACT` to inventory & cut every item in a sheet. It keeps the original art (a cutout), it does not restyle — and it needs an image-*editing* generator (gpt-image edit / Nano Banana / inpaint), not plain text→image.
+- **Make a generated asset bigger / sharper:** for best quality reach for a dedicated **super-resolution tool** (Topaz Gigapixel, Real-ESRGAN, Upscayl) or your generator's own upscale button — those take **no prompt** at all. Only if you're staying on an image-*editing* generator (gpt-image edit / Nano Banana / img2img), attach it as a **SOURCE ref** and use `UPSCALE` (or `UPSCALE: 4x`) — it produces an enlarge-and-sharpen prompt that keeps the original art (no restyle).
 - **Icons that must really match each other:** generate them as ONE **asset sheet** instead of separate images — `ASSET: an asset sheet of 6 booster icons, 3 columns x 2 rows, consistent items` (the word *consistent* is what holds one style across cells) — then slice it. Strongest anti-drift trick.
 - **Control the output ratio:** set `aspect_ratio` in `asset_spec.yaml` (`"1:1"` icon, `"9:16"` portrait screen…) or just say it in the `ASSET:` line; if you don't, the AI picks a default per asset type and tags it `[AI-suggested]`.
 - **Colors come out wrong vs. the reference:** almost always because the model guessed the hex — the **eyedropper** step (S3) is mandatory, and attach the reference when generating.

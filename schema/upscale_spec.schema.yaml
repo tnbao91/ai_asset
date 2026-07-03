@@ -1,0 +1,32 @@
+# upscale_spec.schema.yaml
+# Schema for upscale_spec.yaml — describes ONE resolution UPSCALE of a SOURCE ref image (a generated asset).
+# OPTIONAL: the upscale can be driven purely by the `UPSCALE` command / by a SOURCE ref with a scale hint /
+#   or by this YAML (fullest form).
+# NOTE: UPSCALE keeps the ORIGINAL art of the source image (an enlarge), it does NOT restyle it.
+#   It never uses the style_guide and never translates through style_tokens/ — same as extract_spec, and
+#   the opposite of asset_spec (SYNTHESIZER). This defines fields, NOT real data.
+# NOTE: true upscaling is usually a NO-PROMPT operation done by a dedicated super-resolution tool
+#   (Topaz Gigapixel, Real-ESRGAN, Upscayl) or a generator's upscale button (Midjourney). This spec only
+#   applies to the image-EDIT path (gpt-image edit / Gemini "Nano Banana" / img2img) — see the primer.
+
+source:               # the SOURCE ref image whose actual pixels get enlarged.
+  type: image         #   (Different from a STYLE ref or a TARGET ref — see the primer's ref-role note.)
+
+target:               # how much bigger, and to what.
+  scale:              # the enlargement factor.
+    enum: [2x, 4x, custom]
+  custom:             # for scale=custom: an exact target size in pixels (e.g. "1024x1024", "2048x1152").
+    type: string
+    examples: ["1024x1024", "2048x1152"]
+
+enhance:              # bool flags — clean-ups applied WHILE keeping the subject's own art intact.
+  sharpen:                # crisp up soft/blurry edges. Default true.
+    type: bool
+  denoise:                # remove grain/noise introduced by the original generation. Default true.
+    type: bool
+  deblock:                # clean jpeg block / compression artifacts. Default true.
+    type: bool
+
+# preserve (implicit, always on): keep the subject's original colors, shading, material, outline,
+#   proportions and composition EXACTLY. Only raise resolution and sharpness. Do not restyle, repaint,
+#   recolor, re-light, or add/remove/move any detail.
