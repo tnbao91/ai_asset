@@ -74,7 +74,7 @@ SOURCE ref ──► [ UPSCALE ] ──► upscale prompt (enlarge + sharpen a g
 | `CHARACTER: <description>` | — / CHARACTER ref | one **character** prompt | + CHARACTER ref → **pose variation** (image-edit; face/outfit/colors locked). Sub-mode: character sheet. |
 | `BACKGROUND: <description>` | — / TARGET ref | one **background/scene** prompt | Mirrors the scene when a ref is attached. |
 | `OBJECT: <description>` | — / TARGET ref | one **object/prop** prompt | |
-| `EXTRACT: <item>` | SOURCE ref | cutout prompt → **transparent background** | Empty → treat the whole image as a sprite sheet and cut each item. **Bypasses the style guide.** |
+| `EXTRACT: <item>` / `EXTRACT: ui` | SOURCE ref | cutout prompt → **transparent background** | Empty → treat the whole image as a sprite sheet and cut each item. `EXTRACT: ui` (or "for unity/engine") → **UI teardown** (best-effort / approximate, not pixel-exact): every icon + EMPTY buttons/panels (9-slice hinted) + background, for game-engine import. **Bypasses the style guide.** |
 | `UPSCALE` / `UPSCALE: 2x` | SOURCE ref | resolution + sharpness prompt | No restyle. **Bypasses the style guide.** For best quality prefer a dedicated super-resolution tool. |
 | `CHECK` | the image you generated | conformance report + ready-made `TWEAK` lines | Compares the image back against the style guide. |
 | `REGEN` | — | the last prompt, regenerated | |

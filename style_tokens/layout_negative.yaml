@@ -66,8 +66,9 @@ katya_line_removal: >
   NO cel shading, NO drawn lines, NO black borders, NO sketch, NO comic style, NO anime, NO manga
 katya_general_negatives: >
   missing, hidden, melted silhouette, muddy, muted, dull, pale, washed out, gray, black,
-  desaturated, low contrast, monochromatic, gritty textures, grain, noise, grunge,
-  blurred, out of focus, depth of field, cropped, out of frame, dry chalky texture,
+  desaturated, low contrast, monochromatic, gritty textures, grain, granular or fibrous textures,
+  noise, procedural noise, grunge, microscopic details,
+  blurred, out of focus, depth of field, bokeh, cropped, out of frame, dry chalky texture,
   visible brushstrokes, photorealism, realistic, raw 3D render, cold 3D, filling empty space,
   high frequency patterns, small ripples, text, UI, UX, GUI,
   watermark, signature, jpeg artifacts
