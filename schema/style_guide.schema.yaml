@@ -101,6 +101,38 @@ button:
   gloss:
     enum: [none, low, medium, high]
 
+typography:         # OPTIONAL block — UI text/label style. Fill ONLY when the refs contain UI text; otherwise omit entirely (never guess).
+  font_feel:        # the overall letterform character
+    enum: [rounded_sans, bold_display, geometric_sans, handwritten, serif_storybook, pixel]
+  weight:
+    enum: [regular, medium, bold, heavy]
+  case:             # dominant casing of titles/labels
+    enum: [uppercase, title_case, sentence_case]
+  treatment:        # how labels are finished (matches the surface finish)
+    enum: [plain, outlined, drop_shadow, inner_shadow, embossed]
+  color_role:       # which palette role the text ink uses
+    enum: [neutral, primary, secondary, accent]
+
+controls:           # OPTIONAL block — interactive UI widget conventions. Fill ONLY when the refs contain the matching widget; otherwise omit that widget (never guess).
+  # Widgets carry NO material enum of their own — they reuse material.button / material.container +
+  # outline + shape; only their structural conventions (track/knob/fill + which palette role marks a
+  # state) live here. Tab / dropdown / input inherit the same track+fill+handle logic (no extra enum).
+  toggle:
+    track_shape:    { enum: [pill, rounded_rect] }
+    on_color_role:  { enum: [accent, secondary, primary, danger] }   # track color when ON
+    off_color_role: { enum: [neutral, secondary] }                   # track color when OFF
+    knob:           { enum: [circle_glossy, circle_matte, circle_metallic] }
+  slider:
+    track_shape:    { enum: [pill, thin_rounded] }
+    fill_color_role: { enum: [accent, primary, secondary] }
+    handle:         { enum: [circle_glossy, circle_matte, knob_3d] }
+  checkbox:
+    shape:          { enum: [rounded_square, circle] }
+    check_style:    { enum: [tick, fill, glow] }
+  progress_bar:
+    track_shape:    { enum: [pill, rounded_rect] }
+    fill_color_role: { enum: [accent, primary, secondary] }
+
 character:          # OPTIONAL block — character style conventions. Fill ONLY when the refs contain characters; otherwise omit entirely (never guess).
   proportions:      # head-to-body ratio, the main character style lever
     enum: [chibi_2head, toon_3head, stylized_4head, semi_real_6head]
@@ -134,3 +166,5 @@ confidence:         # confidence per dimension group (0.0..1.0). < 0.75 -> user 
   lighting:  { type: float_0_1 }
   character:   { type: float_0_1 }   # only when the character block is filled
   environment: { type: float_0_1 }   # only when the environment block is filled
+  typography:  { type: float_0_1 }   # only when the typography block is filled
+  controls:    { type: float_0_1 }   # only when the controls block is filled

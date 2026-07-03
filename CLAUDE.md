@@ -23,6 +23,8 @@ STYLE ref image(s) → **§3 ANALYZER** → `style_guide.yaml` (enums from §1 o
 
 Character **pose variation** is a sub-branch of §4: `CHARACTER:` + an attached CHARACTER ref (the already-generated character; or `character_spec.character_ref`) → an image-EDIT prompt that opens with the §2 identity-lock phrase (face/outfit/colors frozen, only pose/expression change). Like EXTRACT/UPSCALE it needs an image-*editing* generator — but unlike them it still translates lighting/outline through §2.
 
+Two consistency sub-modes mirror each other (both stay inside their parent command — no new command, so §0/README stay 1:1): the **character sheet** (`character_spec.sheet`) draws one character's expressions/turnaround on a single sheet; the **UI-KIT sheet** (`asset_spec.kit` / `type: ui_kit`, or "UI kit" in text) is the `ASSET:` analogue — the whole UI component set (button/toggle/slider/checkbox/progress/panel/icons/text) drawn on ONE canvas in one pass so widgets can't drift apart. Both lean on the §2 word **consistent** as the anti-drift anchor. UI widget/text style itself lives in the OPTIONAL `typography` / `controls` style_guide blocks.
+
 Two side pipelines operate on an EXISTING image and deliberately BYPASS the style_guide/§2 (they keep the source art unchanged, only emitting an image-edit prompt): **§5 EXTRACTOR** (`EXTRACT`) isolates an item onto a transparent background (a cutout), and **§6 UPSCALER** (`UPSCALE`) enlarges + sharpens a generated asset. Both note that they need an image-*editing* generator and that the primer still only outputs text.
 
 Distinctions that must not be blurred:
@@ -33,7 +35,7 @@ Distinctions that must not be blurred:
 
 ## Consistency invariants (check after any change)
 
-- Every enum in `schema/style_guide.schema.yaml` appears in primer §1; every token group in `style_tokens/*.yaml` appears in primer §2 (currently 31 `###` headings).
+- Every enum in `schema/style_guide.schema.yaml` appears in primer §1; every token group in `style_tokens/*.yaml` appears in primer §2 (currently 35 `###` headings). The OPTIONAL UI blocks `typography` and `controls` (toggle/slider/checkbox/progress, in `style_tokens/ui_components.yaml`) must appear in both §1 and §2 — they anchor UI-widget/text consistency the same way `material.button/container/icon` anchor button/panel/icon.
 - The primer §0 command table and README's "Command reference" table must match 1:1.
 - `examples/settings_screen/` is the end-to-end proof for the UI branch: `prompt.txt` must remain derivable from its three spec files under the current §4 rules. `examples/mascot_character/` is the proof for the character branch (both prompts derivable from its specs, incl. the pose-variation image-edit prompt). `examples/analyzer_smoke_test/` is a captured analyzer artifact — leave as-is.
 

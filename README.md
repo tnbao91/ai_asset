@@ -62,6 +62,30 @@ SOURCE ref ──► [ UPSCALE ] ──► upscale prompt (enlarge + sharpen a g
 
 ---
 
+## Command reference
+
+**Reference roles:** STYLE = *how it looks* · TARGET = *what to make / layout* · CHARACTER = *who it is* · SOURCE = *an existing image to process*.
+
+| Command | Attach | You get | Notes |
+|---|---|---|---|
+| `STYLE` | STYLE ref | `style_guide.yaml` | Multiple images → common denominator. `confidence <0.75` = review it. No image → it asks for one. |
+| `UPDATE: field = value` | — | full corrected `style_guide.yaml` | Lock hex/enums by hand, `confidence→1.0`, reprints the **whole** guide. |
+| `ASSET: <description>` | — / TARGET ref | one **UI** prompt (screen/icon/button/panel) | Empty → it proposes a spec, marked `[AI-suggested]`. Sub-mode **UI-KIT** = the whole widget set on one canvas. |
+| `CHARACTER: <description>` | — / CHARACTER ref | one **character** prompt | + CHARACTER ref → **pose variation** (image-edit; face/outfit/colors locked). Sub-mode: character sheet. |
+| `BACKGROUND: <description>` | — / TARGET ref | one **background/scene** prompt | Mirrors the scene when a ref is attached. |
+| `OBJECT: <description>` | — / TARGET ref | one **object/prop** prompt | |
+| `EXTRACT: <item>` | SOURCE ref | cutout prompt → **transparent background** | Empty → treat the whole image as a sprite sheet and cut each item. **Bypasses the style guide.** |
+| `UPSCALE` / `UPSCALE: 2x` | SOURCE ref | resolution + sharpness prompt | No restyle. **Bypasses the style guide.** For best quality prefer a dedicated super-resolution tool. |
+| `CHECK` | the image you generated | conformance report + ready-made `TWEAK` lines | Compares the image back against the style guide. |
+| `REGEN` | — | the last prompt, regenerated | |
+| `TWEAK <change>` | — | the adjusted prompt | e.g. "bolder", "add currency". |
+
+- **Needs an image-*editing* generator:** pose variation, `EXTRACT`, `UPSCALE`.
+- **Uses the style guide + dictionary:** the four SYNTHESIZER branches — `ASSET` / `CHARACTER` / `BACKGROUND` / `OBJECT`.
+- **Typical flow:** `STYLE` → fix hex with `UPDATE:` → `ASSET/CHARACTER/…` for a prompt → generate elsewhere → `CHECK` → copy a `TWEAK:` → `REGEN`.
+
+---
+
 ## Detailed usage
 
 ### S1. Open a chat & load the primer
@@ -100,6 +124,8 @@ confidence:
 ```
 
 > With multiple references, the LLM extracts the **common style denominator** rather than describing each image.
+
+> When the references contain UI text or interactive widgets, the guide also fills optional `typography` (font feel / weight / case) and `controls` (toggle / slider / checkbox / progress) blocks — so buttons, panels, text **and** toggles/sliders all stay consistent across every screen you generate. It fills these only when the refs actually show them; add them later with `UPDATE:` if a first pass omitted them.
 
 ### S3. Review & adjust (important — don't skip)
 1. **Read the `# REVIEW NOTES`.** Any dimension with `confidence < 0.75` is something the model is unsure about — confirm or correct it.
@@ -144,6 +170,11 @@ OBJECT: a wooden treasure chest, closed, tap-to-open reward
 CHARACTER: pose variation — jumping in celebration     ← + attach the generated character
 ```
 
+**UI-kit sheet (max consistency):** ask `ASSET:` for a UI kit and the primer prompts for the whole component set — button, toggle, slider, checkbox, progress bar, panel, icons and text — on **one** sheet, drawn together in a single pass so nothing drifts between them. Use it once to lock the component look, then generate individual screens against it:
+```
+ASSET: a UI kit sheet — button, toggle, slider, checkbox, progress bar, panel, icons, text
+```
+
 The LLM returns **one natural-language prompt**, plus an ASSUMPTIONS block if it invented anything:
 
 ```
@@ -171,21 +202,6 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 ### S6. Many assets & many games
 - **Same game:** keep typing `ASSET:` / `CHARACTER:` / `BACKGROUND:` / `OBJECT:` in the **same chat** — the style guide stays in context, so all assets stay on-style.
 - **New game:** open a **new chat**, paste `studio_primer.md` again, attach that game's STYLE references. (Name the chat after the game for easy retrieval.)
-
-### Command reference
-| Command | Effect |
-|---------|--------|
-| `STYLE` (+ attach STYLE ref) | Analyze the image(s) → `style_guide.yaml` |
-| `UPDATE: <field = value, ...>` | Apply your manual corrections (eyedropper hex, final enums) → reprints the corrected `style_guide.yaml` |
-| `ASSET: <description>` / `ASSET:` (+ TARGET ref) / `ASSET:` (empty) | Build a prompt for one UI asset (screen/icon/button/panel) |
-| `CHARACTER: <description>` / `CHARACTER:` (+ CHARACTER ref + new pose) / `CHARACTER:` (empty) | Build a prompt for one character. With a CHARACTER ref (an already-generated character image) attached → pose variation: an image-edit prompt that locks the identity (face/outfit/colors) and changes only pose/expression |
-| `BACKGROUND: <description>` / `BACKGROUND:` (+ TARGET ref) / `BACKGROUND:` (empty) | Build a prompt for one background/scene |
-| `OBJECT: <description>` / `OBJECT:` (+ TARGET ref) / `OBJECT:` (empty) | Build a prompt for one in-game object/prop |
-| `EXTRACT: <element>` / `EXTRACT` (empty) (+ SOURCE ref) | Cut an existing icon/sprite out of an image → isolate it on a transparent background, art kept as-is. Description → that one item; empty → treat the whole image as a sprite sheet and extract each |
-| `UPSCALE` / `UPSCALE: <scale>` (+ SOURCE ref) | Enlarge a generated asset → an image-edit prompt to raise resolution + sharpness, art kept as-is (no restyle). Optional `<scale>` = 2x / 4x / a target size. *(For best quality prefer a no-prompt super-resolution tool — see Tips.)* |
-| `CHECK` (+ attach the image you generated) | Per-dimension conformance report vs the style guide + ready-made `TWEAK` lines |
-| `REGEN` | Regenerate the last prompt |
-| `TWEAK <change>` | Adjust the prompt as requested |
 
 ---
 

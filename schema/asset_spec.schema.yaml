@@ -6,7 +6,14 @@
 # This defines fields, NOT real data. Clean example: examples/settings_screen/asset_spec.yaml
 
 type:                 # asset type (free text, keep it short)
-  examples: [settings_screen, shop_screen, main_menu, currency_icon, booster_icon, primary_button, popup_panel]
+  examples: [settings_screen, shop_screen, main_menu, currency_icon, booster_icon, primary_button, popup_panel, ui_kit]
+
+kit:                  # OPTIONAL — switches ASSET: into UI-KIT SHEET sub-mode: ONE sheet with the whole
+                      #   component set drawn together in one generation, so every widget is mutually
+                      #   consistent by construction. Also triggered by text like "UI kit" / "component sheet".
+  components:         # list — which components to include. If omitted, use the default set (see §2 ui kit sheet).
+    type: list_string
+    examples: [button, toggle, slider, checkbox, progress_bar, panel, icon_set, text_samples]
 
 title:                # label/title shown on the asset (if any). Optional.
   type: string

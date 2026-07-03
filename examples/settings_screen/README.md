@@ -19,6 +19,8 @@ A real run of the chain `style_guide.yaml` + `asset_spec.yaml` + `layout_spec.ya
 | lighting (conf .73 ↓) | top / strong / soft_bottom | light_color.yaml → "soft directional light from top" + "strong highlights" + "soft contact shadow at bottom" |
 | effects | bevel | "soft beveled edges" |
 | button | depth medium / gloss high | render_shape.yaml |
+| typography (conf .80) | rounded_sans / bold / uppercase | ui_components.yaml → "bold rounded soft sans-serif, ALL-CAPS title, neutral ink" |
+| controls.toggle (conf .76) | pill / on=secondary / knob glossy | ui_components.yaml → "pill toggle track, green #42D70F when ON, round glossy knob" |
 | layout | large / low / mobile | layout_negative.yaml |
 | background (style) / background (asset) | transparent / popup | light_color.yaml + asset_spec → "soft dimmed popup background" |
 | aspect_ratio (asset_spec) | 9:16 | direct → opening line "Aspect ratio 9:16" |

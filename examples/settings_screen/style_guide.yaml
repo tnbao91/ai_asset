@@ -61,6 +61,20 @@ button:
   depth: medium
   gloss: high
 
+typography:                   # UI text/labels (the refs show the SETTINGS title + row labels)
+  font_feel: rounded_sans
+  weight: bold
+  case: uppercase             # the "SETTINGS" title reads all-caps
+  treatment: plain
+  color_role: neutral
+
+controls:                     # the refs show row toggles (no slider/checkbox/progress → omitted)
+  toggle:
+    track_shape: pill
+    on_color_role: secondary  # ON track = secondary green #42D70F
+    off_color_role: neutral
+    knob: circle_glossy
+
 background:                   # style-level: UI kit exported on a transparent background
   type: transparent
   color: []
@@ -73,3 +87,5 @@ confidence:
   rendering: 0.91
   material: 0.78
   lighting: 0.73
+  typography: 0.80
+  controls: 0.76

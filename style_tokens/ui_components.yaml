@@ -1,0 +1,108 @@
+# style_tokens/ui_components.yaml
+# Maps the OPTIONAL typography.* and controls.* enums (in style_guide) -> English phrases.
+# These anchor the UI widgets that were previously improvised per-generation (text, toggle, slider,
+# checkbox, progress) so every asset made from one style_guide keeps them consistent — the same way
+# material.button / material.container / material.icon already anchor button / panel / icon.
+# Each entry: phrase = text to drop into the prompt; notes = nuance.
+
+# ============ TYPOGRAPHY (UI text / labels) ============
+typography_font_feel:
+  rounded_sans:     { phrase: "rounded soft sans-serif letterforms with friendly even strokes" }
+  bold_display:     { phrase: "chunky bold display lettering with thick confident strokes" }
+  geometric_sans:   { phrase: "clean geometric sans-serif, precise and modern" }
+  handwritten:      { phrase: "playful hand-lettered / brush style with a casual bounce" }
+  serif_storybook:  { phrase: "soft storybook serif with gentle rounded serifs" }
+  pixel:            { phrase: "crisp pixel-font lettering aligned to the pixel grid" }
+
+typography_weight:
+  regular: { phrase: "regular weight" }
+  medium:  { phrase: "medium weight" }
+  bold:    { phrase: "bold weight" }
+  heavy:   { phrase: "heavy / black weight" }
+
+typography_case:
+  uppercase:     { phrase: "ALL-CAPS titles" }
+  title_case:    { phrase: "Title Case labels" }
+  sentence_case: { phrase: "sentence case labels" }
+
+typography_treatment:
+  plain:        { phrase: "clean flat text fill, no extra effect" }
+  outlined:     { phrase: "text with a clean matching outline (same outline treatment as the shapes)" }
+  drop_shadow:  { phrase: "text with a soft drop shadow for pop" }
+  inner_shadow: { phrase: "text with a subtle inner shadow / debossed feel" }
+  embossed:     { phrase: "embossed text with a soft baked bevel matching the surface finish" }
+  # notes: keep the treatment consistent with the surface finish (glossy panel -> glossy/embossed text).
+
+typography_color_role:
+  neutral:   { phrase: "text in the neutral ink color" }
+  primary:   { phrase: "text in the primary color" }
+  secondary: { phrase: "text in the secondary color" }
+  accent:    { phrase: "text in the accent color" }
+  # notes: name the palette role + hex, e.g. "neutral ink #333333" — hex is pinned by the ref at gen time.
+
+# ============ CONTROLS (toggle / slider / checkbox / progress) ============
+# Shared tip: every widget reuses the style_guide's material (button/container), outline and corner
+# language so it reads as part of the same UI kit as the buttons and panels — never a foreign style.
+control_toggle:
+  track_shape:
+    pill:         { phrase: "pill-shaped toggle track (fully rounded capsule)" }
+    rounded_rect: { phrase: "rounded-rectangle toggle track" }
+  on_color_role:
+    accent:    { phrase: "track filled with the accent color when ON" }
+    secondary: { phrase: "track filled with the secondary color when ON" }
+    primary:   { phrase: "track filled with the primary color when ON" }
+    danger:    { phrase: "track filled with the danger color when ON" }
+  off_color_role:
+    neutral:   { phrase: "neutral / desaturated track when OFF" }
+    secondary: { phrase: "muted secondary track when OFF" }
+  knob:
+    circle_glossy:    { phrase: "round glossy knob with a clean highlight" }
+    circle_matte:     { phrase: "round matte knob" }
+    circle_metallic:  { phrase: "round polished-metal knob" }
+  # notes: describe the ON state (knob to the right, lit track) unless the spec asks for OFF.
+
+control_slider:
+  track_shape:
+    pill:         { phrase: "pill-shaped slider track" }
+    thin_rounded: { phrase: "thin rounded slider track" }
+  fill_color_role:
+    accent:    { phrase: "filled portion in the accent color" }
+    primary:   { phrase: "filled portion in the primary color" }
+    secondary: { phrase: "filled portion in the secondary color" }
+  handle:
+    circle_glossy: { phrase: "round glossy draggable handle with a clean highlight" }
+    circle_matte:  { phrase: "round matte draggable handle" }
+    knob_3d:       { phrase: "chunky 3D knob handle with soft bevel" }
+
+control_checkbox:
+  shape:
+    rounded_square: { phrase: "rounded-square checkbox" }
+    circle:         { phrase: "circular checkbox" }
+  check_style:
+    tick: { phrase: "clean check-mark tick when selected" }
+    fill: { phrase: "solid color fill when selected" }
+    glow: { phrase: "soft glowing fill when selected" }
+
+control_progress_bar:
+  track_shape:
+    pill:         { phrase: "pill-shaped progress track" }
+    rounded_rect: { phrase: "rounded-rectangle progress track" }
+  fill_color_role:
+    accent:    { phrase: "progress fill in the accent color" }
+    primary:   { phrase: "progress fill in the primary color" }
+    secondary: { phrase: "progress fill in the secondary color" }
+
+# ============ UI-KIT SHEET (ASSET: sub-mode — the whole component set on ONE canvas) ============
+# Mirror of the character sheet: drawing every widget together in a single generation is the strongest
+# consistency device — they cannot drift apart because they share one render pass. 'consistent' is the
+# anti-drift anchor word, same as icon/character sheets.
+ui_kit_sheet:
+  phrase: "a single UI-kit reference sheet — arrange the whole component set neatly on one canvas, all drawn in ONE consistent style as a matching set, with even spacing and clear grouping. Use the SAME rendering, material, outline, lighting and palette on every element so they read as one exported game UI kit. Keep it consistent across all elements."
+  default_components: "a primary button shown in normal / pressed / disabled states, a pill toggle in both ON and OFF, a slider, a checkbox (checked and unchecked), a progress bar, a rounded panel / frame, a small set of matching icons, and a text sample (a title plus a label)"
+  # notes: describe each listed component via the control_* / typography_* phrases ONCE (shared), not re-styled per cell.
+  #   Background stays simple (transparent or a clean solid from the palette); skip any per-screen layout.
+
+_tips:
+  - "Widgets are STRUCTURAL conventions, not new materials — they inherit material.button / material.container, the outline, and the corner language from the style_guide."
+  - "State by palette role, not raw color: 'accent when ON' stays correct even after the user re-pins hex via UPDATE:."
+  - "Tab bars, dropdowns and input fields aren't separate enums — describe them with the same track + fill + handle logic reusing the panel/button material."

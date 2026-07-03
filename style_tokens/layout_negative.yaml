@@ -30,6 +30,15 @@ sheet:
     # Katya: use the word 'consistent' to keep the same object across multiple angles on one sheet
   aspect_ratio: { phrase: "aspect ratio <W:H>" }
 
+# Layout-reference lock — the OUTPUT-facing twin of character_identity_lock.
+# Emitted ONLY when a TARGET ref IMAGE is attached to ASSET: / BACKGROUND: / OBJECT:
+# (never for YAML/text specs). Mirrors identity lock: the clause must sit in the prose so the
+# downstream image generator — not just the primer LLM — reads "this image is layout only".
+layout_reference_lock:
+  phrase: "Use the attached image ONLY as a layout / composition reference — copy the arrangement, element positions, counts and proportions from it, but do NOT copy its colors, materials, lighting, textures, linework or art style. All visual styling follows the description above (the style guide)."
+  # Append this second sentence only if the user also attaches a separate style/color reference:
+  with_style_ref: "If a separate style / color reference image is also attached, take all styling from that one and use this layout image for structure only."
+
 # Context-setter to open the prompt (Katya: start with a clear command)
 context_starter:
   - "Generate / create a casual mobile game art asset, ..."
