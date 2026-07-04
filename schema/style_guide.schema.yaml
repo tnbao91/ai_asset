@@ -72,12 +72,12 @@ outline:
   color:
     enum: [darker_variant, black, white, none, complementary]
 
-effects:
-  bevel:             { type: bool }
-  ambient_occlusion: { type: bool }
-  bloom:             { type: bool }
-  inner_glow:        { type: bool }
-  gradient_overlay:  { type: bool }
+effects:             # each effect graded on the same none/soft/medium/strong scale as lighting.highlight; 'none' = effect absent (nothing emitted)
+  bevel:             { enum: [none, soft, medium, strong] }
+  ambient_occlusion: { enum: [none, soft, medium, strong] }
+  bloom:             { enum: [none, soft, medium, strong] }
+  inner_glow:        { enum: [none, soft, medium, strong] }
+  gradient_overlay:  { enum: [none, soft, medium, strong] }
 
 icon:               # conventions for icon-type assets
   perspective:
@@ -86,6 +86,8 @@ icon:               # conventions for icon-type assets
     enum: [tight, medium, generous]
   composition:
     enum: [centered, rule_of_thirds, diagonal]
+  saturation:       # icon color treatment — how saturated/tinted the icon glyph reads (independent of material.icon)
+    enum: [monochrome, low, normal, vivid]
 
 layout:             # screen layout conventions
   spacing:

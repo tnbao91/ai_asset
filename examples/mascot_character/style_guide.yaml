@@ -44,11 +44,11 @@ outline:
   color: darker_variant
 
 effects:
-  bevel: true
-  ambient_occlusion: false
-  bloom: false
-  inner_glow: false
-  gradient_overlay: false
+  bevel: medium
+  ambient_occlusion: none
+  bloom: none
+  inner_glow: none
+  gradient_overlay: none
 
 icon:
   perspective: front

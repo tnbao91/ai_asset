@@ -44,11 +44,11 @@ outline:
   color: none
 
 effects:
-  bevel: true
-  ambient_occlusion: true       # soft contact shadow where objects touch
-  bloom: false
-  inner_glow: false
-  gradient_overlay: true        # airbrushed smooth gradients
+  bevel: medium
+  ambient_occlusion: medium     # soft contact shadow where objects touch
+  bloom: none
+  inner_glow: none
+  gradient_overlay: medium      # airbrushed smooth gradients
 
 icon:
   perspective: three_quarter    # 3/4 tilt, a few items tilted diagonally

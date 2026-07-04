@@ -97,9 +97,30 @@ button_gloss:
   medium: { phrase: "moderate glossy highlight on the button face" }
   high:   { phrase: "high gloss, shiny wet-look button highlight" }
 
-effects:
-  bevel:             { phrase: "soft beveled edges" }
-  ambient_occlusion: { phrase: "soft contact shadows / ambient occlusion in crevices" }
-  bloom:             { phrase: "gentle bloom / soft glow halo on bright areas" }
-  inner_glow:        { phrase: "subtle inner glow" }
-  gradient_overlay:  { phrase: "smooth gradient overlay" }
+effects:             # graded on none/soft/medium/strong; 'none' emits nothing
+  bevel:
+    soft:   { phrase: "very subtle soft bevel on edges" }
+    medium: { phrase: "soft beveled edges" }
+    strong: { phrase: "pronounced chunky beveled edges" }
+  ambient_occlusion:
+    soft:   { phrase: "faint ambient occlusion in crevices" }
+    medium: { phrase: "soft contact shadows / ambient occlusion in crevices" }
+    strong: { phrase: "deep ambient occlusion, strong contact shadows in crevices" }
+  bloom:
+    soft:   { phrase: "faint bloom on bright areas" }
+    medium: { phrase: "gentle bloom / soft glow halo on bright areas" }
+    strong: { phrase: "strong bloom, bright glowing halo on highlights" }
+  inner_glow:
+    soft:   { phrase: "subtle inner glow" }
+    medium: { phrase: "soft inner glow along edges" }
+    strong: { phrase: "strong inner glow rim" }
+  gradient_overlay:
+    soft:   { phrase: "gentle gradient overlay" }
+    medium: { phrase: "smooth gradient overlay" }
+    strong: { phrase: "bold gradient overlay with clear tonal shift" }
+
+icon_saturation:     # icon color treatment (independent of icon material)
+  monochrome: { phrase: "near-monochrome icons, single-hue tint, low-chroma monochrome feel" }
+  low:        { phrase: "low-saturation, muted desaturated icon palette" }
+  normal:     { phrase: "natural, balanced icon saturation" }
+  vivid:      { phrase: "vivid, high-saturation punchy icon colors" }

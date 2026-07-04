@@ -126,10 +126,10 @@ lighting:
   shadow:   [none, soft_bottom, hard_bottom, drop_shadow, inner_shadow]
 outline:
   enabled: <bool>   thickness:[none, thin, medium, thick]   color:[darker_variant, black, white, none, complementary]
-effects:
-  bevel: <bool>   ambient_occlusion: <bool>   bloom: <bool>   inner_glow: <bool>   gradient_overlay: <bool>
+effects:            # each graded none/soft/medium/strong (same scale as lighting.highlight); 'none' = absent
+  bevel:[none, soft, medium, strong]   ambient_occlusion:[none, soft, medium, strong]   bloom:[none, soft, medium, strong]   inner_glow:[none, soft, medium, strong]   gradient_overlay:[none, soft, medium, strong]
 icon:
-  perspective:[front, three_quarter, top_down, isometric]   padding:[tight, medium, generous]   composition:[centered, rule_of_thirds, diagonal]
+  perspective:[front, three_quarter, top_down, isometric]   padding:[tight, medium, generous]   composition:[centered, rule_of_thirds, diagonal]   saturation:[monochrome, low, normal, vivid]   # icon color treatment (independent of material.icon)
 layout:
   spacing:[tight, medium, large]   density:[low, medium, high]   safe_area:[mobile, tablet, none]
 button:
@@ -258,13 +258,18 @@ SYNTHESIZER translates each enum in the style_guide into the phrase below. Key =
 - thickness thin/medium/thick → "thin / medium / bold thick outline"
 - color: darker_variant → "outline in a darker shade of the fill color" · black/white → "black / white outline" · complementary → "complementary-color outline"
 
-### effects (apply when true)
-- bevel → "soft beveled edges" · ambient_occlusion → "soft contact shadows / ambient occlusion in crevices" · bloom → "gentle bloom / soft glow halo on bright areas" · inner_glow → "subtle inner glow" · gradient_overlay → "smooth gradient overlay"
+### effects (graded none/soft/medium/strong — emit only when ≠ none)
+- bevel: soft → "very subtle soft bevel on edges" · medium → "soft beveled edges" · strong → "pronounced chunky beveled edges"
+- ambient_occlusion: soft → "faint ambient occlusion in crevices" · medium → "soft contact shadows / ambient occlusion in crevices" · strong → "deep ambient occlusion, strong contact shadows in crevices"
+- bloom: soft → "faint bloom on bright areas" · medium → "gentle bloom / soft glow halo on bright areas" · strong → "strong bloom, bright glowing halo on highlights"
+- inner_glow: soft → "subtle inner glow" · medium → "soft inner glow along edges" · strong → "strong inner glow rim"
+- gradient_overlay: soft → "gentle gradient overlay" · medium → "smooth gradient overlay" · strong → "bold gradient overlay with clear tonal shift"
 
-### icon.perspective / padding / composition
+### icon.perspective / padding / composition / saturation
 - perspective: front → "straight front view, eye-level" · three_quarter → "3/4 view angle" · top_down → "top-down view" · isometric → "isometric projection (classic 2.5D game view)"
 - padding: tight → "tight framing, minimal padding" · medium → "balanced padding around the subject" · generous → "generous padding, subject centered with breathing room (keep ~70% of surface clean)"
 - composition: centered → "subject centered in frame" · rule_of_thirds → "composed on rule-of-thirds" · diagonal → "playful diagonal tilt for tall items"
+- saturation: monochrome → "near-monochrome icons, single-hue tint, low-chroma monochrome feel" · low → "low-saturation, muted desaturated icon palette" · normal → "natural, balanced icon saturation" · vivid → "vivid, high-saturation punchy icon colors"
 
 ### button.depth / gloss
 - depth: flat → "flat button, no depth" · low → "subtle raised button depth" · medium → "clearly raised button with medium 3D depth" · high → "strongly extruded chunky button with bold depth"
@@ -404,7 +409,7 @@ Rules:
 **IMAGE-EDIT PATH NOTE (SHARED — applies to the pose-variation branch below, §5 EXTRACT and §6 UPSCALE; state it once in the OUTPUT):** these paths need an image-*editing* generator (gpt-image edit, Gemini "Nano Banana", img2img/inpaint) with the source/ref image attached — on a plain text→image generator the edit is impossible; say so and offer that path's stated fallback. Many image editors *regenerate the whole frame* rather than masking pixels, so they only **approximate** the lock/cutout/enlarge and can drift — keep the ref attached and verify the result with `CHECK`.
 
 **Prompt order per asset class:**
-- **UI — `ASSET:`** (screens/icons/buttons/panels): (1) Context starter + subject + asset type → (2) Canvas: aspect ratio + safe area (single icons: also icon.perspective / padding / composition) → (3) Rendering + shape + mood → (4) Materials per surface (buttons also get button.depth / gloss) → (5) UI components: control widgets via §2 (toggle/slider/checkbox/progress — ONLY those the asset contains; a single widget asset like `ASSET: a toggle` gets the full widget description here) + typography for title/labels **on screens** (single assets stay text-free — see rule 10) → (6) Lighting + outline + effects → (7) Palette + hex → (8) Background → (9) Layout (screens only — skip for single assets; icon sets → use the sheet phrase) → (10) layout-reference lock (ONLY when a TARGET ref image is attached — §2) → (11) "Avoid: …".
+- **UI — `ASSET:`** (screens/icons/buttons/panels): (1) Context starter + subject + asset type → (2) Canvas: aspect ratio + safe area (single icons / icon sets: also icon.perspective / padding / composition / saturation) → (3) Rendering + shape + mood → (4) Materials per surface (buttons also get button.depth / gloss) → (5) UI components: control widgets via §2 (toggle/slider/checkbox/progress — ONLY those the asset contains; a single widget asset like `ASSET: a toggle` gets the full widget description here) + typography for title/labels **on screens** (single assets stay text-free — see rule 10) → (6) Lighting + outline + effects → (7) Palette + hex → (8) Background → (9) Layout (screens only — skip for single assets; icon sets → use the sheet phrase) → (10) layout-reference lock (ONLY when a TARGET ref image is attached — §2) → (11) "Avoid: …".
   **UI-KIT sheet sub-mode** (`asset_spec.kit` / `type: ui_kit`, or asked in text like "a UI kit / component sheet"): keep the same order but make the **subject** (step 1) the §2 ui-kit-sheet phrase and draw the whole set on ONE canvas in one pass — this is the strongest consistency guarantee (widgets can't drift when rendered together). At step (5) describe each requested component (or the default set) via the §2 controls / typography phrases **once, shared** — not re-styled per cell — and add "consistent" as the anchor word. Skip the per-screen layout (step 9); keep the background simple (transparent or a clean solid from the palette). A UI-kit sheet **is UI** (buttons, panels, text, chrome), so **skip the non-screen tail entirely — same as a screen** (rule 6); appending "no text / no UI overlays / no interface chrome" would contradict the subject.
 - **Background — `BACKGROUND:`**: (1) Context starter + setting + usage ("a level background for…") → (2) Canvas: aspect ratio (+ "seamlessly tileable horizontally" if tileable) → (3) Rendering + material.environment → (4) Depth: environment.depth phrase + the depth_layers far→near + camera (isometric tile maps → the tile_grid phrase + ALSO add the perspective_distortion negative) → (5) Lighting + atmosphere + mood (+ outline if the style_guide enables it; scene-level brightness/contrast is the main mood lever) → (6) Palette + hex (+ time_of_day color bias) → (7) Focal point / clear zone → (8) layout-reference lock (ONLY when a TARGET ref image is attached — §2) → (9) "Avoid: …" (+ background tail; skip layout and all UI materials).
 - **Character — `CHARACTER:`** (new character — no CHARACTER ref): (1) Context starter + name/archetype + physique + outfit → (2) Canvas: aspect ratio + framing (default full_body: "show the full body clearly from head to feet"; medium = head-to-waist; close_up = face/bust) → (3) character.proportions + feature_exaggeration → (4) Pose + expression (add a subtle natural head/shoulder tilt to avoid stiffness) → (5) Rendering + material.character + shape language + mood + camera → (6) Lighting + outline + effects → (7) Palette + hex per palette_role → (8) Background: transparent (default) / studio = "clean solid bright-color or gradient studio backdrop, hex from the palette" / scene → (9) "Avoid: …" (+ character tail — or the simplified tail INSTEAD when `feature_exaggeration: high`).
