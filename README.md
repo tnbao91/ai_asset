@@ -1,5 +1,7 @@
 # ai_asset — AI pipeline for 2D mobile-game assets
 
+<img src="demo/thumbnail.png" alt="ai_asset — one reference screenshot in, a whole on-style asset set out" width="100%">
+
 Turn **reference images** into a structured **style guide**, then into a ready-to-use **image prompt** for producing on-style 2D assets — **UI/UX** (screens, icons, buttons, panels), **backgrounds**, **characters**, and **objects/props**. **Generator-neutral** — which image generator you use for the prompt (gpt-image / Gemini "Nano Banana" / Midjourney…) is entirely up to you.
 
 > **How to use:** paste **[`studio_primer.md`](studio_primer.md)** as the first message of a fresh chat with any vision-capable LLM (a regular ChatGPT account is enough), attach your reference images, then type `STYLE` and `ASSET:` to get a style guide and prompt right in the chat. Full step-by-step below.
@@ -119,7 +121,7 @@ schema/              ← SOURCE: field + enum definitions (the primer is built f
                            (optional structured descriptions for backgrounds / characters / objects)
 style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (built into the primer; seeded from the PDFs)
   materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml  ui_components.yaml
-demo/                ← the showcase above: 3 real runs (input STYLE ref + generated outputs)
+demo/                ← the showcase above: 4 real runs (input STYLE ref + generated outputs)
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
 examples/
   settings_screen/   ← sample output (style_guide.yaml + prompt)
