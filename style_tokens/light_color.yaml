@@ -53,6 +53,18 @@ _color_tips:
   - "You can pin an exact color with hex, e.g. 'warm key light, hex #FFF9E6'."
   - "Solid background: 'clean and solid background'. Gradient: 'clean gradient background from <A> to <B>'."
 
+# ============ COLOR LOCK (style_guide.color_map -> per-surface hex emission) ============
+# The strongest text-side color-fidelity device: hex attached to the NAMED surface at the moment that
+# surface is described beats a detached palette list at the end of the prompt. Pairs with the strict
+# CHECK palette comparison; hex values are eyedropper-verified via UPDATE:.
+color_lock:
+  contract: "Color fidelity is critical: use EXACTLY the hex values stated for each surface — do not shift hue, saturation or brightness, and do not introduce any color that is not listed."
+  per_surface_rule: "state each color_map hex INLINE with its surface as that surface is described (e.g. 'the PLAY button fill is exactly #6CC24A with a #FFC93C rim', 'the sky background is exactly #56AEED') — never as a detached color list at the end of the prompt"
+  scope_note_rule: "carry each entry's scope note into the prompt as a restriction (e.g. 'the gold trim belongs to the positive button ONLY — blue buttons keep a thin darker-blue outline')"
+  negatives: "no invented accent colors, no color drift or hue shift, no oversaturation, no extra trim or border colors beyond those specified"
+  # notes: emit the contract sentence ONCE, right before the first per-surface hex. Surfaces absent from
+  #   color_map fall back to palette role + hex (§4 rule 4). Applies to ALL four generate branches.
+
 # background (style_guide.background.type) -> background phrase. Color comes from background.color (hex).
 background:
   solid:       { phrase: "clean solid background color" }            # + state hex, e.g. "solid #314C88 background"

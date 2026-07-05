@@ -15,7 +15,7 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
 3. Attach your **STYLE references** (images whose art style you want to learn) and type `STYLE` → you get a `style_guide.yaml`.
 4. Review it (fix hex colors with an eyedropper; confirm low-confidence fields) and send the fixes back with `UPDATE:`.
 5. Type `ASSET: <description>` → you get a finished image prompt.
-6. Take the prompt to the image generator of your choice (attach the STYLE reference there for color consistency).
+6. Take the prompt to the image generator of your choice. Bring the result back and type `CHECK` — copy its consolidated `TWEAK:` line to fix any drift.
 
 ---
 
@@ -29,8 +29,6 @@ schema/              ← SOURCE: field + enum definitions (the primer is built f
   asset_spec.schema.yaml   layout_spec.schema.yaml   (optional structured asset description — UI)
   background_spec.schema.yaml  character_spec.schema.yaml  object_spec.schema.yaml
                            (optional structured descriptions for backgrounds / characters / objects)
-  extract_spec.schema.yaml (optional structured input for EXTRACT — cutting an item out of an image)
-  upscale_spec.schema.yaml (optional structured input for UPSCALE — enlarging a generated asset)
 style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (built into the primer; seeded from the PDFs)
   materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
@@ -52,19 +50,18 @@ STYLE ref ──► [ STYLE ] ──► style_guide.yaml (enums)  ─┐
    asset (text | TARGET ref | empty→AI-suggested) ─────┴─► [ ASSET | CHARACTER | BACKGROUND | OBJECT ] ──► prompt (generator of your choice)
 
 CHARACTER ref ──► [ CHARACTER ] ──► pose-variation prompt (image-edit; identity locked, only the pose changes)
-
-SOURCE ref ──► [ EXTRACT ] ──► cutout prompt  (isolate an existing item onto a transparent background, art kept as-is)
-SOURCE ref ──► [ UPSCALE ] ──► upscale prompt (enlarge + sharpen a generated asset, art kept as-is; image-edit path)
 ```
 
-- **Four roles of a reference image:** a *STYLE ref* (how it looks → `style_guide`), a *TARGET ref* (what to make / its layout → asset, then restyled), a *SOURCE ref* (the art itself → `EXTRACT` cuts an existing item out / `UPSCALE` enlarges it, both keeping its original pixels), and a *CHARACTER ref* (a character you already generated → `CHARACTER:` makes a pose variation of the same character, identity locked).
+- **Everything is drawn fresh.** Every asset comes out of the SYNTHESIZER: the prompt carries the whole style (from the `style_guide`, with your eyedropper-verified hex). The toolkit has no extract/upscale path — a generative model can't keep source pixels; when you need a matching component set, generate a **UI-KIT sheet** instead.
+- **The STYLE ref is attached once — with `STYLE`.** After that the style_guide in context carries the style; you don't re-attach the reference on later commands. That keeps the attachment slot free for what it's really for: a *TARGET ref* (the layout to copy) on `ASSET:`/`BACKGROUND:`/`OBJECT:`, a *CHARACTER ref* on `CHARACTER:`, or the generated result on `CHECK`.
+- **Three roles of a reference image:** a *STYLE ref* (how it looks → `style_guide`, attached only with `STYLE`), a *TARGET ref* (what to make / its layout → asset, then restyled), and a *CHARACTER ref* (a character you already generated → `CHARACTER:` makes a pose variation of the same character, identity locked).
 - **Source of truth:** if you change `schema/` or `style_tokens/`, the primer must be **rebuilt** from them (don't hand-edit the same content in two places).
 
 ---
 
 ## Command reference
 
-**Reference roles:** STYLE = *how it looks* · TARGET = *what to make / layout* · CHARACTER = *who it is* · SOURCE = *an existing image to process*.
+**Reference roles:** STYLE = *how it looks* · TARGET = *what to make / layout* · CHARACTER = *who it is*.
 
 | Command | Attach | You get | Notes |
 |---|---|---|---|
@@ -74,13 +71,11 @@ SOURCE ref ──► [ UPSCALE ] ──► upscale prompt (enlarge + sharpen a g
 | `CHARACTER: <description>` | — / CHARACTER ref | one **character** prompt | + CHARACTER ref → **pose variation** (image-edit; face/outfit/colors locked). Sub-mode: character sheet. |
 | `BACKGROUND: <description>` | — / TARGET ref | one **background/scene** prompt | Mirrors the scene when a ref is attached. |
 | `OBJECT: <description>` | — / TARGET ref | one **object/prop** prompt | |
-| `EXTRACT: <item>` / `EXTRACT: ui` | SOURCE ref | cutout prompt → **transparent background** | Empty → treat the whole image as a sprite sheet and cut each item. `EXTRACT: ui` (or "for unity/engine") → **UI teardown** (best-effort / approximate, not pixel-exact): every icon + EMPTY buttons/panels (9-slice hinted) + background, for game-engine import. **Bypasses the style guide.** |
-| `UPSCALE` / `UPSCALE: 2x` | SOURCE ref | resolution + sharpness prompt | No restyle. **Bypasses the style guide.** For best quality prefer a dedicated super-resolution tool. |
-| `CHECK` | the image you generated | conformance report + ready-made `TWEAK` lines | Compares the image back against the style guide. |
+| `CHECK` | the image you generated | conformance report + per-fix `TWEAK` lines + **one consolidated `TWEAK`** | Compares the image back against the style guide — extra-strict on palette hex and UI edge sharpness. Copy the consolidated `TWEAK:` to fix everything in one go. |
 | `REGEN` | — | the last prompt, regenerated | |
 | `TWEAK <change>` | — | the adjusted prompt | e.g. "bolder", "add currency". |
 
-- **Needs an image-*editing* generator:** pose variation, `EXTRACT`, `UPSCALE`.
+- **Needs an image-*editing* generator:** only the pose variation (`CHARACTER:` + CHARACTER ref).
 - **Uses the style guide + dictionary:** the four SYNTHESIZER branches — `ASSET` / `CHARACTER` / `BACKGROUND` / `OBJECT`.
 - **Typical flow:** `STYLE` → fix hex with `UPDATE:` → `ASSET/CHARACTER/…` for a prompt → generate elsewhere → `CHECK` → copy a `TWEAK:` → `REGEN`.
 
@@ -132,6 +127,7 @@ confidence:
 2. **Fix hex values with an eyedropper** (the model only *guesses* colors):
    - Open the reference in Figma / Photoshop, or use the macOS "Digital Color Meter" / any pipette tool.
    - Pick the 3–5 main colors (primary, accent…) and read their `#RRGGBB`.
+   - When the refs show UI, the guide also fills a per-surface **`color_map`** (the **COLOR LOCK**: background, panel, overlay scrim, each button variant, tabs, toggle/slider/checkbox/progress widgets, text inks, icon colors, currency, banner, notification badge, outline ink, shadow tint, glow…) — eyedropper-verify those the same way; the more surfaces you pin, the closer generations stay to the ref. Every prompt then states each hex **inline with its surface** ("the PLAY button fill is exactly #6CC24A") plus a color-fidelity contract and anti-drift negatives.
 3. **Send the corrections with `UPDATE:`**, for example:
    ```
    UPDATE: palette.primary = #0D6DB8, palette.accent = #FFD34A,
@@ -196,8 +192,8 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 ### S5. Generate the image (outside this toolkit — your choice of generator)
 1. Copy the prompt.
 2. Open the image generator **of your choice** (gpt-image in ChatGPT, Gemini "Nano Banana", Midjourney…).
-3. **Attach the STYLE reference again** + paste the prompt → generate. *(Attaching the reference is the main way to keep color/feel consistent — more reliable than text alone.)*
-4. Not happy? Go back to the chat and type `TWEAK <change>` or `REGEN` for a new prompt — or attach the generated image and type `CHECK` for a per-dimension conformance report with ready-made `TWEAK` lines.
+3. Paste the prompt → generate. Attach an image only if the prompt uses one (a TARGET layout ref or a CHARACTER ref) — the style itself already rides in the prompt via the verified hex, no need to re-attach the STYLE reference.
+4. Not happy? Attach the generated image back in the primer chat and type `CHECK` — you get a per-dimension conformance report (strict on colors and edge sharpness) plus **one consolidated `TWEAK:` line**; copy it, `REGEN`, and generate again.
 
 ### S6. Many assets & many games
 - **Same game:** keep typing `ASSET:` / `CHARACTER:` / `BACKGROUND:` / `OBJECT:` in the **same chat** — the style guide stays in context, so all assets stay on-style.
@@ -207,15 +203,15 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 
 ## Tips & troubleshooting
 
-- **Assets drift in style across images:** attach the same STYLE reference every time you generate; keep the style sentences identical across prompts; generate in small batches. (Cross-asset consistency is a common weakness of today's generators.)
-- **Pull an existing icon out of a screenshot or sprite sheet:** attach it as a **SOURCE ref** and use `EXTRACT` — `EXTRACT: the gold coin, top-right` for one item, or just `EXTRACT` to inventory & cut every item in a sheet. It keeps the original art (a cutout), it does not restyle — and it needs an image-*editing* generator (gpt-image edit / Nano Banana / inpaint), not plain text→image.
-- **Make a generated asset bigger / sharper:** for best quality reach for a dedicated **super-resolution tool** (Topaz Gigapixel, Real-ESRGAN, Upscayl) or your generator's own upscale button — those take **no prompt** at all. Only if you're staying on an image-*editing* generator (gpt-image edit / Nano Banana / img2img), attach it as a **SOURCE ref** and use `UPSCALE` (or `UPSCALE: 4x`) — it produces an enlarge-and-sharpen prompt that keeps the original art (no restyle).
+- **Assets drift in style across images:** keep the style sentences identical across prompts (they all come from the same style_guide — don't hand-edit them per prompt), generate in small batches, and run the first asset of each type through `CHECK`. (Cross-asset consistency is a common weakness of today's generators.)
+- **Need pieces from an existing screenshot (icons, empty buttons, a sprite sheet)?** Don't ask a generative model to "cut them out" — it re-renders instead of copying pixels, so the result comes out mushy. Generate the pieces **fresh** instead: a **UI-KIT sheet** for the widget set, `ASSET:` for individual icons. For a true pixel-exact cut, use a real tool (Photoshop "Select Subject", remove.bg, or engine-side slicing).
+- **Make a generated asset bigger / sharper:** use a dedicated **super-resolution tool** (Topaz Gigapixel, Real-ESRGAN, Upscayl) or your generator's own upscale button — those take **no prompt** at all and beat any prompt-based enlarge.
 - **Icons that must really match each other:** generate them as ONE **asset sheet** instead of separate images — `ASSET: an asset sheet of 6 booster icons, 3 columns x 2 rows, consistent items` (the word *consistent* is what holds one style across cells) — then slice it. Strongest anti-drift trick.
 - **Same character in a new pose:** attach the already-generated character as a **CHARACTER ref** and send `CHARACTER: pose variation — <new pose>` — you get an image-*edit* prompt that locks the identity (face, outfit, colors) and changes only the pose. Needs an image-*editing* generator (gpt-image edit / Nano Banana / img2img) with the character image attached; plain text→image will drift.
 - **A whole emotion set or turnaround of one character:** ask for a same-character sheet — `CHARACTER: expression sheet 3x3 — happy, shocked, angry, sad, confident, thinking…` or `CHARACTER: turnaround sheet (front, 3/4, side, back)`. Like icon sheets, the word *consistent* holds the identity across cells; slice afterwards.
 - **Characters/backgrounds come out styleless:** the style_guide's `character` / `environment` blocks are optional — the analyzer only fills them when your STYLE refs actually contain characters or scenes. If yours were UI-only, run `STYLE` again with character/scene refs from the same game, or set the fields by hand with `UPDATE:`.
 - **Control the output ratio:** set `aspect_ratio` in the spec (`"1:1"` icon, `"9:16"` portrait screen, `"16:9"` background…) or just say it in the command line; if you don't, the AI picks a default per asset type and tags it `[AI-suggested]`.
-- **Colors come out wrong vs. the reference:** almost always because the model guessed the hex — the **eyedropper** step (S3) is mandatory, and attach the reference when generating.
+- **Colors come out wrong vs. the reference:** almost always because the model guessed the hex — the **eyedropper** step (S3) is mandatory, and the more `color_map` surfaces you pin, the tighter the lock. After generating, `CHECK` compares every palette role AND every color_map surface strictly (expected vs observed hex) and hands you the corrective `TWEAK:`. For the last few percent of exactness, a 2-minute color-grade pass in an image editor beats any prompt.
 - **The LLM emits odd/invalid style_guide values:** remind it to "use only the enums in §1 of the primer." If the primer scrolled out of context, paste it again.
 - **Prompt too long/short:** ~150–250 words for a single icon/asset; ~300–400 for a screen with layout. Type `TWEAK: make it tighter` if it's bloated.
 - **Want to follow a specific screen's layout:** use option (b) in S4 — attach a TARGET ref.
@@ -227,16 +223,16 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 
 The prompt text alone only gets you *close* — the style is really held by three habits:
 
-1. **Pin the guide before mass-producing.** Run `STYLE`, eyedropper-fix the hex values via `UPDATE:` (S3), and only then start generating batches. Every prompt after that inherits the pinned values.
-2. **Always attach the STYLE ref image together with the prompt.** On **gpt-image (ChatGPT)** add the reference image(s) to the same message as the prompt; on **Gemini ("Nano Banana" / Banana Pro)** attach the ref(s) as image input alongside the text. Both follow an attached reference far more faithfully than hex codes in text — this is the single biggest on-style lever.
-3. **First asset of each new type → `CHECK`.** Generate it, attach the result back in the primer chat, send `CHECK`, apply its ready-made `TWEAK:` lines, regenerate. Once the first screen / first icon / first character passes, later assets of that type drift much less — or lock the look up front with a **UI-KIT sheet** (widgets) / **character sheet** (identity) and generate individual assets against it.
+1. **Pin the guide before mass-producing.** Run `STYLE`, eyedropper-fix the hex values — palette roles AND the per-surface `color_map` (COLOR LOCK) — via `UPDATE:` (S3), and only then start generating batches. Every prompt after that inherits the pinned values, stated inline with each surface.
+2. **Let the style_guide do the carrying.** Every prompt embeds the full style (verified hex + the same §2 phrases), so you don't re-attach the STYLE reference when generating — keep the attachment slot for a TARGET layout ref or CHARACTER ref when the command needs one. Generate assets of one type in the same session/chat where possible so the generator keeps its own visual context.
+3. **First asset of each new type → `CHECK`.** Generate it, attach the result back in the primer chat, send `CHECK` — it compares strictly (palette hex per role, UI edge sharpness) and prints **one consolidated `TWEAK:`**; copy that line, regenerate. Once the first screen / first icon / first character passes, later assets of that type drift much less — or lock the look up front with a **UI-KIT sheet** (widgets) / **character sheet** (identity) and generate individual assets against it.
 
 ---
 
 ## Expectations & limits
 
-1. **Always attach the STYLE reference when generating.** `style_guide.yaml` is a *style contract* + prompt seed, **not** the sole consistency mechanism. The attached reference is what keeps colors/feel accurate.
-2. **Cross-asset consistency is a common weakness of today's generators.** One reference set used for a settings screen, a currency icon, and a button may still drift slightly. Reduce drift by keeping the style description identical, attaching the same reference, and generating in small batches.
+1. **The eyedropper step is what makes colors hold.** `style_guide.yaml` is a *style contract* + prompt seed — its pinned, human-verified hex values are the color mechanism, and `CHECK`'s strict palette comparison is the guard when a generation drifts.
+2. **Cross-asset consistency is a common weakness of today's generators.** One style guide used for a settings screen, a currency icon, and a button may still drift slightly. Reduce drift by keeping the style description identical, generating in small batches, and closing the loop with `CHECK` → consolidated `TWEAK:` → `REGEN`.
 3. **The prompt is descriptive prose** (suited to most modern generators), not weighted tags or `--flags`. Negatives go in an "Avoid: …" sentence. For Midjourney, convert to tags + `--sref` yourself.
 4. **Vision-guessed hex values are never exact** — the eyedropper step (S3) is required.
 

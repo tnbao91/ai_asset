@@ -43,6 +43,40 @@ palette:            # EACH role is a list of hex "#RRGGBB". Vision reports appro
   danger:    { type: list_hex }
   neutral:   { type: list_hex }
 
+color_map:          # OPTIONAL block — the COLOR LOCK: per-surface hex assignments, as detailed as the refs allow.
+  # Fill ONLY the surfaces the refs actually show (never guess); every value is an eyedropper-verifiable
+  # estimate like palette.*. Each entry is a hex list (fill first, then rim/outline/secondary hex if that
+  # surface has one) and MAY carry a short scope note after a '#' (e.g. button_trim: gold trim on the
+  # positive button ONLY). The SYNTHESIZER states these hex INLINE with each surface (§4) — this is the
+  # per-surface twin of palette.* (which stays the coarse role list).
+  # -- backdrop & containers --
+  background:       { type: list_hex }   # screen/scene backdrop — 1 hex solid or [from, to] gradient
+  panel:            { type: list_hex }   # container/popup fill [+ border hex]
+  overlay_scrim:    { type: list_hex }   # dim layer behind popups (often a deep tinted blue/purple, NOT plain black)
+  # -- buttons & navigation --
+  button_primary:   { type: list_hex }   # main CTA fill [+ rim hex]
+  button_secondary: { type: list_hex }   # secondary/nav button fill [+ rim hex]
+  button_positive:  { type: list_hex }   # confirm/claim/free button fill [+ rim hex]
+  button_danger:    { type: list_hex }   # destructive/cancel fill [+ rim hex]
+  button_trim:      { type: list_hex }   # shared trim/border color + scope note saying WHICH buttons carry it
+  tab:              { type: list_hex }   # tab bar: selected fill, then unselected fill (the classic drift spot)
+  # -- control widgets (hex twins of the `controls` block, which only stores color ROLES) --
+  toggle:           { type: list_hex }   # track ON, track OFF, knob
+  slider:           { type: list_hex }   # fill, track, handle
+  checkbox:         { type: list_hex }   # box fill, tick/check color
+  progress_fill:    { type: list_hex }   # progress-bar fill [+ track hex]
+  # -- text & icons --
+  text_title:       { type: list_hex }   # title fill [+ outline hex]
+  text_label:       { type: list_hex }   # body/label ink [+ outline hex]
+  icon_palette:     { type: list_hex }   # 2-4 dominant icon colors
+  currency:         { type: list_hex }   # one hex per currency type (coin gold, gem blue…)
+  # -- decor & accents --
+  banner:           { type: list_hex }   # ribbon/title banner fill [+ edge/shade hex]
+  badge_notification: { type: list_hex } # notification dot/badge fill [+ number ink]
+  outline_ink:      { type: list_hex }   # the actual outline color (complements outline.color enum)
+  shadow_tint:      { type: list_hex }   # drop/contact shadow tint (casual art shades in color, not gray-black)
+  glow_accent:      { type: list_hex }   # bloom/glow/sparkle tint
+
 material:           # perceived material of each surface type
   button:
     enum: [glossy_plastic, matte_plastic, soft_plastic, metallic, glass, wood, fabric, candy_jelly, painted]
@@ -163,6 +197,7 @@ negative:           # free list — attributes to AVOID when generating (go into
 confidence:         # confidence per dimension group (0.0..1.0). < 0.75 -> user reviews/overrides.
   shape:     { type: float_0_1 }
   palette:   { type: float_0_1 }
+  color_map: { type: float_0_1 }   # only when the color_map block is filled
   rendering: { type: float_0_1 }
   material:  { type: float_0_1 }
   lighting:  { type: float_0_1 }
