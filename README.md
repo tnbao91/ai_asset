@@ -19,17 +19,17 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
   </tr>
   <tr>
     <td><img src="demo/input_1.png" width="150" alt="STYLE ref — Victory screen"></td>
-    <td><img src="demo/main_1.png" width="150" alt="Generated home screen"></td>
     <td><img src="demo/ui-kit_1.png" width="150" alt="Generated UI-kit sheet"></td>
-    <td><img src="demo/object_1.jpeg" width="150" alt="Generated object/prop"></td>
+    <td><img src="demo/main_1.png" width="150" alt="Generated home screen"></td>
     <td><img src="demo/pose_variation_1.jpeg" width="150" alt="Generated pose variation"></td>
+    <td><img src="demo/object_1.jpeg" width="150" alt="Generated object/prop"></td>
   </tr>
   <tr>
     <td align="center"><sub>Victory screen ref</sub></td>
-    <td align="center"><sub><code>ASSET:</code> home screen</sub></td>
     <td align="center"><sub><code>ASSET:</code> UI-kit sheet</sub></td>
-    <td align="center"><sub><code>OBJECT:</code> prop</sub></td>
+    <td align="center"><sub><code>ASSET:</code> home screen</sub></td>
     <td align="center"><sub><code>CHARACTER:</code> pose variation</sub></td>
+    <td align="center"><sub><code>OBJECT:</code> prop</sub></td>
   </tr>
 </table>
 
@@ -42,19 +42,19 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
   </tr>
   <tr>
     <td><img src="demo/demo_2.png" width="130" alt="STYLE ref — chess puzzle screen"></td>
+    <td><img src="demo/ui-kit_2.png" width="130" alt="Generated UI-kit sheet"></td>
     <td><img src="demo/main_2.png" width="130" alt="Generated main screen"></td>
     <td><img src="demo/shop_2.png" width="130" alt="Generated shop screen"></td>
     <td><img src="demo/setting_2.png" width="130" alt="Generated settings screen"></td>
     <td><img src="demo/win_2.png" width="130" alt="Generated win screen"></td>
-    <td><img src="demo/ui-kit_2.png" width="130" alt="Generated UI-kit sheet"></td>
   </tr>
   <tr>
     <td align="center"><sub>in-game screenshot ref</sub></td>
+    <td align="center"><sub>UI-kit sheet</sub></td>
     <td align="center"><sub>main screen</sub></td>
     <td align="center"><sub>shop</sub></td>
     <td align="center"><sub>settings</sub></td>
     <td align="center"><sub>win screen</sub></td>
-    <td align="center"><sub>UI-kit sheet</sub></td>
   </tr>
 </table>
 
