@@ -10,7 +10,7 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
 
 ## Demo — one reference screenshot in, a whole on-style asset set out
 
-**Demo 1 — cartoon knight game.** Input: a single Victory screen used as the STYLE ref. Outputs below were generated from prompts produced by `STYLE` → `ASSET:` / `CHARACTER:` (pose variation) / `OBJECT:` / UI-kit sheet:
+**Demo 1 — cartoon knight game.** Input: a single Victory screen used as the STYLE ref. Outputs below were generated from prompts produced by `STYLE` → UI-kit sheet / `ASSET:` / `CHARACTER:` (pose variation) / `OBJECT:`:
 
 <table>
   <tr>
@@ -75,7 +75,7 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
   </tr>
 </table>
 
-**Demo 4 — retro 16-bit beat-'em-up.** Input: one SNES-era gameplay screenshot as the STYLE ref → a brand-new title screen and gameplay scene that keep the 16-bit pixel register, grungy industrial palette and chunky HUD language:
+**Demo 4 — retro 16-bit beat-'em-up.** Input: one SNES-era gameplay screenshot as the STYLE ref → a brand-new title screen, plus a gameplay scene prompted as a **night-time urban back alley** — both keeping the 16-bit pixel register, grungy industrial palette and chunky HUD language:
 
 <table>
   <tr>
@@ -90,7 +90,7 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
   <tr>
     <td align="center"><sub>gameplay screenshot ref</sub></td>
     <td align="center"><sub><code>ASSET:</code> title screen</sub></td>
-    <td align="center"><sub><code>ASSET:</code> gameplay scene</sub></td>
+    <td align="center"><sub><code>ASSET:</code> night-alley gameplay scene</sub></td>
   </tr>
 </table>
 
