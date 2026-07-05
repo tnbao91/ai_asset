@@ -8,6 +8,58 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
 
 ---
 
+## Demo — one reference screenshot in, a whole on-style asset set out
+
+**Demo 1 — cartoon knight game.** Input: a single Victory screen used as the STYLE ref. Outputs below were generated from prompts produced by `STYLE` → `ASSET:` / `OBJECT:` / `CHARACTER:` (pose variation) / UI-kit sheet:
+
+<table>
+  <tr>
+    <th>STYLE ref (input)</th>
+    <th colspan="4">Generated from the primer's prompts (output)</th>
+  </tr>
+  <tr>
+    <td><img src="demo/input_1.png" width="150" alt="STYLE ref — Victory screen"></td>
+    <td><img src="demo/main_1.png" width="150" alt="Generated home screen"></td>
+    <td><img src="demo/ui-kit_1.png" width="150" alt="Generated UI-kit sheet"></td>
+    <td><img src="demo/object_1.jpeg" width="150" alt="Generated object/prop"></td>
+    <td><img src="demo/pose_variation_1.jpeg" width="150" alt="Generated pose variation"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Victory screen ref</sub></td>
+    <td align="center"><sub><code>ASSET:</code> home screen</sub></td>
+    <td align="center"><sub><code>ASSET:</code> UI-kit sheet</sub></td>
+    <td align="center"><sub><code>OBJECT:</code> prop</sub></td>
+    <td align="center"><sub><code>CHARACTER:</code> pose variation</sub></td>
+  </tr>
+</table>
+
+**Demo 2 — minimalist chess puzzle app.** Input: one in-game screenshot as the STYLE ref — the whole screen set stays in its soft, muted style:
+
+<table>
+  <tr>
+    <th>STYLE ref (input)</th>
+    <th colspan="5">Generated from the primer's prompts (output)</th>
+  </tr>
+  <tr>
+    <td><img src="demo/demo_2.png" width="130" alt="STYLE ref — chess puzzle screen"></td>
+    <td><img src="demo/main_2.png" width="130" alt="Generated main screen"></td>
+    <td><img src="demo/shop_2.png" width="130" alt="Generated shop screen"></td>
+    <td><img src="demo/setting_2.png" width="130" alt="Generated settings screen"></td>
+    <td><img src="demo/win_2.png" width="130" alt="Generated win screen"></td>
+    <td><img src="demo/ui-kit_2.png" width="130" alt="Generated UI-kit sheet"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>in-game screenshot ref</sub></td>
+    <td align="center"><sub>main screen</sub></td>
+    <td align="center"><sub>shop</sub></td>
+    <td align="center"><sub>settings</sub></td>
+    <td align="center"><sub>win screen</sub></td>
+    <td align="center"><sub>UI-kit sheet</sub></td>
+  </tr>
+</table>
+
+---
+
 ## Quick start
 
 1. Open a fresh chat in a vision-capable LLM (ChatGPT, Claude, or Gemini).
@@ -31,6 +83,7 @@ schema/              ← SOURCE: field + enum definitions (the primer is built f
                            (optional structured descriptions for backgrounds / characters / objects)
 style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (built into the primer; seeded from the PDFs)
   materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml
+demo/                ← the showcase above: 2 real runs (input STYLE ref + generated outputs)
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
 examples/
   settings_screen/   ← sample output (style_guide.yaml + prompt)
@@ -237,6 +290,12 @@ The prompt text alone only gets you *close* — the style is really held by thre
 4. **Vision-guessed hex values are never exact** — the eyedropper step (S3) is required.
 
 A full sample output (style guide + prompt) for reference: [`examples/settings_screen/`](examples/settings_screen/).
+
+---
+
+## License
+
+[MIT](LICENSE) — free to use, copy, modify and redistribute. Provided **"as is"**, without warranty of any kind; the author is **not liable** for anything you do with this toolkit, including the images you generate with third-party services from its prompts.
 
 ---
 
