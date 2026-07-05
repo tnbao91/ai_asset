@@ -28,6 +28,6 @@ A real run of the chain `style_guide.yaml` + `asset_spec.yaml` + `layout_spec.ya
 
 > `material` (0.78) and `lighting` (0.73) have low confidence → phrased **softly** ("leaning toward...") in the prompt so you can steer.
 
-## OUTPUT — image prompt (paste straight into your generator of choice, with the STYLE ref attached)
+## OUTPUT — image prompt (paste straight into your generator of choice)
 
 See `prompt.txt`.

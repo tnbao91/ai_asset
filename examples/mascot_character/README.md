@@ -31,7 +31,7 @@ Files:
 | `camera` | three_quarter | "3/4 view" |
 | `lighting.*` | top / strong / soft_bottom | lighting sentence |
 | `outline.*` | true / medium / darker_variant | outline sentence |
-| `effects.bevel` | true | "soft beveled edges" |
+| `effects.bevel` | medium | "soft beveled edges" |
 | `palette` + spec `palette_role` | #0D6DB8 apron, #FFD34A details | palette sentence with hex |
 | spec `background` | transparent | "isolated on a transparent background" |
 | `negative` + tails | §2 NEGATIVE map | "Avoid: …" + character tail + non-screen tail + always tail |

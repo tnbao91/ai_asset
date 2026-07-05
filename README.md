@@ -82,7 +82,7 @@ schema/              ← SOURCE: field + enum definitions (the primer is built f
   background_spec.schema.yaml  character_spec.schema.yaml  object_spec.schema.yaml
                            (optional structured descriptions for backgrounds / characters / objects)
 style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (built into the primer; seeded from the PDFs)
-  materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml
+  materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml  ui_components.yaml
 demo/                ← the showcase above: 2 real runs (input STYLE ref + generated outputs)
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
 examples/
@@ -95,7 +95,7 @@ examples/
 
 ## How it works
 
-`studio_primer.md` is **the tool** — a self-contained mega-prompt **built from** `schema/` (valid enums) + `style_tokens/` (enum → phrase dictionary). It bundles two jobs into one chat:
+`studio_primer.md` is **the tool** — a self-contained mega-prompt **built from** `schema/` (valid enums) + `style_tokens/` (enum → phrase dictionary). It bundles three jobs into one chat — ANALYZER (`STYLE`), SYNTHESIZER (`ASSET`/`CHARACTER`/`BACKGROUND`/`OBJECT`) and CHECKER (`CHECK`):
 
 ```
 STYLE ref ──► [ STYLE ] ──► style_guide.yaml (enums)  ─┐

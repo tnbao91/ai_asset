@@ -37,7 +37,7 @@ palette_role:         # which style_guide palette roles dress the character (kee
 
 character_ref:        # path/attached image of the SAME character, already generated. Setting this switches to POSE VARIATION mode.
   type: image
-  note: "This is a CHARACTER ref (identity source) — a 4th reference role, distinct from STYLE/TARGET/SOURCE refs."
+  note: "This is a CHARACTER ref (identity source) — the 3rd reference role, distinct from STYLE/TARGET refs."
 
 framing:              # how much of the character is in frame. Optional — default full_body.
   enum: [full_body, medium, close_up]
