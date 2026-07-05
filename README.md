@@ -44,17 +44,34 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
     <td><img src="demo/demo_2.png" width="130" alt="STYLE ref — chess puzzle screen"></td>
     <td><img src="demo/ui-kit_2.png" width="130" alt="Generated UI-kit sheet"></td>
     <td><img src="demo/main_2.png" width="130" alt="Generated main screen"></td>
+    <td><img src="demo/win_2.png" width="130" alt="Generated win screen"></td>
     <td><img src="demo/shop_2.png" width="130" alt="Generated shop screen"></td>
     <td><img src="demo/setting_2.png" width="130" alt="Generated settings screen"></td>
-    <td><img src="demo/win_2.png" width="130" alt="Generated win screen"></td>
   </tr>
   <tr>
     <td align="center"><sub>in-game screenshot ref</sub></td>
     <td align="center"><sub>UI-kit sheet</sub></td>
     <td align="center"><sub>main screen</sub></td>
+    <td align="center"><sub>win screen</sub></td>
     <td align="center"><sub>shop</sub></td>
     <td align="center"><sub>settings</sub></td>
-    <td align="center"><sub>win screen</sub></td>
+  </tr>
+</table>
+
+**Demo 3 — pixel-art platformer background (`BACKGROUND:`).** Input: one pixel-art forest level as the STYLE ref → a brand-new desert/pyramid level background in the same pixel register, palette feel and cloud/terrain language:
+
+<table>
+  <tr>
+    <th>STYLE ref (input)</th>
+    <th>Generated (output)</th>
+  </tr>
+  <tr>
+    <td><img src="demo/demo_3.jpeg" width="330" alt="STYLE ref — pixel-art forest level"></td>
+    <td><img src="demo/background_3.png" width="330" alt="Generated desert level background"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>forest level ref</sub></td>
+    <td align="center"><sub><code>BACKGROUND:</code> desert ruins level</sub></td>
   </tr>
 </table>
 
@@ -83,7 +100,7 @@ schema/              ← SOURCE: field + enum definitions (the primer is built f
                            (optional structured descriptions for backgrounds / characters / objects)
 style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (built into the primer; seeded from the PDFs)
   materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml  ui_components.yaml
-demo/                ← the showcase above: 2 real runs (input STYLE ref + generated outputs)
+demo/                ← the showcase above: 3 real runs (input STYLE ref + generated outputs)
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
 examples/
   settings_screen/   ← sample output (style_guide.yaml + prompt)
