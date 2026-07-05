@@ -75,6 +75,25 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
   </tr>
 </table>
 
+**Demo 4 — retro 16-bit beat-'em-up.** Input: one SNES-era gameplay screenshot as the STYLE ref → a brand-new title screen and gameplay scene that keep the 16-bit pixel register, grungy industrial palette and chunky HUD language:
+
+<table>
+  <tr>
+    <th>STYLE ref (input)</th>
+    <th colspan="2">Generated from the primer's prompts (output)</th>
+  </tr>
+  <tr>
+    <td><img src="demo/demo_4.jpeg" width="220" alt="STYLE ref — 16-bit beat-'em-up screenshot"></td>
+    <td><img src="demo/main_4.png" width="220" alt="Generated title screen"></td>
+    <td><img src="demo/gameplay_4.jpeg" width="220" alt="Generated gameplay scene"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>gameplay screenshot ref</sub></td>
+    <td align="center"><sub><code>ASSET:</code> title screen</sub></td>
+    <td align="center"><sub><code>ASSET:</code> gameplay scene</sub></td>
+  </tr>
+</table>
+
 ---
 
 ## Quick start
