@@ -10,7 +10,7 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
 
 ## Demo — one reference screenshot in, a whole on-style asset set out
 
-**Demo 1 — cartoon knight game.** Input: a single Victory screen used as the STYLE ref. Outputs below were generated from prompts produced by `STYLE` → `ASSET:` / `OBJECT:` / `CHARACTER:` (pose variation) / UI-kit sheet:
+**Demo 1 — cartoon knight game.** Input: a single Victory screen used as the STYLE ref. Outputs below were generated from prompts produced by `STYLE` → `ASSET:` / `CHARACTER:` (pose variation) / `OBJECT:` / UI-kit sheet:
 
 <table>
   <tr>
