@@ -76,6 +76,10 @@ controls:                     # the refs show row toggles (no slider/checkbox/pr
     off_color_role: neutral
     knob: circle_glossy
 
+canvas:                       # read off the STYLE ref image: a portrait phone screenshot
+  orientation: portrait
+  aspect_ratio: "9:16"
+
 background:                   # style-level: UI kit exported on a transparent background
   type: transparent
   color: []

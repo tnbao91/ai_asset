@@ -2,6 +2,11 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.0.1] - 2026-07-07
+
+### Fixed
+- **Aspect ratio no longer hard-defaults to 9:16 portrait.** New `style_guide.canvas` block (orientation + "W:H" estimate) that the ANALYZER reads off the ref images themselves; §4 rule 5 now resolves aspect ratio by priority — explicit spec/request → TARGET ref's own canvas → `style_guide.canvas` → per-asset-type default only when all are absent. A landscape ref yields a landscape asset. CHECK compares canvas orientation/ratio for screens; the `# SELF-CHECK:` receipt gains an "aspect ratio sourced" item.
+
 ## [2.0.0] - 2026-07-07
 
 The style-neutral + compliance-gated engine. Driven by a real-run debug series (SHOP-screen ref on GPT-5.5): first removing a hidden "casual house style" bias, then hardening the primer against stochastic host-LLM non-compliance.

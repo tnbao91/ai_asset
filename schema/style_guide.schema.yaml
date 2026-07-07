@@ -187,6 +187,12 @@ environment:        # OPTIONAL block — scene/background style conventions. Fil
 camera:             # dominant viewing angle across the refs (phrases in style_tokens/layout_negative.yaml). Flat UI screens/mockups = orthographic; eye_level / close_up are for scenes & characters.
   enum: [orthographic, isometric, top_down, three_quarter, close_up, eye_level]
 
+canvas:             # dominant canvas of the STYLE refs — the ANALYZER reads it off the ref images themselves (never assume portrait)
+  orientation:      # from the ref's actual width vs height
+    enum: [portrait, landscape, square]
+  aspect_ratio:     # free "W:H" estimate of the ref canvas (e.g. "9:16", "16:9", "4:3", "1:1")
+    type: string
+
 background:           # asset background (solid/gradient). Optional — leave empty if the ref has a transparent background.
   type:
     enum: [solid, gradient, scene, transparent]

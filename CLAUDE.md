@@ -52,7 +52,7 @@ Toolkit releases are semver git tags + GitHub releases (independent of the `vers
 python3 -c "import yaml, glob; [yaml.safe_load(open(f)) for f in glob.glob('schema/*.yaml') + glob.glob('style_tokens/*.yaml') + glob.glob('examples/**/*.yaml', recursive=True)]"
 
 # primer contains the BUILD MANIFEST items (spot-check; full list in the primer header)
-for p in "version: 1.0" "asset sheet layout" "Always-append tail" "orthographic" "game art asset in {rendering-family} style" "chibi proportions" "identity lock" "layered_parallax" "size_class" "EXECUTION CHECKLIST" "IMAGE-EDIT PATH NOTE" "Coverage self-check" "UI-kit reference sheet" "color lock" "lighting.contrast" "realistic_painted" "Consistency check" "self-contained: NEVER" "duplicate feature entry points" "TOWARD the style_guide" "no additional UI elements" "OUTPUT GATE" "SELF-CHECK" "OUTPUT SKELETON" "FINAL CONTRACT REMINDER" "never free-form describe" "TOOLKIT v"; do grep -c "$p" studio_primer.md; done
+for p in "version: 1.0" "asset sheet layout" "Always-append tail" "orthographic" "game art asset in {rendering-family} style" "chibi proportions" "identity lock" "layered_parallax" "size_class" "EXECUTION CHECKLIST" "IMAGE-EDIT PATH NOTE" "Coverage self-check" "UI-kit reference sheet" "color lock" "lighting.contrast" "realistic_painted" "Consistency check" "self-contained: NEVER" "duplicate feature entry points" "TOWARD the style_guide" "no additional UI elements" "OUTPUT GATE" "SELF-CHECK" "OUTPUT SKELETON" "FINAL CONTRACT REMINDER" "never free-form describe" "TOOLKIT v" "never a blind 9:16"; do grep -c "$p" studio_primer.md; done
 ```
 
 ## doc/

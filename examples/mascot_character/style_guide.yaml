@@ -70,6 +70,10 @@ character:                    # OPTIONAL block — filled from character refs
 
 camera: three_quarter
 
+canvas:                       # read off the STYLE ref image: a portrait phone screenshot
+  orientation: portrait
+  aspect_ratio: "9:16"
+
 background:                   # style-level: assets exported on a transparent background
   type: transparent
   color: []
