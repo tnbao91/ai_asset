@@ -11,10 +11,10 @@ material_button:
     phrase: "matte plastic with a perfectly smooth non-reflective surface"
     notes: "Katya: 'smooth / soft / matte'"
   soft_plastic:
-    phrase: "soft tactile plastic with bouncy, chunky toy-like proportions"
+    phrase: "soft tactile plastic with a gentle matte-to-satin sheen"
     notes: "Katya: 'plastic / toy-like / vinyl toys' — gives a 3D, toy proportion"
   metallic:
-    phrase: "polished metallic surface with bright clean reflections, stylized not realistic"
+    phrase: "polished metallic surface with bright clean reflections"
   glass:
     phrase: "clear glossy glass with translucent depth and clean highlights"
   wood:
@@ -46,7 +46,7 @@ material_icon:
 
 material_currency:
   polished_gold:
-    phrase: "polished gold with rich precious sheen, high-value expensive look, clean bright reflections"
+    phrase: "polished gold with a rich precious sheen and clean bright reflections"
     notes: "Katya: 'Rich / Precious / expensive' palette"
   brushed_gold:
     phrase: "warm brushed gold with subtle soft highlights"

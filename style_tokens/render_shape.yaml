@@ -19,10 +19,14 @@ rendering:
     notes: "When rendering = pixel_art, also pull modifiers from the pixel_art group below (register/grid/outline/palette cap)."
   gradient_flat:
     phrase: "flat shapes with smooth airbrushed gradients (soft, blended transitions)"
+  realistic_painted:
+    phrase: "realistic painted rendering — natural light behavior, believable surface texture and weathering, painterly but grounded (not a photo)"
+  inked_comic:
+    phrase: "inked comic style — confident ink linework over flat or lightly shaded fills"
 
 shape_language:
   rounded:
-    phrase: "rounded, hand-rolled silhouettes with subtle asymmetry — soft, friendly forms"
+    phrase: "rounded, hand-rolled silhouettes with subtle asymmetry"
     notes: "Banana2 'Hand-Rolled silhouette': avoid sterile mathematical geometry"
   geometric:
     phrase: "clean geometric shapes with precise edges"
@@ -37,7 +41,7 @@ corner_radius:
   none:    { phrase: "sharp square corners" }
   small:   { phrase: "slightly rounded corners" }
   medium:  { phrase: "rounded corners" }
-  large:   { phrase: "large soft rounded corners, chunky and friendly" }
+  large:   { phrase: "large soft rounded corners" }
   pill:    { phrase: "fully pill-shaped rounded ends" }
 
 symmetry:
@@ -48,7 +52,7 @@ symmetry:
 # Form & proportions (Katya, Form & Proportions) — use when you need to push the inflated/chunky feel
 form_proportions:
   volumetric:  { phrase: "volumetric, inflated forms with stable 3D mass" }
-  chunky:      { phrase: "stubby, squat, chunky casual proportions, thick and compressed" }
+  chunky:      { phrase: "stubby, squat, chunky proportions, thick and compressed" }
   bouncy:      { phrase: "bouncy, plump, bumpy surface with soft puffiness" }
   beveled:     { phrase: "softened edges and beveled corner roundness" }
   wrinkled:    { phrase: "wrinkled / concave structural bends, dents and soft mesh folds" }
@@ -67,7 +71,7 @@ pixel_art:
   grid:            { phrase: "on a <W>x<H> pixel grid (e.g. 32x32 / 64x64), grid-aligned, pixel-perfect" }
   outline_px:      { phrase: "precise single-pixel borders on all features" }
   palette_cap:     { phrase: "reduce color complexity to 4-16 vibrant colors maximum" }
-  _note: "Small sprites must stay 'readable at small size'. Pair with the anti_aliasing negative (layout_negative.yaml). Skip CRT/scanline/glitch effects — off-scope for casual mobile."
+  _note: "Small sprites must stay 'readable at small size'. Pair with the anti_aliasing negative (layout_negative.yaml). CRT/scanline/glitch effects: include ONLY when the ref visibly shows them — then name them explicitly (e.g. 'subtle CRT scanline overlay'); otherwise skip."
 
 icon_perspective:
   front:        { phrase: "straight front view, eye-level" }

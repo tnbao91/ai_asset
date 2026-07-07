@@ -1,4 +1,5 @@
-Generate a casual mobile game art asset: a character mascot — Pip, a cheerful chef
+Generate a casual puzzle mobile game art asset in semi-painted style: a character
+mascot — Pip, a cheerful chef
 cat with a small round-bellied body, wearing a white chef hat and a tiny blue apron.
 Portrait 3:4 canvas — show the full body clearly from head to feet.
 
@@ -11,7 +12,7 @@ onto clean 3D-like shapes; soft hand-painted character surfaces with smooth bake
 shading — skin, hair and cloth share one clean painted treatment; rounded,
 hand-rolled silhouette with subtle asymmetry; cheerful, friendly mood; 3/4 view.
 
-Soft directional scene lighting from the top, strong bright highlights with crisp
+Directional scene lighting from the top, strong bright highlights with crisp
 specular pops, soft contact shadow at the bottom; clean even outline around shapes,
 medium thickness, in a darker shade of the fill color; soft beveled edges.
 

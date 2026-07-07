@@ -3,11 +3,18 @@
 # Source: "Casual Style Dictionary" (Light & Physics, Color Palette, Atmosphere & Vibe).
 
 lighting_direction:
-  top:       { phrase: "soft directional scene lighting from the top" }
-  top_left:  { phrase: "soft warm key light from the top-left" }
-  top_right: { phrase: "soft warm key light from the top-right" }
-  front:     { phrase: "soft frontal lighting, even and clean" }
-  ambient:   { phrase: "diffused ambient lighting, soft and even" }
+  top:       { phrase: "directional scene lighting from the top" }
+  top_left:  { phrase: "key light from the top-left" }
+  top_right: { phrase: "key light from the top-right" }
+  front:     { phrase: "frontal lighting, even" }
+  ambient:   { phrase: "diffused ambient lighting, even" }
+  side:      { phrase: "strong side key light raking across the forms" }
+  below:     { phrase: "underlight from below (uplighting)" }
+
+lighting_contrast:   # OPTIONAL style_guide.lighting.contrast — softness/hardness is a CHOICE, not a default
+  soft:   { phrase: "soft diffused light with gentle falloff" }
+  medium: { phrase: "moderate lighting contrast" }
+  hard:   { phrase: "hard high-contrast lighting — sharp-edged shadows, deep darks" }
 
 lighting_highlight:
   none:   { phrase: "no strong highlights" }
@@ -24,7 +31,7 @@ lighting_shadow:
 
 # Advanced lighting effects (Light & Physics) — add for a "juicy" look
 lighting_extra:
-  rim_light: { phrase: "soft bright rim light along the edges (Fresnel rim) for a juicy pop" }
+  rim_light: { phrase: "bright rim light along the edges (Fresnel rim)" }
     # Banana2: 'Rim & Reflex Light' bright blue bounce from bottom-right works very well
   bounce_fill: { phrase: "soft colored bounce light filling the shadows" }
   sss: { phrase: "subtle subsurface scattering — a soft translucent glow on candy / jelly / skin materials" }
@@ -81,6 +88,11 @@ mood:
   calm:      { phrase: "calm, cozy, safe atmosphere" }
   premium:   { phrase: "premium, satisfying, high-value feel" }
   energetic: { phrase: "energetic, punchy, dynamic" }
-  mysterious: { phrase: "whimsical, fairytale, slightly mysterious mood" }
+  mysterious: { phrase: "mysterious, enigmatic, shadowed intrigue" }
   cozy:      { phrase: "cozy, soft, safe" }
   bold:      { phrase: "bold, clickable, attention-grabbing" }
+  dark:      { phrase: "dark, somber register — deep shadows, muted low-key palette" }
+  grim:      { phrase: "grim, serious, unforgiving tone" }
+  tense:     { phrase: "tense, high-stakes, uneasy atmosphere" }
+  eerie:     { phrase: "eerie, ominous, unsettling undercurrent" }
+  melancholic: { phrase: "melancholic, wistful, quiet and subdued" }

@@ -3,7 +3,7 @@
 # This is NOT real data; it defines which fields are valid and which enum values are allowed.
 # The ANALYZER (see studio_primer.md §3) must emit a style_guide.yaml conforming to this schema.
 # Conventions:
-#   - Each field takes ONE enum; except: genre/mood = enum lists, palette.* = hex lists, negative = free list.
+#   - Each field takes ONE enum; except: genre/mood = enum lists, palette.*/color_map.*/background.color = hex lists, negative = free list. Everything else is NEVER a list — platform, rendering, camera included.
 #   - Most enums have a matching phrase in style_tokens/. A few descriptive enums (complexity, readability,
 #     and the 'none' values) are described directly in English by the synthesizer; a token is not required.
 #   - confidence: float 0.0..1.0. < 0.75 = needs human review/override.
@@ -12,13 +12,13 @@ version: 1.0
 
 project:
   genre:            # list — game genre
-    enum: [casual, puzzle, match3, hyper_casual, midcore, rpg, strategy, simulation]
-  platform:
+    enum: [casual, puzzle, match3, hyper_casual, midcore, rpg, strategy, simulation, action, adventure, horror]
+  platform:         # ONE value — not a list
     enum: [mobile, tablet, cross_platform]
 
 style:
   rendering:        # overall surface treatment
-    enum: [semi_painted, fully_painted, flat_vector, cel_shaded, 3d_render, pixel_art, gradient_flat]
+    enum: [semi_painted, fully_painted, flat_vector, cel_shaded, 3d_render, pixel_art, gradient_flat, realistic_painted, inked_comic]
   pixel_register:   # OPTIONAL — only when rendering = pixel_art: which era/register of pixel art
     enum: [8bit, 16bit, hi_bit]
   complexity:
@@ -26,7 +26,7 @@ style:
   readability:      # how legible/recognizable at small mobile sizes
     enum: [low, medium, high, very_high]
   mood:             # list — emotion/atmosphere
-    enum: [cheerful, friendly, playful, calm, premium, energetic, mysterious, cozy, bold]
+    enum: [cheerful, friendly, playful, calm, premium, energetic, mysterious, cozy, bold, dark, grim, tense, eerie, melancholic]
 
 shape:
   language:         # dominant form language
@@ -43,7 +43,8 @@ palette:            # EACH role is a list of hex "#RRGGBB". Vision reports appro
   danger:    { type: list_hex }
   neutral:   { type: list_hex }
 
-color_map:          # OPTIONAL block — the COLOR LOCK: per-surface hex assignments, as detailed as the refs allow.
+color_map:          # CONDITIONALLY REQUIRED block — the COLOR LOCK: per-surface hex assignments, as detailed as the refs allow.
+  # MUST be filled whenever the refs show UI (screens / buttons / panels / text); it may be omitted ONLY for refs with no UI.
   # Fill ONLY the surfaces the refs actually show (never guess); every value is an eyedropper-verifiable
   # estimate like palette.*. Each entry is a hex list (fill first, then rim/outline/secondary hex if that
   # surface has one) and MAY carry a short scope note after a '#' (e.g. button_trim: gold trim on the
@@ -74,7 +75,7 @@ color_map:          # OPTIONAL block — the COLOR LOCK: per-surface hex assignm
   banner:           { type: list_hex }   # ribbon/title banner fill [+ edge/shade hex]
   badge_notification: { type: list_hex } # notification dot/badge fill [+ number ink]
   outline_ink:      { type: list_hex }   # the actual outline color (complements outline.color enum)
-  shadow_tint:      { type: list_hex }   # drop/contact shadow tint (casual art shades in color, not gray-black)
+  shadow_tint:      { type: list_hex }   # drop/contact shadow tint (stylized art often shades in color rather than gray-black — but match the ref)
   glow_accent:      { type: list_hex }   # bloom/glow/sparkle tint
 
 material:           # perceived material of each surface type
@@ -87,13 +88,15 @@ material:           # perceived material of each surface type
   container:        # panel/popup/frame
     enum: [soft_plastic, wood, stone, parchment, glass, painted_card, metal_frame]
   character:        # OPTIONAL — character surface treatment (skin/hair/cloth share one treatment). Only when refs contain characters.
-    enum: [painted_soft, cel_flat, clay_3d, vinyl_toy, toon_3d, plush_felt, semi_real]
+    enum: [painted_soft, cel_flat, clay_3d, vinyl_toy, toon_3d, plush_felt, semi_real, realistic_painted]
   environment:      # OPTIONAL — scenery surface treatment. Only when refs contain scenes/backgrounds.
     enum: [painted_backdrop, flat_vector_scene, stylized_3d, watercolor_wash]
 
 lighting:
   direction:
-    enum: [top, top_left, top_right, front, ambient]
+    enum: [top, top_left, top_right, front, ambient, side, below]
+  contrast:         # OPTIONAL — fill only when the ref's light is notably soft or hard; omit = unremarkable contrast
+    enum: [soft, medium, hard]
   highlight:
     enum: [none, soft, medium, strong]
   shadow:
@@ -179,9 +182,9 @@ environment:        # OPTIONAL block — scene/background style conventions. Fil
   depth:
     enum: [flat_backdrop, two_layer, layered_parallax, full_scene]
   atmosphere:
-    enum: [clear, soft_haze, glow_dust, dramatic]
+    enum: [clear, soft_haze, glow_dust, dramatic, fog, gloom, storm]
 
-camera:             # dominant viewing angle across the refs (phrases in style_tokens/layout_negative.yaml)
+camera:             # dominant viewing angle across the refs (phrases in style_tokens/layout_negative.yaml). Flat UI screens/mockups = orthographic; eye_level / close_up are for scenes & characters.
   enum: [orthographic, isometric, top_down, three_quarter, close_up, eye_level]
 
 background:           # asset background (solid/gradient). Optional — leave empty if the ref has a transparent background.
@@ -190,9 +193,10 @@ background:           # asset background (solid/gradient). Optional — leave em
   color:              # 1..2 hex; for gradient use [from, to]
     type: list_hex
 
-negative:           # free list — attributes to AVOID when generating (go into the prompt's "Avoid:" part)
+negative:           # free list — attributes visibly ABSENT from / contradicting the refs (never a stock list; see §3 rule 5)
   type: list_free
-  examples: [realistic, metallic_realistic, dark_theme, sharp_corner, flat_design, thin_icon, gritty, noisy_texture, broken_anatomy, busy_background]
+  examples_cute_ref:   [realistic, gritty, noisy_texture, dark_theme, sharp_corner, thin_icon]
+  examples_gritty_ref: [cute, pastel_palette, toy_gloss, flat_design, bright_cheerful]
 
 confidence:         # confidence per dimension group (0.0..1.0). < 0.75 -> user reviews/overrides.
   shape:     { type: float_0_1 }

@@ -1,0 +1,33 @@
+# Changelog
+
+All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
+
+## [2.0.0] - 2026-07-07
+
+The style-neutral + compliance-gated engine. Driven by a real-run debug series (SHOP-screen ref on GPT-5.5): first removing a hidden "casual house style" bias, then hardening the primer against stochastic host-LLM non-compliance.
+
+### Changed
+- **Style-neutral engine**: the prompt opener is now SYNTHESIZED from the style_guide (`"Generate a {genre} {platform} game art asset in {rendering-family} style:"`) instead of the hard-coded "casual mobile game" phrase; token phrases express only their enum's meaning (cross-dimension adjectives like "soft/friendly/toy-like/stylized-not-realistic" removed from lighting, shape, metal, proportions phrases); `negative` is ref-derived, never a stock list — a dark/gritty ref bans cute/pastel instead of banning itself.
+- `style_guide.color_map` (COLOR LOCK) is now **CONDITIONALLY REQUIRED** — must be filled whenever the refs show UI.
+- §5 CHECK is **format-locked**: binary ok/off table (including an entry-points row) + per-fix `TWEAK:` lines + one consolidated `TWEAK:` — no scores, no essays; TWEAKs may only pull the image TOWARD the style_guide (no "art-director" suggestions).
+- §5 edge-sharpness judging is conditioned on the style contract (intentional brushwork/grain/pixel/CRT are not defects for styles that declare them).
+
+### Added
+- Enum coverage for non-casual styles: `style.mood` dark register (dark, grim, tense, eerie, melancholic), `style.rendering` realistic_painted / inked_comic, `material.character` realistic_painted, `lighting.direction` side / below, optional `lighting.contrast` (soft/medium/hard), `environment.atmosphere` fog / gloom / storm, `project.genre` action / adventure / horror; negative_map entries for dark styles (cute, pastel_palette, toy_gloss, bright_cheerful).
+- **§0.6 OUTPUT GATE**: every answer is drafted → verified against its §0.5 checklist row → revised until it passes → printed with a receipt line (`# CONSISTENCY:` for the analyzer, `# SELF-CHECK:` closing every synthesizer ASSUMPTIONS block, the fixed table for CHECK).
+- **OUTPUT SKELETON** opening §3/§4/§5 (the entire reply is exactly the defined blocks — no intro sentence, no invented sections) and a **FINAL CONTRACT REMINDER** closing the primer (recency anchor).
+- §3 Consistency check: list discipline (only genre/mood/palette/color_map/background.color/negative are lists), negative-vs-filled-field contradiction check, color_map requirement, confidence↔block pairing.
+- §4 rules 12–14: prompts are flowing prose and self-contained (never referencing "the style guide"); one entry point per feature per screen (deduped, checked again by CHECK); mandatory self-check receipt. §4 rule 6 contradiction guard skips negatives that contradict filled fields. Closed element lists (no "such as") + "no additional UI elements beyond those listed" tail.
+- §0 dispatch rule: an image with no command is never free-form described (no style_guide yet → run STYLE; otherwise ask which command it belongs to).
+- Camera hint: flat UI screens/mockups = orthographic.
+- `TOOLKIT vX.Y.Z` version marker in the primer header (Ctrl+F it in a chat to know which build is pasted).
+
+### Fixed
+- Analyzer self-sabotage: `dark_theme`/`realistic`/`gritty` no longer land in `negative` when the ref itself is dark/realistic/gritty.
+- Duplicate feature entry points (e.g. Shop in a floating button AND the bottom nav) in self-suggested screen layouts.
+- Detached end-of-prompt color lists — hex now stays inline per surface.
+- `platform` and other single-value fields emitted as lists.
+
+## [1.0.0] - 2026-06 (untagged)
+
+Initial draw-fresh toolkit: `studio_primer.md` bundled from `schema/` + `style_tokens/`; commands STYLE / UPDATE: / ASSET: / CHARACTER: / BACKGROUND: / OBJECT: / CHECK / REGEN / TWEAK; four generate branches, UI-kit & character sheets, pose-variation image-edit path, COLOR LOCK, EXECUTION CHECKLIST. (EXTRACT / UPSCALE / design-system board paths removed by design — draw-fresh only.)

@@ -8,12 +8,13 @@ material_character:
   clay_3d:      { phrase: "soft clay / figurine character, molded rounded volumes with gentle gloss" }
   vinyl_toy:    { phrase: "vinyl collectible-toy character finish, smooth glossy surfaces with clean seams" }
   toon_3d:
-    phrase: "smooth matte 3D toon render — soft stylized skin with subtle subsurface scattering, matte finish (no plastic shine), big expressive eyes"
+    phrase: "smooth matte 3D toon render — soft stylized skin with subtle subsurface scattering, matte finish (no plastic shine)"
     notes: "The Pixar/Disney-style look — the most common 3D character treatment in casual games ('Character Prompts Collection': smooth matte plastic skin + gentle SSS + porcelain skin)."
   plush_felt:
     phrase: "soft plush-toy character with fluffy fur strands / fuzzy felt fibers, a glossy nose and toy-like material"
     notes: "'Character Prompts Collection': realistic fluffy fur texture, felt / fuzzy texture skin, highly detailed fibers."
   semi_real:    { phrase: "semi-realistic stylized character rendering, painterly but grounded, still clean and readable" }
+  realistic_painted: { phrase: "grounded realistic-painted character rendering — natural anatomy of light and texture, weathered detail allowed, painterly but believable" }
 
 material_environment:
   painted_backdrop:  { phrase: "hand-painted scenic backdrop with soft blended brushwork, clean and readable at a glance" }
@@ -46,6 +47,9 @@ environment_atmosphere:
   soft_haze: { phrase: "soft atmospheric haze fading the far layers for depth" }
   glow_dust: { phrase: "gentle glowing dust and light particles floating in the air" }
   dramatic:  { phrase: "dramatic light shafts and stronger sky contrast" }
+  fog:       { phrase: "thick fog banks swallowing the far layers" }
+  gloom:     { phrase: "gloomy overcast murk, low ambient light" }
+  storm:     { phrase: "storm-darkened sky, heavy clouds and wind-driven atmosphere" }
 
 # Identity lock for POSE VARIATION mode (character_spec.character_ref set + image attached).
 # Used by SYNTHESIZER §4 as the opening of the image-EDIT prompt — the identity anchors stay frozen,

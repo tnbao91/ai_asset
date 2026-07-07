@@ -39,14 +39,39 @@ layout_reference_lock:
   # Append this second sentence only if the user also attaches a separate style/color reference:
   with_style_ref: "If a separate style / color reference image is also attached, take all styling from that one and use this layout image for structure only."
 
-# Context-setter to open the prompt (Katya: start with a clear command)
+# Context-setter to open the prompt (Katya: start with a clear command) — SYNTHESIZED from the
+# style_guide, never a hard-coded phrase (a fixed opener biases every prompt toward one aesthetic).
 context_starter:
-  - "Generate / create a casual mobile game art asset, ..."
-  - "Setting the game-asset context at the very start helps the model understand it is drawing a game asset, not an ordinary picture."
+  template: "Generate a {genre} {platform} game art asset in {rendering_family} style: ..."
+  genre: "project.genre list joined with spaces (e.g. 'casual puzzle', 'horror')"
+  platform: "mobile / tablet / cross-platform (project.platform)"
+  rendering_family:   # short family word per style.rendering
+    semi_painted: "semi-painted"
+    fully_painted: "hand-painted"
+    flat_vector: "flat vector"
+    cel_shaded: "cel-shaded"
+    3d_render: "stylized 3D"
+    pixel_art: "pixel-art"
+    gradient_flat: "gradient-flat"
+    realistic_painted: "realistic painted"
+    inked_comic: "inked comic"
+  notes: >
+    Naming the game-asset context at the very start helps the model understand it is drawing a
+    game asset, not an ordinary picture; deriving genre + rendering from the style_guide keeps
+    the opener from steering the style. Exception: the POSE VARIATION branch keeps its
+    identity-lock opener (it is an image-edit prompt, not a fresh generation).
 
 # ============ NEGATIVE / BLOCK LIST ============
 # style_guide.negative -> avoidance phrases. Common Katya blocks pre-bundled.
+# Selection is ref-derived (§3 rule 5): entries fire only when the keyword is in style_guide.negative —
+# a cute ref bans realistic/gritty; a dark gritty ref bans cute/pastel_palette/toy_gloss instead.
+# The SYNTHESIZER additionally skips any entry that contradicts a filled style_guide field
+# (§4 rule 6 contradiction guard — e.g. dark_theme is dropped when background.color is dark).
 negative_map:
+  cute:               "NO cute / kawaii styling, NO chibi proportions, NO toy-like mascots"
+  pastel_palette:     "NO pastel candy colors, NO sugary washed-out palette"
+  toy_gloss:          "NO glossy plastic toy sheen, NO airbrushed cartoon polish"
+  bright_cheerful:    "NO bright cheerful color pop, keep the register dark and muted"
   realistic:          "NO photorealism, NO realistic textures"
   metallic_realistic: "NO realistic metal, NO raytracing"
   dark_theme:         "NO dark theme, NO black background unless specified"
@@ -60,7 +85,9 @@ negative_map:
   perspective_distortion: "NO perspective distortion, NO vanishing points (keep strict isometry)"   # Katya: add to the negative to enhance isometry
   anti_aliasing:      "NO anti-aliasing, NO blur, NO modern post-processing — pure pixel art"       # pixel_art rendering only
 
-# Katya's standard block list (paste as-is to strip linework + dirt + noise):
+# Katya's standard block lists — SCOPED, not universal: katya_line_removal only for styles with no
+# linework; katya_general_negatives only for clean/cute-family styles (it bans photorealism, grit and
+# grain — do NOT paste it for painted / gritty / realistic / textured refs, it would erase their style):
 katya_line_removal: >
   NO lineart, NO outlines, NO ink, NO stroke, NO contour lines, NO vector lines,
   NO cel shading, NO drawn lines, NO black borders, NO sketch, NO comic style, NO anime, NO manga

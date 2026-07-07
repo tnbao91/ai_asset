@@ -1,4 +1,4 @@
-Generate a casual mobile game art asset: a Settings popup screen (UI panel) for a casual puzzle mobile game. Aspect ratio 9:16, composed within a mobile safe area with key elements away from the edges.
+Generate a casual puzzle mobile game art asset in semi-painted style: a Settings popup screen (UI panel). Aspect ratio 9:16, composed within a mobile safe area with key elements away from the edges.
 
 Overall render: semi-painted with a stylized baked texture look — soft hand-painted lighting baked onto clean, slightly 3D-looking shapes. Very high readability, low visual complexity, cheerful and friendly mood. Shape language is rounded with hand-rolled silhouettes, large soft rounded corners, and a clean symmetrical, well-balanced composition.
 
@@ -6,7 +6,7 @@ Surfaces and materials: the main popup container is a soft plastic panel with ro
 
 Text and controls (one consistent UI kit): the "SETTINGS" title and all row labels use bold, rounded soft sans-serif letterforms in the neutral ink color; the title is ALL-CAPS. Every on/off row uses the SAME toggle style — a pill-shaped track with a round glossy knob, the track filled with the secondary green #42D70F when ON and a neutral desaturated track when OFF (show the toggles ON). The Language selector is a small pill-shaped selector reusing the same glossy-plastic button material and outline so it matches the toggles and buttons.
 
-Lighting and effects: soft directional scene lighting from the top with strong bright highlights and a soft contact shadow at the bottom of each element; soft beveled edges; no ambient occlusion grit, no bloom. (Lighting direction is leaning top — a slight top-left key is acceptable.) A medium outline in a darker shade of each fill color separates shapes cleanly.
+Lighting and effects: directional scene lighting from the top with strong bright highlights and a soft contact shadow at the bottom of each element; soft beveled edges; no ambient occlusion grit, no bloom. (Lighting direction is leaning top — a slight top-left key is acceptable.) A medium outline in a darker shade of each fill color separates shapes cleanly.
 
 Color palette, clean and pure (no muddy mixed shades): primary blue #0D6DB8, secondary green #42D70F, accent yellow #FFD34A, danger red #FF4D4D, on white #FFFFFF surfaces.
 

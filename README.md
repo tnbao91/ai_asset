@@ -265,10 +265,11 @@ ASSET: a UI kit sheet — button, toggle, slider, checkbox, progress bar, panel,
 The LLM returns **one natural-language prompt**, plus an ASSUMPTIONS block if it invented anything:
 
 ```
-Generate a casual mobile game art asset: a gold coin currency icon, square 1:1
-canvas; semi-painted with a stylized baked texture look, rounded chunky
-silhouette; polished gold with a rich precious sheen and clean highlights; soft
-light from the top, strong highlights, soft contact shadow; clean pure colors —
+Generate a casual puzzle mobile game art asset in semi-painted style: a gold
+coin currency icon, square 1:1 canvas; semi-painted with a stylized baked
+texture look, rounded chunky silhouette; polished gold with a rich precious
+sheen and clean highlights; directional light from the top, strong highlights,
+soft contact shadow; clean pure colors —
 accent yellow #FFD34A; isolated on a transparent background, generous centered
 padding.
 Avoid: photorealism, realistic metal, flat design, sharp corners, thin lines,
