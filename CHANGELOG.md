@@ -2,6 +2,14 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.0.4] - 2026-07-07
+
+### Fixed
+- **Negative-contradiction check is now observed-value too.** A v2.0.3 run printed `negatives-vs-filled-fields ✓ (none conflict)` while `dark_theme` sat in `negative` over a `#40144E` deep-purple background — the item was still a rubber-stamp ✓. The `# CONSISTENCY:` receipt item becomes `negatives vs filled: bg=<hex> reads <dark/light> ⇒ <dropped: …/none conflict>`; the §3 bullet states that deep purples/navies/charcoals ARE dark (judge by the emitted hex, not mood). Receipt rule generalized: every `<…>` slot must state what was seen.
+
+### Notes
+- The same v2.0.3 run validated the shape gate: the receipt honestly reported `slant=none · lettering=upright` — when that happens on a genuinely slanted ref it is a host **vision** limit, not a compliance failure; the designed remedy is the human `UPDATE:` override (`shape.slant = strong, typography.font_feel = italic_display`), which pins those fields at confidence 1.0 — the shape-trait analogue of eyedropper-verifying hex.
+
 ## [2.0.3] - 2026-07-07
 
 ### Fixed
