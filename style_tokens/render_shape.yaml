@@ -38,11 +38,16 @@ shape_language:
     phrase: "mix of rounded bases with a few sharp accents"
 
 corner_radius:
+  # Measure the radius against the ref — crisp arcade cards read `small`, candy-casual reads `large`; don't default to medium.
   none:    { phrase: "sharp square corners" }
-  small:   { phrase: "slightly rounded corners" }
+  small:   { phrase: "slightly rounded corners, crisp and tight" }
   medium:  { phrase: "rounded corners" }
   large:   { phrase: "large soft rounded corners" }
   pill:    { phrase: "fully pill-shaped rounded ends" }
+
+shape_slant:   # OPTIONAL shape.slant — skew/tilt of panels/tabs/banners; absent = everything sits straight
+  slight: { phrase: "slightly slanted, forward-leaning panels and tabs" }
+  strong: { phrase: "strongly skewed parallelogram panels, tabs and banners — dynamic diagonal energy, edges cut at an angle (NOT straight verticals)" }
 
 symmetry:
   low:    { phrase: "loose, hand-made asymmetry" }

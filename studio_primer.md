@@ -1,5 +1,5 @@
 <!--
-GENERATED — TOOLKIT v2.0.1 — bundled from schema/ + style_tokens/. (Version marker: Ctrl+F "TOOLKIT v" in a chat to confirm which build is pasted; bumped on every release, see CHANGELOG.md.)
+GENERATED — TOOLKIT v2.0.2 — bundled from schema/ + style_tokens/. (Version marker: Ctrl+F "TOOLKIT v" in a chat to confirm which build is pasted; bumped on every release, see CHANGELOG.md.)
 When the engine (schema/ or style_tokens/) changes, ask Claude to rebuild this file; do NOT hand-edit in two places.
 Quick use: paste THIS ENTIRE FILE as the first message of a fresh chat with a vision-capable LLM
 (ChatGPT / Claude / Gemini...). Then follow §0. The output is a PROMPT — you take it to the image
@@ -77,7 +77,7 @@ This primer is long; this table is the compact contract. **Before answering any 
 | Command | Section | Style dimensions to translate via §2 (each: translated, or genuinely N/A) | "Avoid:" tails | Locks / special |
 |---|---|---|---|---|
 | `STYLE` / `UPDATE:` | §3 | — (emits the style_guide itself; §1 enums only; optional blocks only if the refs show the subject) | — | per-dimension confidence + REVIEW NOTES; `UPDATE:` reprints the FULL guide; §3 Consistency check: list discipline (only genre/mood/palette/color_map/background.color/negative are lists) + no negative contradicting a filled field + color_map REQUIRED when the refs show UI; §0.6 gate → `# CONSISTENCY:` receipt |
-| `ASSET:` screen / UI-KIT sheet | §4 UI | rendering, mood, shape (language/corners/symmetry), material.button+container+icon, button.depth/gloss, typography + controls, lighting, effects, **outline**, palette+hex + color_map (COLOR LOCK), background, layout, camera | always tail ONLY (a screen/kit IS UI — never the non-screen tail; + "no additional UI elements beyond those listed" when the layout is fully specified) | layout-ref lock if a TARGET ref image is attached; Rule 11 coverage self-check; opener = §2 context-starter template; prose only + self-contained + hex inline (rule 12); ASSUMPTIONS when self-suggesting; rule 13 no duplicate entry points; closed element list (no "such as"); §0.6 gate → ends with `# SELF-CHECK:` receipt |
+| `ASSET:` screen / UI-KIT sheet | §4 UI | rendering, mood, shape (language/corners/symmetry/slant), material.button+container+icon, button.depth/gloss, typography + controls, lighting, effects, **outline**, palette+hex + color_map (COLOR LOCK), background, layout, camera | always tail ONLY (a screen/kit IS UI — never the non-screen tail; + "no additional UI elements beyond those listed" when the layout is fully specified) | layout-ref lock if a TARGET ref image is attached; Rule 11 coverage self-check; opener = §2 context-starter template; prose only + self-contained + hex inline (rule 12); ASSUMPTIONS when self-suggesting; rule 13 no duplicate entry points; closed element list (no "such as"); §0.6 gate → ends with `# SELF-CHECK:` receipt |
 | `ASSET:` single icon/button/panel | §4 UI | same as above minus layout; icons add icon.perspective/padding/composition; no rendered text (typography only if a label is explicitly requested) | always + non-screen (drop `text` if a label is baked in) | layout-ref lock if TARGET ref image; Rule 11; opener = §2 template; prose + self-contained (rule 12); ASSUMPTIONS when self-suggesting; §0.6 gate → `# SELF-CHECK:` receipt |
 | `CHARACTER:` (new) | §4 Character | rendering, mood, shape language, material.character, proportions + feature_exaggeration, camera, lighting, **outline**, effects, palette+hex + color_map (COLOR LOCK) | always + non-screen + character tail (the SIMPLIFIED tail INSTEAD when `feature_exaggeration: high`) | sheet sub-mode = §2 character-sheet phrase; Rule 11; opener = §2 template; prose + self-contained (rule 12); ASSUMPTIONS when self-suggesting; §0.6 gate → `# SELF-CHECK:` receipt |
 | `CHARACTER:` + CHARACTER ref | §4 Pose variation | NONE re-described — identity-lock phrase opens the prompt; only pose/expression change | no-restyle set + character tail + always tail | image-EDIT prompt; IMAGE-EDIT PATH NOTE; §0.6 gate → `# SELF-CHECK:` receipt |
@@ -118,7 +118,8 @@ style:
   mood:       [cheerful, friendly, playful, calm, premium, energetic, mysterious, cozy, bold, dark, grim, tense, eerie, melancholic]   # list
 shape:
   language:     [rounded, geometric, organic, angular, mixed]
-  corner_radius:[none, small, medium, large, pill]
+  corner_radius:[none, small, medium, large, pill]   # measure against the ref — crisp arcade cards = small, candy-casual = large; don't default to medium
+  slant:        [slight, strong]   # OPTIONAL — skew/tilt of panels/tabs/banners; omit when everything sits straight
   symmetry:     [low, medium, high]
 palette:        # each role = list of hex "#RRGGBB" (estimate → verify with eyedropper)
   primary: []   secondary: []   accent: []   danger: []   neutral: []
@@ -163,7 +164,7 @@ layout:
 button:
   depth:[flat, low, medium, high]   gloss:[none, low, medium, high]
 typography:       # OPTIONAL block — UI text/labels. Fill ONLY when the refs contain UI text; otherwise omit entirely
-  font_feel:[rounded_sans, bold_display, geometric_sans, handwritten, serif_storybook, pixel]   weight:[regular, medium, bold, heavy]   case:[uppercase, title_case, sentence_case]   treatment:[plain, outlined, drop_shadow, inner_shadow, embossed]   color_role:[neutral, primary, secondary, accent]
+  font_feel:[rounded_sans, bold_display, italic_display, geometric_sans, handwritten, serif_storybook, pixel]   weight:[regular, medium, bold, heavy]   case:[uppercase, title_case, sentence_case]   treatment:[plain, outlined, drop_shadow, inner_shadow, embossed]   color_role:[neutral, primary, secondary, accent]
 controls:         # OPTIONAL block — interactive widgets. Fill ONLY the widgets the refs actually show; widgets reuse material.button/container + outline + shape (no material enum of their own)
   toggle:   { track_shape:[pill, rounded_rect], on_color_role:[accent, secondary, primary, danger], off_color_role:[neutral, secondary], knob:[circle_glossy, circle_matte, circle_metallic] }
   slider:   { track_shape:[pill, thin_rounded], fill_color_role:[accent, primary, secondary], handle:[circle_glossy, circle_matte, knob_3d] }
@@ -267,7 +268,11 @@ SYNTHESIZER translates each enum in the style_guide into the phrase below. Key =
 - mixed → "mix of rounded bases with a few sharp accents"
 
 ### shape.corner_radius
-- none → "sharp square corners" · small → "slightly rounded corners" · medium → "rounded corners" · large → "large soft rounded corners" · pill → "fully pill-shaped rounded ends"
+- none → "sharp square corners" · small → "slightly rounded corners, crisp and tight" · medium → "rounded corners" · large → "large soft rounded corners" · pill → "fully pill-shaped rounded ends"
+- Measure the radius against the ref — crisp arcade cards read `small`, candy-casual reads `large`; don't default to medium.
+
+### shape.slant (OPTIONAL — absent = everything sits straight)
+- slight → "slightly slanted, forward-leaning panels and tabs" · strong → "strongly skewed parallelogram panels, tabs and banners — dynamic diagonal energy, edges cut at an angle (NOT straight verticals)"
 
 ### shape.symmetry
 - low → "loose, hand-made asymmetry" · medium → "mostly balanced with subtle hand-made variation" · high → "clean symmetrical, well-balanced composition"
@@ -330,7 +335,7 @@ SYNTHESIZER translates each enum in the style_guide into the phrase below. Key =
 - Exception: the POSE VARIATION branch keeps its §2 identity-lock opener (it is an image-edit prompt, not a fresh generation).
 
 ### typography (UI text/labels — optional block; use when the asset has text)
-- font_feel: rounded_sans → "rounded soft sans-serif letterforms" · bold_display → "chunky bold display lettering" · geometric_sans → "clean geometric sans-serif" · handwritten → "playful hand-lettered / brush style" · serif_storybook → "soft storybook serif" · pixel → "crisp pixel-font aligned to the grid"
+- font_feel: rounded_sans → "rounded soft sans-serif letterforms" · bold_display → "chunky bold display lettering" · italic_display → "heavy italic display lettering with a forward slant" · geometric_sans → "clean geometric sans-serif" · handwritten → "playful hand-lettered / brush style" · serif_storybook → "soft storybook serif" · pixel → "crisp pixel-font aligned to the grid"
 - weight: regular/medium/bold/heavy → "…weight" · case: uppercase → "ALL-CAPS titles" · title_case → "Title Case labels" · sentence_case → "sentence case labels"
 - treatment: plain → "clean flat text fill" · outlined → "text with a clean matching outline" · drop_shadow → "soft drop shadow" · inner_shadow → "subtle inner shadow / debossed" · embossed → "embossed with a soft baked bevel" (keep the treatment consistent with the surface finish)
 - color_role: name the palette role + hex (e.g. "neutral ink #333333") — hex is pinned by the ref at gen time
@@ -410,7 +415,7 @@ When the user sends `STYLE` + attaches reference image(s):
 2. `# REVIEW NOTES` — opening with the `# CONSISTENCY:` receipt line (rule 8), then the `confidence < 0.75` items + what to double-check.
 
 1. **Common denominator, not per-image.** Multiple refs → extract the SHARED style. If refs disagree on a dimension → pick the dominant one and lower that `confidence`.
-2. **Enums only** (per §1). If nothing fits, pick the closest and lower confidence.
+2. **Enums only** (per §1). If nothing fits, pick the closest and lower confidence. Slanted / parallelogram tabs, skewed banners and italic lettering are a DISTINCT trait — capture them via `shape.slant` + `font_feel: italic_display`; never normalize them to rounded upright shapes. Measure `corner_radius` against the ref (crisp arcade small ≠ candy large).
 3. **Palette = approximate hex** for each role (primary/secondary/accent/danger/neutral). State clearly these are estimates and **prompt the user to verify with an eyedropper** — don't claim exactness.
    **color_map (COLOR LOCK) — fill it whenever the refs show UI:** additionally emit the OPTIONAL per-surface `color_map`, as detailed as the refs allow — one entry per surface actually present (background, panel, overlay scrim, each button variant, tab selected/unselected, toggle/slider/checkbox/progress widgets, text inks, icon colors, currency, banner, notification badge, outline ink, shadow tint, glow tint), each a hex list (fill first, then rim/outline hex). Widget entries are the hex twins of the `controls` block (which only stores color roles) — fill both when widgets are present. Where a color is scoped ("gold trim on the positive button only"), write that scope note next to the entry — the SYNTHESIZER carries it into the prompt as a restriction. Same eyedropper caveat as palette; omit surfaces the refs don't show.
    **canvas — read it off the ref image(s):** set `orientation` from the ref's actual width-vs-height and estimate `aspect_ratio` as W:H (9:16, 16:9, 4:3, 1:1…). Never assume portrait — a landscape ref yields landscape.

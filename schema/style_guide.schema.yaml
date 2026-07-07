@@ -31,8 +31,10 @@ style:
 shape:
   language:         # dominant form language
     enum: [rounded, geometric, organic, angular, mixed]
-  corner_radius:
+  corner_radius:    # measure against the ref — crisp arcade cards read small, candy-casual reads large; don't default to medium
     enum: [none, small, medium, large, pill]
+  slant:            # OPTIONAL — skew/tilt of panels, tabs, banners (slanted parallelogram "arcade" energy). Omit when everything sits straight.
+    enum: [slight, strong]
   symmetry:
     enum: [low, medium, high]
 
@@ -142,7 +144,7 @@ button:
 
 typography:         # OPTIONAL block — UI text/label style. Fill ONLY when the refs contain UI text; otherwise omit entirely (never guess).
   font_feel:        # the overall letterform character
-    enum: [rounded_sans, bold_display, geometric_sans, handwritten, serif_storybook, pixel]
+    enum: [rounded_sans, bold_display, italic_display, geometric_sans, handwritten, serif_storybook, pixel]
   weight:
     enum: [regular, medium, bold, heavy]
   case:             # dominant casing of titles/labels

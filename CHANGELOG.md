@@ -2,6 +2,15 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.0.2] - 2026-07-07
+
+### Added
+- **`shape.slant`** (OPTIONAL: slight / strong) — skewed / parallelogram panels, tabs and banners ("arcade" diagonal energy à la Brawl Stars) are now a capturable trait instead of being normalized to rounded upright shapes; new §2 group `### shape.slant`.
+- **`typography.font_feel: italic_display`** — heavy italic display lettering with a forward slant.
+
+### Fixed
+- **Every ref no longer gets "rounded-corner-ified."** §3 now instructs the analyzer to treat slanted tabs / skewed banners / italic lettering as a distinct trait and to MEASURE `corner_radius` against the ref (crisp arcade cards = `small`, candy-casual = `large`) instead of defaulting to medium/rounded.
+
 ## [2.0.1] - 2026-07-07
 
 ### Fixed

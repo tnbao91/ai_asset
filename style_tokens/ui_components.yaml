@@ -9,6 +9,7 @@
 typography_font_feel:
   rounded_sans:     { phrase: "rounded soft sans-serif letterforms with friendly even strokes" }
   bold_display:     { phrase: "chunky bold display lettering with thick confident strokes" }
+  italic_display:   { phrase: "heavy italic display lettering with a forward slant" }
   geometric_sans:   { phrase: "clean geometric sans-serif, precise and modern" }
   handwritten:      { phrase: "playful hand-lettered / brush style with a casual bounce" }
   serif_storybook:  { phrase: "soft storybook serif with gentle rounded serifs" }
