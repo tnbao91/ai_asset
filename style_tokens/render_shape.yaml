@@ -49,6 +49,16 @@ shape_slant:   # OPTIONAL shape.slant — skew/tilt of panels/tabs/banners; abse
   slight: { phrase: "slightly slanted, forward-leaning panels and tabs" }
   strong: { phrase: "strongly skewed parallelogram panels, tabs and banners — dynamic diagonal energy, edges cut at an angle (NOT straight verticals)" }
 
+ui_panel_geometry:   # OPTIONAL shape.ui_panel_geometry — panel/card/tab/button silhouette ARCHETYPE (slant = the skew degree, this = the archetype).
+  # Phrases describe SILHOUETTE only — corner language stays in corner_radius, camera in camera (token purity).
+  soft_rounded:   { phrase: "soft rounded casual UI panels with cushion-like silhouettes" }
+  square_chunky:  { phrase: "mostly square, chunky rectangular UI panels and cards with broad flat faces" }
+  arcade_slanted: { phrase: "chunky arcade-style panels, cards, tabs and buttons with a slight forward-leaning slant and diagonal side cuts" }
+  parallelogram:  { phrase: "clear parallelogram panels and tabs with parallel diagonal sides — skewed arcade energy" }
+  trapezoid_card: { phrase: "trapezoid card panels with angled sides, ticket-like arcade silhouettes" }
+  _shape_lock_negative: "soft pill-shaped panels, overly rounded candy cards"
+  _note: "SHAPE LOCK (§4): when ui_panel_geometry and/or slant is filled, the synthesizer ECHOES the silhouette on EVERY UI surface class as it is described (main panels, product cards, tabs, buttons, nav buttons, badges/ribbons) — never stated once globally; and for square_chunky / arcade_slanted / parallelogram / trapezoid_card it appends _shape_lock_negative to the 'Avoid:' sentence. The per-surface twin of the color lock."
+
 symmetry:
   low:    { phrase: "loose, hand-made asymmetry" }
   medium: { phrase: "mostly balanced with subtle hand-made variation" }

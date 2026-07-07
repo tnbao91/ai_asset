@@ -35,6 +35,8 @@ shape:
     enum: [none, small, medium, large, pill]
   slant:            # OPTIONAL — skew/tilt of panels, tabs, banners (slanted parallelogram "arcade" energy). Omit when everything sits straight.
     enum: [slight, strong]
+  ui_panel_geometry: # OPTIONAL — panel/card/tab/button silhouette ARCHETYPE; fill only when the refs show UI panels. `slant` is the skew DEGREE, this is the overall archetype (arcade_slanted/parallelogram ⇒ slant must also be filled; soft_rounded ⇒ slant must be absent).
+    enum: [soft_rounded, square_chunky, arcade_slanted, parallelogram, trapezoid_card]
   symmetry:
     enum: [low, medium, high]
 

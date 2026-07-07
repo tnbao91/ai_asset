@@ -2,6 +2,14 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.1.0] - 2026-07-08
+
+Driven by a user-run GPT-5.5 review of the Brawl Stars-ref debug series: `shape.language: rounded` alone still pulled generators back to soft candy pills, and shape stated ONCE globally let every panel/card/tab drift rounded.
+
+### Added
+- **`shape.ui_panel_geometry`** (OPTIONAL: soft_rounded / square_chunky / arcade_slanted / parallelogram / trapezoid_card) — the panel/card/tab/button silhouette ARCHETYPE (`slant` remains the skew degree). Phrases are silhouette-only (no corner/camera words — token purity); new §2 group (39 headings). Analyzer pairing rule: arcade_slanted/parallelogram ⇒ `slant` filled; soft_rounded ⇒ `slant` absent; the `# CONSISTENCY:` receipt gains a `panel=<archetype/omitted — why>` observed slot.
+- **SHAPE LOCK (§4, the per-surface twin of the COLOR LOCK):** when `ui_panel_geometry` and/or `slant` is filled, the prompt ECHOES the silhouette on EVERY UI surface class (main panels, product cards, tabs, buttons, nav buttons, badges/ribbons) instead of one global mention, and the chunky/slanted archetypes append the shape-lock negative "soft pill-shaped panels, overly rounded candy cards" to "Avoid:". `# SELF-CHECK:` gains a `shape lock on surfaces ✓/n-a` item; §5 CHECK flags any single pill-rounded surface on a slanted-archetype guide as `off`. When both fields are absent, nothing changes (existing examples unaffected).
+
 ## [2.0.4] - 2026-07-07
 
 ### Fixed
