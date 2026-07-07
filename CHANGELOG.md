@@ -2,6 +2,11 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.0.3] - 2026-07-07
+
+### Fixed
+- **Slant/italic/corner capture is now gate-enforced, not prose-advised.** A real v2.0.2 run (GPT-5.5, Brawl Stars ref) still emitted `corner_radius: medium`, no `shape.slant`, `font_feel: bold_display` while printing a clean `# CONSISTENCY:` receipt — the receipt had no shape item, so the §3 rule-2 prose was skipped. §3's Consistency check gains a **Shape re-measure** bullet (look at the ref again: slanted/skewed panels ⇒ `shape.slant`; italic lettering ⇒ `italic_display`; corner radius measured, never habit-defaulted to medium) and the `# CONSISTENCY:` receipt gains three **observed-value slots** (`shape re-measured: slant=… · lettering=… · corners=…`) that must state what was seen — a rubber-stamp ✓ is no longer possible. §0.5 STYLE row and FINAL CONTRACT REMINDER line 3 restate it.
+
 ## [2.0.2] - 2026-07-07
 
 ### Added
