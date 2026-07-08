@@ -3,7 +3,7 @@
 # For characters / backgrounds / objects use character_spec / background_spec / object_spec instead.
 # OPTIONAL: asset content can be provided as YAML (this schema) / a text description /
 #   a TARGET ref image / or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
-# This defines fields, NOT real data. Clean example: examples/settings_screen/asset_spec.yaml
+# This defines fields, NOT real data.
 
 type:                 # asset type (free text, keep it short)
   examples: [settings_screen, shop_screen, main_menu, currency_icon, booster_icon, primary_button, popup_panel, ui_kit]

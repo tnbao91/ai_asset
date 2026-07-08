@@ -123,10 +123,6 @@ style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (buil
   materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml  ui_components.yaml
 demo/                ← the showcase above: 4 real runs (input STYLE ref + generated outputs)
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
-examples/
-  settings_screen/   ← sample output (style_guide.yaml + prompt)
-  mascot_character/  ← sample character output (character_spec + prompt + pose-variation prompt)
-  analyzer_smoke_test/ ← proof the analyzer runs on a real asset image
 ```
 
 ---
@@ -307,7 +303,7 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 - **The LLM emits odd/invalid style_guide values:** remind it to "use only the enums in §1 of the primer." If the primer scrolled out of context, paste it again.
 - **Prompt too long/short:** ~150–250 words for a single icon/asset; ~300–400 for a screen with layout. Type `TWEAK: make it tighter` if it's bloated.
 - **Want to follow a specific screen's layout:** use option (b) in S4 — attach a TARGET ref.
-- **Manage many games more neatly:** if you want a record, save each game's `style_guide.yaml` to its own file (e.g. under `examples/<game>/`) so you can paste it back next time instead of re-running `STYLE`.
+- **Manage many games more neatly:** if you want a record, save each game's `style_guide.yaml` to its own file so you can paste it back next time instead of re-running `STYLE`.
 
 ---
 
@@ -327,8 +323,6 @@ The prompt text alone only gets you *close* — the style is really held by thre
 2. **Cross-asset consistency is a common weakness of today's generators.** One style guide used for a settings screen, a currency icon, and a button may still drift slightly. Reduce drift by keeping the style description identical, generating in small batches, and closing the loop with `CHECK` → consolidated `TWEAK:` → `REGEN`.
 3. **The prompt is descriptive prose** (suited to most modern generators), not weighted tags or `--flags`. Negatives go in an "Avoid: …" sentence. For Midjourney, convert to tags + `--sref` yourself.
 4. **Vision-guessed hex values are never exact** — the eyedropper step (S3) is required.
-
-A full sample output (style guide + prompt) for reference: [`examples/settings_screen/`](examples/settings_screen/).
 
 ---
 

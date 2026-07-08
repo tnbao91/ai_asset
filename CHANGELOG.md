@@ -2,6 +2,18 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.1.1] - 2026-07-08
+
+Consistency pass from a full repo review — no behavior changes, the repo now satisfies its own invariants again.
+
+### Removed
+- **`examples/` deleted entirely** (settings_screen, mascot_character, analyzer_smoke_test). The hand-written sample outputs kept drifting out of sync with every §4 rule change (the review found `prompt.txt` no longer derivable — missing the rule-7 tail, no COLOR LOCK, style_guide missing `camera`/`color_map`) and re-deriving them by hand on each release was pure maintenance cost. The `demo/` folder — real generated outputs — remains the showcase; README/CLAUDE.md references cleaned up.
+
+### Fixed
+- **Token↔primer wording sync** (the primer is GENERATED from `style_tokens/`, so the token files are canonical — primer §2 re-bundled to match them): `negative_map.dark_theme` ("black background unless specified"), `noisy_texture` (re-adds "microscopic details"), `katya_line_removal` (re-adds vector lines / drawn lines / black borders / manga), `katya_general_negatives` (re-adds "black"), `material_button.fabric` ("velvety / mossy / fluffy / fuzzy") and `.painted` ("imitation of…") — six §2 phrases had drifted from their source tokens during earlier hand-condensed rebuilds.
+- **§0.5 single-asset row**: added the missing `saturation` to "icons add icon.perspective/padding/composition/saturation" (the §4 UI prompt order already required it).
+- **CLAUDE.md verification**: documented the PyYAML dependency and added a Ruby fallback one-liner for the YAML parse check.
+
 ## [2.1.0] - 2026-07-08
 
 Driven by a user-run GPT-5.5 review of the Brawl Stars-ref debug series: `shape.language: rounded` alone still pulled generators back to soft candy pills, and shape stated ONCE globally let every panel/card/tab drift rounded.

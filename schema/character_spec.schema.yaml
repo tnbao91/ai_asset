@@ -6,7 +6,7 @@
 #   NEW character  — `CHARACTER:` with no character_ref -> full generation prompt styled through the style_guide.
 #   POSE VARIATION — `CHARACTER:` with character_ref set / that image attached (a CHARACTER ref) -> an
 #     image-EDIT prompt that locks the identity (face, outfit, colors, proportions) and changes ONLY pose/expression.
-# This defines fields, NOT real data. Clean example: examples/mascot_character/character_spec.yaml
+# This defines fields, NOT real data.
 
 name:                 # the character's name (used to refer back to it in later commands). Optional.
   type: string

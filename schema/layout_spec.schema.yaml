@@ -2,7 +2,7 @@
 # Schema for layout_spec.yaml — the detailed layout of ONE screen (only needed when the asset is a screen).
 # OPTIONAL: layout can be provided as YAML (this schema) / a text description /
 #   a TARGET ref image / or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
-# Defines fields, NOT data. Clean example: examples/settings_screen/layout_spec.yaml
+# Defines fields, NOT data.
 
 screen:               # screen name
   type: string
