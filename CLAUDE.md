@@ -52,6 +52,10 @@ python3 -c "import yaml, glob; [yaml.safe_load(open(f)) for f in glob.glob('sche
 # fallback when PyYAML is unavailable (macOS system Ruby):
 ruby -ryaml -e 'Dir.glob("{schema,style_tokens}/*.yaml").each { |f| YAML.load(File.read(f)) }; puts "OK"'
 
+# every underscore enum value in schema/*.yaml appears in the primer (scoped to values containing "_" —
+# one-word enums like grid/none/center appear everywhere in prose, so grepping them would always false-pass)
+ruby -e 'prim = File.read("studio_primer.md"); missing = Dir.glob("schema/*.yaml").flat_map { |f| File.read(f).scan(/enum: \[([^\]]*)\]/).flatten.flat_map { |l| l.split(",").map(&:strip) } }.uniq.select { |v| v.include?("_") }.reject { |v| prim.include?(v) }; if missing.empty? then puts "OK - all underscore enum values present in primer" else puts "MISSING: #{missing.join(", ")}"; exit 1 end'
+
 # primer contains the BUILD MANIFEST items (spot-check; full list in the primer header)
 for p in "version: 1.0" "asset sheet layout" "Always-append tail" "orthographic" "game art asset in {rendering-family} style" "chibi proportions" "identity lock" "layered_parallax" "size_class" "EXECUTION CHECKLIST" "IMAGE-EDIT PATH NOTE" "Coverage self-check" "UI-kit reference sheet" "color lock" "lighting.contrast" "realistic_painted" "Consistency check" "self-contained: NEVER" "duplicate feature entry points" "TOWARD the style_guide" "no additional UI elements" "OUTPUT GATE" "SELF-CHECK" "OUTPUT SKELETON" "FINAL CONTRACT REMINDER" "never free-form describe" "TOOLKIT v" "never a blind 9:16" "shape.slant" "shape re-measured" "ui_panel_geometry" "SHAPE LOCK"; do grep -c "$p" studio_primer.md; done
 ```

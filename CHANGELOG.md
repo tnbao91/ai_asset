@@ -2,6 +2,18 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.1.2] - 2026-07-09
+
+Second consistency pass, from cross-checking an external (Codex) repo review — no behavior changes.
+
+### Fixed
+- **`layout_spec` enums bundled into §4.** The §4 layout_spec line was the only one of the five spec lines that didn't list its enum values inline — `canvas.safe_area` (mobile | tablet | none), `panel.align` (center | top | bottom | left | right), `header.close_button` (top_right | top_left | none) and `content.type` (vertical_list | horizontal_list | grid) were missing from the primer entirely.
+- **§4 dispatch wording: "character or object" → "character or background".** The optional style_guide blocks are `character`/`material.character` (characters) and `environment`/`material.environment` (backgrounds); the object class has no dedicated block — it uses `material_hint`, else the closest style_guide material. The old sentence made `OBJECT:` runs report missing data that was never supposed to exist.
+- **Token↔primer sync, round 2 (typography + controls).** The v2.1.1 re-bundle missed §2 `typography`/`controls` — meaning-carrying words from `style_tokens/ui_components.yaml` had been condensed away ("with friendly even strokes", "thick confident strokes", "casual bounce", "gentle rounded serifs", "no extra effect", "for pop", "with a clean highlight", "with soft bevel", "fully rounded capsule", the full per-enum knob/handle/check_style phrases, "heavy / black weight"). Restored verbatim from the tokens; purely mechanical color-role templates (`<accent/primary/secondary>`) stay merged.
+
+### Added
+- **Scoped enum-coverage verification check** (CLAUDE.md): a Ruby-stdlib one-liner that extracts every enum value containing `_` from `schema/*.yaml` and fails if any is absent from `studio_primer.md` (one-word enums like grid/none/center would always false-pass a grep, so they're deliberately out of scope). It catches exactly the class of drift fixed above.
+
 ## [2.1.1] - 2026-07-08
 
 Consistency pass from a full repo review — no behavior changes, the repo now satisfies its own invariants again.
