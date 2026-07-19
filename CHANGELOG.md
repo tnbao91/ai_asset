@@ -2,6 +2,18 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.2.0] - 2026-07-19
+
+Style presets: ready-made style guides shipped in the repo, loadable without the `STYLE` step.
+
+### Added
+- **`LOAD` command** — the ANALYZER's third entry point (§3): paste a complete `style_guide.yaml` (a `presets/` file, or a guide saved from an earlier chat) and the primer validates it against §1 (unparseable YAML, missing `version:`, unknown fields, non-§1 enum values, single-value fields written as lists → ALL reported in one `LOAD ERRORS` block, nothing adopted, never guess-patched), adopts it **verbatim** (human-final; confidence preserved, absent confidence → 1.0 per filled block), reprints it in full, and proceeds exactly as after `STYLE`. An attached image is ignored with a note (`LOAD` takes styles from YAML, `STYLE` from images). Wired through every command surface: §0 table, §0 points 3 (bare pasted-guide dispatch) & 5, §0.5 row, §0.6 gate/receipts (`# CONSISTENCY: LOAD`; a rejected `LOAD`'s receipt is the `LOAD ERRORS` block), §3 block with its own OUTPUT SKELETON, FINAL CONTRACT item 3, BUILD MANIFEST. This also formalizes the previously informal "save your `style_guide.yaml` and paste it back next time" tip — resuming a game in a new chat is now a defined path.
+- **`presets/` directory** — pre-authored `style_guide.yaml` DATA files (inputs for `LOAD`; never bundled into the primer, never a render path) + `presets/README.md` catalog with usage, authoring guide and copyright policy. First preset: **`turkish-casual.yaml` (DRAFT)** — the polished Turkish casual-mobile look (glossy saturated cute-casual, chunky rounded UI, candy palette, heavy gloss), all `confidence: 1.0`, hex marked as estimates pending refinement against real refs. Inspiration screenshots stay in the new gitignored `presets/refs/` (same policy as `doc/`).
+- **Preset validator** (CLAUDE.md verification): Ruby-stdlib one-liner asserting every enum-shaped scalar in every preset exists in `schema/style_guide.schema.yaml`'s enums (+ `version` present); YAML-parse checks extended to `presets/*.yaml`; three new manifest markers (`LOAD`, `adopted verbatim`, `LOAD ERRORS`).
+
+### Notes
+- The style_guide *schema* version stays `1.0` — no schema fields changed; presets are instances of the existing schema.
+
 ## [2.1.2] - 2026-07-09
 
 Second consistency pass, from cross-checking an external (Codex) repo review — no behavior changes.

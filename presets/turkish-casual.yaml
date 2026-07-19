@@ -1,0 +1,161 @@
+# PRESET (DRAFT) — "turkish-casual"
+#
+# The polished Turkish casual-mobile look: glossy saturated cute-casual rendering,
+# chunky rounded UI, candy-bright palette over a light sky backdrop, heavy button
+# gloss, bold outlined uppercase display text. Described from publicly known
+# characteristics of the genre — no third-party asset is included in this repo.
+#
+# This is a complete, ready-to-LOAD style_guide.yaml (pure DATA for the `LOAD`
+# command — paste the primer into a fresh chat, then send `LOAD` followed by this
+# whole file). All confidence values are 1.0: a preset is human-final by definition.
+#
+# DRAFT status — hex values are best-effort estimates until verified. To refine:
+#   1. Put your own reference screenshots in the local, gitignored presets/refs/ folder.
+#   2. In a scratch chat, run `STYLE` on those refs and eyedropper-fix the hex via `UPDATE:`.
+#   3. Diff that guide against this file, merge the differences here.
+#   4. Flip DRAFT -> verified in presets/README.md.
+
+version: 1.0
+
+project:
+  genre: [casual, puzzle, match3]
+  platform: mobile
+
+style:
+  rendering: 3d_render
+  complexity: medium
+  readability: very_high
+  mood: [cheerful, playful, energetic]
+
+shape:
+  language: rounded
+  corner_radius: large
+  ui_panel_geometry: soft_rounded
+  symmetry: high
+
+palette:
+  primary: ["#2D9CDB", "#1976C5"]      # estimate — bright sky blues; refine from your refs
+  secondary: ["#F6E7C9", "#8C5A2E"]    # estimate — warm cream + warm brown trim
+  accent: ["#FFC93C", "#FF9F1C"]       # estimate — candy gold / orange
+  danger: ["#E8442E"]                  # estimate — warm red
+  neutral: ["#FFF9EF", "#5A4632"]      # estimate — off-white + dark warm-brown ink
+
+color_map:
+  background: ["#8FD3F4", "#4BA3E3"]   # bright sky-blue vertical gradient
+  panel: ["#FFF3DC", "#8C5A2E"]        # cream fill + warm-brown border
+  overlay_scrim: ["#1B3A6B"]           # deep tinted navy scrim behind popups
+  button_primary: ["#3FA9F5", "#1976C5"]  # glossy blue fill + darker rim
+  button_secondary: ["#F6E7C9", "#C99B5F"]
+  button_positive: ["#6BC931", "#3E8C1A"] # glossy green confirm/claim + darker rim
+  button_danger: ["#E8442E", "#A32516"]
+  tab: ["#FFC93C", "#C99B5F"]          # selected gold, unselected muted tan
+  toggle: ["#6BC931", "#C9C0AE", "#FFFFFF"]  # track ON, track OFF, knob
+  slider: ["#FFC93C", "#E8DCC4", "#FFFFFF"]  # fill, track, handle
+  checkbox: ["#FFF3DC", "#6BC931"]     # box fill, tick color
+  progress_fill: ["#FFC93C", "#8C5A2E"]  # fill + track
+  text_title: ["#FFFFFF", "#5A4632"]   # white fill + warm-brown outline
+  text_label: ["#5A4632"]
+  icon_palette: ["#FFC93C", "#3FA9F5", "#E8442E", "#6BC931"]
+  currency: ["#FFC93C", "#7FD4F0"]     # coin gold, gem aqua
+  banner: ["#E8442E", "#FFC93C"]       # red ribbon + gold edge
+  badge_notification: ["#E8442E", "#FFFFFF"]
+  outline_ink: ["#5A4632"]             # dark warm brown, never pure black
+  shadow_tint: ["#8C5A2E"]             # warm brown contact shadows
+  glow_accent: ["#FFE9A8"]             # warm yellow bloom/sparkle
+
+material:
+  button: glossy_plastic
+  icon: glossy
+  currency: polished_gold
+  container: soft_plastic
+  character: toon_3d
+  environment: stylized_3d
+
+lighting:
+  direction: top
+  contrast: soft
+  highlight: strong
+  shadow: soft_bottom
+
+outline:
+  enabled: true
+  thickness: medium
+  color: darker_variant
+
+effects:
+  bevel: medium
+  ambient_occlusion: soft
+  bloom: soft
+  inner_glow: soft
+  gradient_overlay: medium
+
+icon:
+  perspective: three_quarter
+  padding: medium
+  composition: centered
+  saturation: vivid
+
+layout:
+  spacing: medium
+  density: medium
+  safe_area: mobile
+
+button:
+  depth: high
+  gloss: high
+
+typography:
+  font_feel: bold_display
+  weight: heavy
+  case: uppercase
+  treatment: outlined
+  color_role: neutral
+
+controls:
+  toggle:
+    track_shape: pill
+    on_color_role: accent
+    off_color_role: neutral
+    knob: circle_glossy
+  slider:
+    track_shape: pill
+    fill_color_role: accent
+    handle: circle_glossy
+  checkbox:
+    shape: rounded_square
+    check_style: tick
+  progress_bar:
+    track_shape: pill
+    fill_color_role: accent
+
+character:
+  proportions: toon_3head
+  feature_exaggeration: medium
+
+environment:
+  depth: layered_parallax
+  atmosphere: glow_dust
+
+camera: orthographic
+
+canvas:
+  orientation: portrait
+  aspect_ratio: "9:16"
+
+background:
+  type: gradient
+  color: ["#8FD3F4", "#4BA3E3"]
+
+negative: [realistic, gritty, noisy_texture, dark_theme, sharp_corner, thin_icon, flat_design]
+
+confidence:
+  shape: 1.0
+  palette: 1.0
+  color_map: 1.0
+  rendering: 1.0
+  material: 1.0
+  lighting: 1.0
+  character: 1.0
+  environment: 1.0
+  typography: 1.0
+  controls: 1.0

@@ -103,7 +103,7 @@ The toolkit **stops at the prompt** — choosing a generator and generating the 
 1. Open a fresh chat in a vision-capable LLM (ChatGPT, Claude, or Gemini).
 2. Paste the entire contents of `studio_primer.md` as the first message.
 3. Attach your **STYLE references** (images whose art style you want to learn) and type `STYLE` → you get a `style_guide.yaml`.
-4. Review it (fix hex colors with an eyedropper; confirm low-confidence fields) and send the fixes back with `UPDATE:`.
+4. Review it (fix hex colors with an eyedropper; confirm low-confidence fields) and send the fixes back with `UPDATE:`. *(Or skip steps 3–4 entirely: paste a ready-made guide from [`presets/`](presets/) with `LOAD` — see [Style presets](#style-presets--skip-the-style-step).)*
 5. Type `ASSET: <description>` → you get a finished image prompt.
 6. Take the prompt to the image generator of your choice. Bring the result back and type `CHECK` — copy its consolidated `TWEAK:` line to fix any drift.
 
@@ -121,6 +121,8 @@ schema/              ← SOURCE: field + enum definitions (the primer is built f
                            (optional structured descriptions for backgrounds / characters / objects)
 style_tokens/        ← SOURCE: STYLE DICTIONARY, enum → English phrase (built into the primer; seeded from the PDFs)
   materials.yaml  render_shape.yaml  light_color.yaml  layout_negative.yaml  character_environment.yaml  ui_components.yaml
+presets/             ← DATA: ready-made style guides — paste one after the primer with LOAD (skip the STYLE step)
+  turkish-casual.yaml  README.md      (refs/ = your local authoring screenshots, gitignored)
 demo/                ← the showcase above: 4 real runs (input STYLE ref + generated outputs)
 doc/                 ← local reference material (third-party prompt-collection PDFs; not included in this repo)
 ```
@@ -129,10 +131,11 @@ doc/                 ← local reference material (third-party prompt-collection
 
 ## How it works
 
-`studio_primer.md` is **the tool** — a self-contained mega-prompt **built from** `schema/` (valid enums) + `style_tokens/` (enum → phrase dictionary). It bundles three jobs into one chat — ANALYZER (`STYLE`), SYNTHESIZER (`ASSET`/`CHARACTER`/`BACKGROUND`/`OBJECT`) and CHECKER (`CHECK`):
+`studio_primer.md` is **the tool** — a self-contained mega-prompt **built from** `schema/` (valid enums) + `style_tokens/` (enum → phrase dictionary). It bundles three jobs into one chat — ANALYZER (`STYLE`/`LOAD`), SYNTHESIZER (`ASSET`/`CHARACTER`/`BACKGROUND`/`OBJECT`) and CHECKER (`CHECK`):
 
 ```
 STYLE ref ──► [ STYLE ] ──► style_guide.yaml (enums)  ─┐
+presets/*.yaml or a saved guide ──► [ LOAD ] ──────────┤  (validated, adopted verbatim — no ref image)
                                                        │
    asset (text | TARGET ref | empty→AI-suggested) ─────┴─► [ ASSET | CHARACTER | BACKGROUND | OBJECT ] ──► prompt (generator of your choice)
 
@@ -153,6 +156,7 @@ CHARACTER ref ──► [ CHARACTER ] ──► pose-variation prompt (image-edi
 | Command | Attach | You get | Notes |
 |---|---|---|---|
 | `STYLE` | STYLE ref | `style_guide.yaml` | Multiple images → common denominator. `confidence <0.75` = review it. No image → it asks for one. |
+| `LOAD` | — (paste a `style_guide.yaml` under the command) | the validated, adopted `style_guide.yaml`, reprinted in full | Skip `STYLE`: load a ready-made preset from [`presets/`](presets/) or a guide you saved from an earlier chat. Structural errors are reported in one `LOAD ERRORS` block, never guessed away. |
 | `UPDATE: field = value` | — | full corrected `style_guide.yaml` | Lock hex/enums by hand, `confidence→1.0`, reprints the **whole** guide. |
 | `ASSET: <description>` | — / TARGET ref | one **UI** prompt (screen/icon/button/panel) | Empty → it proposes a spec, marked `[AI-suggested]`. Sub-mode **UI-KIT** = the whole widget set on one canvas. |
 | `CHARACTER: <description>` | — / CHARACTER ref | one **character** prompt | + CHARACTER ref → **pose variation** (image-edit; face/outfit/colors locked). Sub-mode: character sheet. |
@@ -164,7 +168,22 @@ CHARACTER ref ──► [ CHARACTER ] ──► pose-variation prompt (image-edi
 
 - **Needs an image-*editing* generator:** only the pose variation (`CHARACTER:` + CHARACTER ref).
 - **Uses the style guide + dictionary:** the four SYNTHESIZER branches — `ASSET` / `CHARACTER` / `BACKGROUND` / `OBJECT`.
-- **Typical flow:** `STYLE` → fix hex with `UPDATE:` → `ASSET/CHARACTER/…` for a prompt → generate elsewhere → `CHECK` → copy a `TWEAK:` → `REGEN`.
+- **Skips the analyzer:** `LOAD` — adopts a ready-made/saved guide instead of extracting one from images.
+- **Typical flow:** `STYLE` (or `LOAD` a preset) → fix hex with `UPDATE:` → `ASSET/CHARACTER/…` for a prompt → generate elsewhere → `CHECK` → copy a `TWEAK:` → `REGEN`.
+
+---
+
+## Style presets — skip the STYLE step
+
+The [`presets/`](presets/) folder ships **ready-made `style_guide.yaml` files**: complete, hand-authored style guides with final enum picks and pre-chosen hex — no reference image and no eyedropper pass needed. To use one:
+
+1. Paste `studio_primer.md` into a fresh chat as usual.
+2. Open a preset (e.g. [`presets/turkish-casual.yaml`](presets/turkish-casual.yaml)), copy the whole YAML.
+3. Send `LOAD` followed by the pasted YAML → the primer validates it against §1, adopts it verbatim, and reprints it. From there everything works exactly as after `STYLE`: `ASSET:` / `CHARACTER:` / `BACKGROUND:` / `OBJECT:` / `CHECK`.
+
+The catalog (look, inspiration, DRAFT/verified status) lives in [`presets/README.md`](presets/README.md), along with a short guide to **authoring your own preset** (run `STYLE` on your refs, eyedropper-fix, save the final guide, set `confidence: 1.0`). `LOAD` is also how you **resume a past game**: save its final `style_guide.yaml` and paste it back in a new chat.
+
+Presets are input DATA, not images: inspiration screenshots used while authoring stay in the local, gitignored `presets/refs/` folder — only the derived parameters (enums + hex + a text description) are committed.
 
 ---
 
@@ -176,6 +195,8 @@ CHARACTER ref ──► [ CHARACTER ] ──► pose-variation prompt (image-edi
 3. The LLM takes on the role and waits for commands. (Use one chat per game — see S6.)
 
 ### S2. Extract a style guide from references — command `STYLE`
+*Already have a guide (a [preset](presets/) or one saved from an earlier chat)? Send it with `LOAD` instead — see [Style presets](#style-presets--skip-the-style-step) — and jump to S4.*
+
 Attach your **STYLE references** (1..N images in the same art style) and type:
 
 ```
@@ -285,7 +306,7 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 
 ### S6. Many assets & many games
 - **Same game:** keep typing `ASSET:` / `CHARACTER:` / `BACKGROUND:` / `OBJECT:` in the **same chat** — the style guide stays in context, so all assets stay on-style.
-- **New game:** open a **new chat**, paste `studio_primer.md` again, attach that game's STYLE references. (Name the chat after the game for easy retrieval.)
+- **New game:** open a **new chat**, paste `studio_primer.md` again, attach that game's STYLE references — or `LOAD` its saved guide / a [preset](presets/) instead of re-running `STYLE`. (Name the chat after the game for easy retrieval.)
 
 ---
 
@@ -303,7 +324,7 @@ text or UI overlays, watermark, signature, jpeg artifacts.
 - **The LLM emits odd/invalid style_guide values:** remind it to "use only the enums in §1 of the primer." If the primer scrolled out of context, paste it again.
 - **Prompt too long/short:** ~150–250 words for a single icon/asset; ~300–400 for a screen with layout. Type `TWEAK: make it tighter` if it's bloated.
 - **Want to follow a specific screen's layout:** use option (b) in S4 — attach a TARGET ref.
-- **Manage many games more neatly:** if you want a record, save each game's `style_guide.yaml` to its own file so you can paste it back next time instead of re-running `STYLE`.
+- **Manage many games more neatly:** save each game's final `style_guide.yaml` to its own file and bring it back with `LOAD` in a new primer chat — no need to re-run `STYLE`. (That's exactly what the [`presets/`](presets/) files are: saved guides, ready to `LOAD`.)
 
 ---
 

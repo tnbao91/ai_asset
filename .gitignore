@@ -1,5 +1,8 @@
 # Third-party reference PDFs (copyrighted) — kept local, not published
 doc/
 
+# Local reference screenshots used to author presets (commercial games — copyrighted) — never commit
+presets/refs/
+
 # macOS
 .DS_Store
