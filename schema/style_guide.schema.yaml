@@ -183,8 +183,8 @@ character:          # OPTIONAL block — character style conventions. Fill ONLY 
     enum: [low, medium, high]
 
 environment:        # OPTIONAL block — scene/background style conventions. Fill ONLY when the refs contain scenes; otherwise omit entirely.
-  depth:
-    enum: [flat_backdrop, two_layer, layered_parallax, full_scene]
+  depth:            # tile_grid = board / tile-map levels (match-3 boards, isometric maps) — the synthesizer pairs it with the perspective_distortion negative
+    enum: [flat_backdrop, two_layer, layered_parallax, full_scene, tile_grid]
   atmosphere:
     enum: [clear, soft_haze, glow_dust, dramatic, fog, gloom, storm]
 

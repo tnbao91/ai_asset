@@ -29,6 +29,27 @@ sheet:
   layout_grid:  { phrase: "asset sheet layout, <N> columns x <M> rows, consistent items" }
     # Katya: use the word 'consistent' to keep the same object across multiple angles on one sheet
   aspect_ratio: { phrase: "aspect ratio <W:H>" }
+  # ASSET SHEET sub-mode (asset_spec.sheet — the icon/booster/button analogue of the UI-kit and character sheets):
+  asset_sheet:  { phrase: "a single asset sheet, <N> columns x <M> rows, one item per cell in this exact order: <items> — every cell drawn in the SAME rendering, material, outline, lighting and palette, consistent items, even spacing, each item isolated in its cell on a clean transparent or solid background" }
+    # every cell is a single asset → the non-screen tail still applies (no text, no UI chrome); screen-length word budget
+
+canvas_orientation:   # style_guide.canvas.orientation — stated with the aspect ratio
+  portrait:  { phrase: "portrait canvas (taller than wide)" }
+  landscape: { phrase: "landscape canvas (wider than tall)" }
+  square:    { phrase: "square canvas" }
+
+# GAMEPLAY SCENE / HUD sub-mode of ASSET: (asset_spec.gameplay) — an in-game screen is UI + a play area.
+gameplay_scene:
+  phrase: "an in-game gameplay screen: the play area shows <setting> with <actors> — the scene follows the environment style and the actors the character style described here — framed by the HUD chrome, which is drawn in exactly the same UI style as every other screen (same materials, outline, typography and palette); the play area stays readable and uncluttered where the gameplay happens (<play_area>)"
+  hud_closed_list: "the HUD contains exactly these elements and nothing more: <hud items>"
+  _note: "HUD elements are UI surfaces — COLOR LOCK / SHAPE LOCK apply per surface. Tails: always-tail + 'no additional HUD elements, buttons or panels beyond those listed' — NEVER the background tail (actors are wanted) and NEVER the non-screen tail (a HUD IS UI). Actors/pieces use the character block when filled; the play area uses environment.depth / atmosphere / material.environment when filled — otherwise build from the shared dimensions and tag [AI-suggested]."
+
+# object_spec.size_class → framing phrase (Object branch step 1)
+object_size_class:
+  game_piece: { phrase: "a small game piece read at board-cell size — bold simple silhouette, flat-readable at thumbnail scale, generous padding" }
+  handheld:   { phrase: "a handheld pickup-scale prop" }
+  furniture:  { phrase: "a furniture-scale prop (chest / barrel scale)" }
+  landmark:   { phrase: "a landmark-scale object (tree / building scale)" }
 
 # Layout-reference lock — the OUTPUT-facing twin of character_identity_lock.
 # Emitted ONLY when a TARGET ref IMAGE is attached to ASSET: / BACKGROUND: / OBJECT:
@@ -36,8 +57,8 @@ sheet:
 # downstream image generator — not just the primer LLM — reads "this image is layout only".
 layout_reference_lock:
   phrase: "Use the attached image ONLY as a layout / composition reference — copy the arrangement, element positions, counts and proportions from it, but do NOT copy its colors, materials, lighting, textures, linework or art style. All visual styling follows the description above (the style guide)."
-  # Append this second sentence only if the user also attaches a separate style/color reference:
-  with_style_ref: "If a separate style / color reference image is also attached, take all styling from that one and use this layout image for structure only."
+  # No "separate style reference" variant: the STYLE ref is attached ONCE (with STYLE) and the style rides in the
+  # prompt via the pinned hex — a later attachment is never a style re-teach (primer §0).
 
 # Context-setter to open the prompt (Katya: start with a clear command) — SYNTHESIZED from the
 # style_guide, never a hard-coded phrase (a fixed opener biases every prompt toward one aesthetic).
@@ -105,6 +126,7 @@ negative_tail_always: "watermark, signature, jpeg artifacts, blurry / out of foc
 negative_tail_non_screen: "text, UI / UX / GUI overlays, interface chrome"   # single assets only (icon/button/prop/character/object/background) — a screen IS UI, skip it there
 negative_tail_character: "extra fingers, extra or missing limbs, deformed hands, asymmetric eyes, broken anatomy"   # characters with normal anatomy (feature_exaggeration low/medium) — append alongside the non-screen tail
 negative_tail_character_simplified: "distinct fingers or toes, paws with toes, intricate fur, tiny separate details"   # mitten/stump styles (feature_exaggeration high) — Banana2 Zero-Digits: hands/feet are smooth rounded stumps, so 'no EXTRA fingers' is the wrong guard; use this tail INSTEAD of negative_tail_character
-negative_tail_background: "characters, creatures, foreground objects blocking the view"   # backgrounds only — keep the backdrop empty of actors (they are composited later)
+negative_tail_background: "characters, creatures, foreground objects blocking the view"   # backgrounds only — keep the backdrop empty of actors (they are composited later); NEVER on a gameplay scene
+negative_tail_no_restyle: "restyling, repainting or recoloring, changes to the face / outfit / colors, a different character"   # pose variation (CHARACTER: + CHARACTER ref) only — the image-edit prompt's own set, alongside the non-screen + character (or simplified) tails and the always tail
 
 _note: "Katya's note: not every model supports a negative prompt; image generators read negatives as an 'Avoid: ...' sentence."

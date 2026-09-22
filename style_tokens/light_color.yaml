@@ -29,7 +29,9 @@ lighting_shadow:
   drop_shadow: { phrase: "clean soft drop shadow" }
   inner_shadow: { phrase: "subtle inner shadow for depth" }
 
-# Advanced lighting effects (Light & Physics) — add for a "juicy" look
+# Advanced lighting effects (Light & Physics) — add for a "juicy" look.
+# FREE-FORM CRAFT NOTE, not a style_guide field: nothing in the schema carries these; the synthesizer adds one
+# only when the ref visibly shows it (or the user asks) and tags it [AI-suggested].
 lighting_extra:
   rim_light: { phrase: "bright rim light along the edges (Fresnel rim)" }
     # Banana2: 'Rim & Reflex Light' bright blue bounce from bottom-right works very well

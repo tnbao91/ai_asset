@@ -1,12 +1,14 @@
 # asset_spec.schema.yaml
 # Schema for asset_spec.yaml — describes ONE UI asset (screen/icon/button/panel) to produce, command `ASSET:`.
 # For characters / backgrounds / objects use character_spec / background_spec / object_spec instead.
+# THREE SUB-MODES of ASSET: live here — `kit` (UI-KIT sheet), `sheet` (icon/asset sheet), `gameplay`
+#   (gameplay scene / in-game screen with HUD and actors — an in-game screen IS UI, it is never a BACKGROUND:).
 # OPTIONAL: asset content can be provided as YAML (this schema) / a text description /
 #   a TARGET ref image / or left for the AI to suggest (tagged [AI-suggested]). This schema is the fullest form.
 # This defines fields, NOT real data.
 
 type:                 # asset type (free text, keep it short)
-  examples: [settings_screen, shop_screen, main_menu, currency_icon, booster_icon, primary_button, popup_panel, ui_kit]
+  examples: [settings_screen, shop_screen, main_menu, gameplay_screen, hud, currency_icon, booster_icon, primary_button, popup_panel, ui_kit, icon_sheet]
 
 kit:                  # OPTIONAL — switches ASSET: into UI-KIT SHEET sub-mode: ONE sheet with the whole
                       #   component set drawn together in one generation, so every widget is mutually
@@ -14,6 +16,33 @@ kit:                  # OPTIONAL — switches ASSET: into UI-KIT SHEET sub-mode:
   components:         # list — which components to include. If omitted, use the default set (see §2 ui kit sheet).
     type: list_string
     examples: [button, toggle, slider, checkbox, progress_bar, panel, icon_set, text_samples]
+
+sheet:                # OPTIONAL — switches ASSET: into ASSET SHEET sub-mode: N x M cells of matching single
+                      #   assets (icons, boosters, buttons) drawn together on ONE canvas so they can't drift apart;
+                      #   the user slices it afterwards. Also triggered by text like "asset sheet" / "icon sheet" / "3x2".
+  columns:            { type: int }
+  rows:               { type: int }
+  items:              # list — one entry per cell, in reading order. KEEP THE EXACT COUNT & ORDER.
+    type: list_string
+    examples: [[bomb_booster, rocket_booster, rainbow_booster, hammer_booster, shuffle_booster, extra_moves_booster]]
+
+gameplay:             # OPTIONAL — switches ASSET: into GAMEPLAY SCENE / HUD sub-mode: an in-game screenshot-style
+                      #   screen = play area (scene + actors/pieces, styled via style_guide.environment / character
+                      #   blocks when filled) framed by HUD chrome (styled like every other UI surface). Also triggered by
+                      #   text like "gameplay scene" / "in-game screen" / "HUD". Tails: always-tail only — never the
+                      #   background tail (actors are wanted) and never the non-screen tail (a HUD IS UI).
+  setting:            # what the play area depicts (free text, keep it short)
+    type: string
+    examples: ["night-time urban back alley", "candy meadow match-3 board"]
+  actors:             # list — player / enemies / pieces visible in the play area. Optional.
+    type: list_string
+    examples: [[player_brawler, two_street_thugs]]
+  play_area:          # where gameplay sits and what must stay readable there. Optional.
+    type: string
+    examples: ["center 70% of the screen, uncluttered, pieces readable at cell size"]
+  hud:                # list — the HUD elements, a CLOSED list (nothing beyond these is drawn). Optional → AI proposes [AI-suggested].
+    type: list_string
+    examples: [[score_counter, lives_hearts, timer, pause_button, moves_left, goal_panel]]
 
 title:                # label/title shown on the asset (if any). Optional.
   type: string
@@ -33,7 +62,7 @@ background:           # the asset's OWN background layout (different from style_
   enum: [popup, fullscreen, transparent, scene]
   note: "popup = overlay over a dimmed game scene; transparent = exported standalone for compositing."
 
-style_ref:            # points to the style_guide file used for this asset.
+style_ref:            # points to the style_guide file used for this asset. Ignored in chat use (the guide is in context) — kept for file-based workflows.
   type: path
   default: style_guide.yaml
 

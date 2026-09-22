@@ -2,6 +2,36 @@
 
 All notable changes to this toolkit are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow semantic versioning. The **toolkit version** (this file, git tags, the `TOOLKIT vX.Y.Z` marker in the `studio_primer.md` header) is independent of the `version: 1.0` line inside `style_guide.yaml` — that is the *schema* version, unchanged in 2.0.0 because all enum changes are additive.
 
+## [2.3.0] - 2026-09-22
+
+Full project review against the original goal ("reference images → on-style 2D mobile-game assets in four classes"): closes the one real scope hole (in-game gameplay screens), and repairs every internal contradiction that made the §0.6 gate unsatisfiable on some answers. Schema version stays `1.0` (all changes additive).
+
+### Added
+- **GAMEPLAY SCENE / HUD sub-mode of `ASSET:`** (`asset_spec.gameplay`: setting / actors[] / play_area / hud[], or "gameplay scene / in-game screen / HUD" in text). An in-game screen = play area (styled through the `environment` / `character` blocks) + HUD chrome (styled like any screen, COLOR/SHAPE LOCK per HUD surface, closed element list). Tails: always + "no additional HUD elements…" — never the background tail (actors are wanted) and never the non-screen tail (a HUD IS UI). Previously the primer's own dispatch sent this to `BACKGROUND:`, whose tails forbid both actors and UI — README demo 4's gameplay scene had no valid path. New §2 group `### gameplay scene`; §0 point 6 + FINAL CONTRACT item 7 state the dispatch (and declare animation frames / standalone VFX out of scope).
+- **ASSET SHEET sub-mode of `ASSET:`** (`asset_spec.sheet`: columns / rows / items[] in order) — the icon/booster analogue of the UI-kit and character sheets, with a defined tail (non-screen kept), budget (screen-length) and `CHECK` rows (cell count/order, per-cell drift). README's "strongest anti-drift trick" now has a spec, a §0.5 row and a §2 phrase.
+- `object_spec.size_class: game_piece` (match-3 gem, board tile, booster token, collectible) + §2 `### object size_class` phrases for all four values.
+- `environment.depth: tile_grid` added to the schema and §1 — it existed only in the token file / §2 / §4, so the analyzer could never emit it and the preset validator would have rejected it.
+- **`# CONSISTENCY: UPDATE` receipt** — `UPDATE:` no longer reuses `STYLE`'s observed-value template (there is no image to re-measure); it reports fields applied, re-run list/negative/pairing checks and remaining `<0.75` items.
+- **`No-restyle set`** as a named §2 negative group (token `negative_tail_no_restyle`) — the §0.5 pose-variation row referenced a set that did not exist; the pose variation now also gets the non-screen tail and the SIMPLIFIED character tail when `feature_exaggeration: high` (it was getting "no extra fingers" on mitten-handed characters).
+- `canvas.orientation` phrases in §2 (the only non-exempt schema enum without a token phrase); `typography.color_role` four phrases (were condensed away).
+- CLAUDE.md verification: a **token→schema reverse check** (every token enum that maps to a style_guide field must exist in the schema; craft-only groups exempt), a heading-count assert, a grep that keeps the "separate style reference" clause out, and eight new manifest markers.
+
+### Changed
+- **One §4 answer shape, stated identically everywhere** (§0.5 rows, §0.6, §4 skeleton, §6, FINAL CONTRACT item 4): prompt → `# ASSUMPTIONS` (last line = `# SELF-CHECK:`) → the one-line §6 reminder. Before, §4's skeleton put the reminder last while §0.6/§0.5/FINAL CONTRACT said the receipt is last.
+- **`# SELF-CHECK:` items are `✓` or `n-a — <reason>`** (+ a `tails:` slot). The fixed all-✓ string forced false ✓s on objects/backgrounds/characters and made the pose variation (whose opener is deliberately NOT the §2 template) un-passable; the pose variation has its own short receipt.
+- **Word budget is per asset class and never outranks the locks** (§6): single 150–250 · character/background/object 200–300 · screen/gameplay/sheets 300–500, up to ~700 when the COLOR LOCK pins many surfaces or the SHAPE LOCK fires; receipt reads `word budget over — <which lock forced it>`. The old "hard limit" (300–400 for a screen) could not physically hold the color lock + shape lock + closed lists + layout lock, so hosts silently dropped hex.
+- §0.5 `REGEN`/`TWEAK:` row cites **§4** (not §6) and requires a full reprint; `TWEAK:` carries the colon in every table so `CHECK`'s consolidated line is literally the command.
+- §5: defined **pass case** (table + `All dimensions conform — no TWEAK needed.`) and **no-image rule** (ask; never judge from the prompt); per-class checks for gameplay scenes and asset sheets.
+- §2 re-bundled from the canonical tokens: `form & proportions` and `color treatment` are keyed enum→phrase lines again (full phrases restored, labelled "free-form craft words, not a style_guide field"); `lighting (extra)` carries the same caveat; pixel-art keys are `outline_px` / `palette_cap` and the note says "Pair with" (not "Always add"); toggle note restores "knob to the right, lit track"; three tips restored (materials "materials, surfaces" + "marshmallow"; backgrounds "say what the space is FOR").
+- `style_ref` in the five spec lines annotated "ignored in chat"; BUILD MANIFEST spec lines list every field consistently.
+- README: sample outputs are derivable again (receipt lines, full always-tail, "(abridged)" tags); "four ways" to specify an asset (pasted YAML spec added); aspect-ratio tip states the 4-step priority; gameplay / sheet / game-piece examples and troubleshooting entries; repo structure lists CHANGELOG / CLAUDE.md / LICENSE. CLAUDE.md: pose-variation description corrected (it does NOT re-translate lighting/outline), sub-modes and out-of-scope items documented, heading count 41.
+
+### Removed
+- The `layout_reference_lock.with_style_ref` token and its §2 bullet ("If a separate style / color reference image is also attached…") — it contradicted the "STYLE ref is attached ONCE" invariant.
+
+### Notes
+- `v2.2.0` (presets + `LOAD`) had been committed on a side branch without a tag; this release lands both on `main` with their tags.
+
 ## [2.2.0] - 2026-07-19
 
 Style presets: ready-made style guides shipped in the repo, loadable without the `STYLE` step.
